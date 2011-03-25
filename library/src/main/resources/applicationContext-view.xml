@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:util="http://www.springframework.org/schema/util"
+	
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+			http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+			http://www.springframework.org/schema/context
+           	http://www.springframework.org/schema/context/spring-context-2.5.xsd 
+			http://www.springframework.org/schema/tx
+			http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+			http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+			http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd" 
+	default-init-method="init"
+	default-lazy-init="true">
+
+	
+	<!--  Binder Facotry that map classes to binders -->
+	<bean id="binderFactory" class="info.joseluismartin.gui.bind.BinderFactory">
+		<property name="binders">
+			<map key-type="java.lang.Class" value-type="java.lang.Class">
+				<entry key="javax.swing.JComboBox" value="info.joseluismartin.gui.bind.ComboBinder"/>
+				<entry key="javax.swing.text.JTextComponent" value="info.joseluismartin.gui.bind.TextComponentBinder"/>
+				<entry key="org.freixas.jcalendar.JCalendarCombo" value="info.joseluismartin.gui.bind.JCalendarComboBinder"/>
+				<entry key="info.joseluismartin.gui.Selector" value="info.joseluismartin.gui.bind.SelectorBinder"/>
+				<entry key="javax.swing.JLabel" value="info.joseluismartin.gui.bind.LabelBinder"/>
+				<entry key="info.joseluismartin.gui.View" value="info.joseluismartin.gui.bind.ViewBinder"/>
+			</map>
+		</property>
+	</bean>  
+	
+	<bean id="guiFactory" class="info.joseluismartin.gui.ApplicationContextGuiFactory"/>
+	
+	<!-- Abstract bean definition for Views -->
+	<bean id="view" abstract="true">
+		<property name="binderFactory" ref="binderFactory"/>
+		<property name="messageSource" ref="messageSource"/>
+	</bean>
+	
+	<bean id="listPanel" class="info.joseluismartin.gui.ListPane">
+		<property name="panels">
+			<list value-type="info.joseluismartin.gui.PanelHolder">
+				<bean class="info.joseluismartin.gui.JComponentPanelHolder">
+					<property name="name" value= "Books"/>
+					<property name="component" ref="bookTablePanel"/>
+				</bean>
+				<bean class="info.joseluismartin.gui.ViewPanelHolder">
+					<property name="view" ref="authorEditor"/>
+				</bean>
+				<bean class="info.joseluismartin.gui.ViewPanelHolder">
+					<property name="view" ref="categoryEditor"/>
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- Abstract bean definition for TableEditors -->
+	<bean id="tableEditor" abstract="true" parent="view">
+		<property name="addIcon" value="/images/table/22x22/add.png"/>
+		<property name="saveIcon" value="/images/table/22x22/save.png"/>
+		<property name="removeIcon" value="/images/table/22x22/remove.png"/>
+	</bean>
+	
+	<bean id="bookEditor" class="info.joseluismartin.gui.TableEditor" parent="tableEditor">
+		<constructor-arg value="org.jdal.samples.library.model.Book"/>
+		<property name="name" value="Books"/>
+		<property name="tableModel" ref="bookTableModel"/>
+		<property name="service" ref="bookService"/>
+	</bean>
+	
+	
+	<bean id="authorEditor" class="info.joseluismartin.gui.TableEditor" parent="tableEditor">
+		<constructor-arg value="org.jdal.samples.library.model.Author"/>
+		<property name="name" value="Authors"/>
+		<property name="tableModel" ref="authorTableModel"/>
+		<property name="service" ref="authorService"/>
+	</bean>
+	
+	
+	<bean id="categoryEditor" class="info.joseluismartin.gui.TableEditor" parent="tableEditor">
+		<constructor-arg value="org.jdal.samples.library.model.Category"/>
+		<property name="name" value="Categories"/>
+		<property name="tableModel" ref="categoryTableModel"/>
+		<property name="service" ref="categoryService"/>
+	</bean>
+
+	<bean id="bookTableModel" class="info.joseluismartin.gui.ListTableModel" scope="prototype">
+		<property name="modelClass" value="org.jdal.samples.library.model.Book"/>
+		<property name="columns">
+			<list value-type="info.joseluismartin.gui.ColumnDefinition">
+				<bean class="info.joseluismartin.gui.ColumnDefinition">
+					<property name="name" value="name"/>
+					<property name="displayName" value="Name"/>
+				</bean>
+				<bean class="info.joseluismartin.gui.ColumnDefinition">
+					<property name="name" value="author"/>
+					<property name="displayName" value="Author"/>
+					<property name="sortProperty" value="author.name"/>
+				</bean>
+					<bean class="info.joseluismartin.gui.ColumnDefinition">
+					<property name="name" value="category"/>
+					<property name="displayName" value="Category"/>
+					<property name="sortProperty" value="category.name"/>
+				</bean>
+					<bean class="info.joseluismartin.gui.ColumnDefinition">
+					<property name="name" value="isbn"/>
+					<property name="displayName" value="ISBN"/>
+				</bean>
+			</list>
+		</property>
+		<property name="usingActions" value="true"/>
+		<property name="usingChecks" value="true"/>
+	</bean>
+	
+	<bean id="authorTableModel" class="info.joseluismartin.gui.ListTableModel">
+		<property name="modelClass" value="org.jdal.samples.library.model.Author"/>
+		<property name="columns">
+			<list value-type="info.joseluismartin.gui.ColumnDefinition">
+				<bean class="info.joseluismartin.gui.ColumnDefinition">
+					<property name="name" value="name"/>
+					<property name="displayName" value="Name"/>
+					<property name="editable" value="true"/>
+				</bean>
+				<bean class="info.joseluismartin.gui.ColumnDefinition">
+					<property name="name" value="surname"/>
+					<property name="displayName" value="Surname"/>
+					<property name="editable" value="true"/>
+				</bean>
+			</list>
+		</property>
+		<property name="usingChecks" value="false"/>
+	</bean>
+	
+	<bean id="categoryTableModel" class="info.joseluismartin.gui.ListTableModel">
+		<property name="modelClass" value="org.jdal.samples.library.model.Category"/>
+		<property name="columns">
+			<list value-type="info.joseluismartin.gui.ColumnDefinition">
+				<bean class="info.joseluismartin.gui.ColumnDefinition">
+					<property name="name" value="name"/>
+					<property name="displayName" value="Name"/>
+					<property name="editable" value="true"/>
+				</bean>
+			</list>
+		</property>
+		<property name="usingChecks" value="false"/>
+	</bean>
+	
+	<bean name="tablePanel" abstract="true">
+		<property name="actions">
+			<list value-type="java.awt.Action">
+				<bean class="info.joseluismartin.gui.table.AddAction"/>
+				<bean class="info.joseluismartin.gui.table.SelectAllAction"/>
+				<bean class="info.joseluismartin.gui.table.DeselectAllAction"/>
+				<bean class="info.joseluismartin.gui.table.RemoveAllAction"/>
+				<bean class="info.joseluismartin.gui.table.HideShowFilterAction"/>
+				<bean class="info.joseluismartin.gui.table.ApplyFilterAction"/>
+				<bean class="info.joseluismartin.gui.table.ClearFilterAction"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="paginatorView" class="info.joseluismartin.gui.PaginatorView" scope="prototype">
+		<property name="firstIcon" value="images/table/22x22/go-first.png"/>
+		<property name="lastIcon"  value="images/table/22x22/go-last.png"/>
+		<property name="nextIcon"  value="images/table/22x22/go-next.png"/>
+		<property name="previousIcon" value="images/table/22x22/go-previous.png"/>
+		<property name="pageSizes" value="10,20,30,40,50,100,All"/>
+	</bean>
+	
+	<bean id="bookTable" class="info.joseluismartin.gui.PageableTable">
+		<property name="dataSource" ref="bookService"/>
+		<property name="tableModel" ref="bookTableModel"/>
+		<property name="paginatorView" ref="paginatorView"/>
+	</bean>
+	
+	<bean id="bookTablePanel" class="info.joseluismartin.gui.table.TablePanel" parent="tablePanel">
+		<property name="table" ref="bookTable"/>
+		<property name="filterView" ref="filterView"/>
+		<property name="editorName" value="bookDialog"/>
+		<property name="guiFactory" ref="guiFactory"/>
+		<property name="persistentService" ref="bookService"/>
+	</bean>
+		
+	<bean id="filterView" class="org.jdal.samples.library.ui.BookFilterView" parent="view">
+		<property name="categoryService" ref="categoryService"/>
+	</bean>
+	
+	<bean id="bookView" class="org.jdal.samples.library.ui.BookView" scope="prototype" parent="view">
+		<property name="authorService" ref="authorService"/>
+		<property name="categoryService" ref="categoryService"/>
+		<property name="authorEditor" value="authorDialog"/>
+		<property name="guiFactory" ref="guiFactory"/>
+		<property name="validator" ref="bookValidator"/>
+	</bean>
+	
+	<bean id="bookValidator" class="org.jdal.samples.library.ui.BookValidator"/>
+	
+	<bean id="authorView" class="org.jdal.samples.library.ui.AuthorView" scope="prototype" parent="view"/>
+	
+	<bean id="authorDialog" class="info.joseluismartin.gui.ViewDialog" scope="prototype">
+		<property name="view" ref="authorView"/>
+		<property name="acceptAction" ref="acceptAction"/>
+		<property name="cancelAction" ref="cancelAction"/>
+	</bean>
+	
+	<bean id="bookDialog" class="info.joseluismartin.gui.ViewDialog" scope="prototype">
+		<property name="view" ref="bookView"/>
+		<property name="acceptAction" ref="acceptAction"/>
+		<property name="cancelAction" ref="cancelAction"/>
+		<property name="dialogWidth" value="400"/>
+		<property name="dialogHeight" value="300"/>
+	</bean>
+	
+	<bean id="acceptAction" class="info.joseluismartin.gui.action.ViewSaveAction" scope="prototype">
+		<property name="icon" value="/images/16x16/dialog-ok.png"/>
+		<property name="service" ref="persistentService"/>
+		<property name="name" value="Accept"/>
+	</bean>
+	
+	<bean id="cancelAction" class="info.joseluismartin.gui.action.DialogCancelAction" scope="prototype">
+		<property name="icon" value="/images/16x16/dialog-cancel.png"/>
+		<property name="name" value="Cancel"/>
+	</bean>
+	
+	
+</beans>

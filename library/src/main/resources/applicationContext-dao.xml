@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd"
+		default-lazy-init="false" default-init-method="init">
+	
+	
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="${jdbc.driverClassName}" />
+		<property name="jdbcUrl" value="${jdbc.url}" />
+		<property name="user" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+			
+		<property name="acquireIncrement" value="3" />
+		<property name="minPoolSize" value="2" />
+		<property name="maxPoolSize" value="15" />
+		<property name="maxIdleTime" value="5" />
+		<property name="numHelperThreads" value="5" />
+		
+		<property name="idleConnectionTestPeriod" value="10" />
+		<property name="autoCommitOnClose" value="false" />
+		<property name="preferredTestQuery" value="select 1;" />
+		<property name="testConnectionOnCheckin" value="true" />
+		
+		<property name="checkoutTimeout" value="60000" />
+	</bean>
+	
+	<!-- Hibernate SessionFactory -->
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="classpath:hibernate.cfg.xml"/>
+    </bean>
+    
+    <!-- Transaction Manager -->
+    <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+	
+	<!-- DAOs -->
+	<bean id="dao" abstract="true">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<bean id="basicDao" class="info.joseluismartin.dao.hibernate.HibernateDao" parent="dao"/>
+	
+	<bean id="bookDao" class="info.joseluismartin.dao.hibernate.HibernateDao" parent="dao">
+		<constructor-arg value="org.jdal.samples.library.model.Book"/>
+		<property name="criteriaBuilderMap">
+			<map key-type="java.lang.String" value-type="info.joseluismartin.dao.hibernate.CriteriaBuilder">
+				<entry key="bookFilter" value-ref="bookCriteriaBuilder"/>
+			</map>
+		</property>
+	</bean>
+	
+	<bean id="bookCriteriaBuilder" class="org.jdal.samples.library.dao.filter.BookCriteriaBuilder"/>
+	
+	<bean id="authorDao" class="org.jdal.samples.library.dao.hibernate.AuthorHibernateDao" parent="dao"/>
+	
+	<bean id="categoryDao" class="info.joseluismartin.dao.hibernate.HibernateDao" parent="dao">
+		<constructor-arg value="org.jdal.samples.library.model.Category"/>
+	</bean>
+	
+</beans>
