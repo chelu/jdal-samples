@@ -3,14 +3,13 @@ package org.jdal.samples.library.ui;
 import info.joseluismartin.gui.AbstractView;
 import info.joseluismartin.gui.GuiFactory;
 import info.joseluismartin.gui.ViewDialog;
-import info.joseluismartin.gui.action.AutoCompletionListener;
+import info.joseluismartin.gui.action.FilterAutoCompletionListener;
 import info.joseluismartin.gui.form.BoxFormBuilder;
 import info.joseluismartin.gui.form.FormUtils;
 import info.joseluismartin.gui.list.ListComboBoxModel;
 import info.joseluismartin.service.PersistentService;
 
 import java.awt.event.ActionEvent;
-import java.util.List;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -61,23 +60,26 @@ public class BookView extends AbstractView<Book> {
 		bind(author, "author");
 		bind(category, "category");
 		bind(published, "publishedDate");
-		
-		refresh();
 	}
 	
 	@Override
 	protected JComponent buildPanel() {
-		new AuthorCompletionListener(author);
+		// fill category combo with data from database.
+		category.setModel(new ListComboBoxModel(categoryService.getAll()));
+		// Add auto-completion to author combo, limit max results to 1000 and order data by surname
+		FilterAutoCompletionListener acl = new FilterAutoCompletionListener(author, 1000, "surname");
+		acl.setPersistentService(authorService);
 		author.setEditable(true);
+		// Create a Box with author combo and add button
 		Box authorBox = Box.createHorizontalBox();
 		authorBox.add(author);
 		authorBox.add(Box.createHorizontalStrut(5));
 		authorBox.add(new JButton(new AddAuthorAction(FormUtils.getIcon(ADD_ICON))));
-		
+		// Build Form with a BoxFormBuilder
 		BoxFormBuilder fb = new BoxFormBuilder();
 		fb.add("Title: ", name);
 		fb.row();
-		fb.add("Author: ", authorBox);
+		fb.add("Author: ", authorBox);	
 		fb.row();
 		fb.add("ISBN: ", isbn);
 		fb.row();
@@ -90,24 +92,7 @@ public class BookView extends AbstractView<Book> {
 		return form;
 	}
 	
-	@Override
-	public void doRefresh() {
-		if (category != null)
-			category.setModel(new ListComboBoxModel(categoryService.getAll()));
-	}
-	
-	private class AuthorCompletionListener extends AutoCompletionListener {
 
-		public AuthorCompletionListener(JComboBox combo) {
-			super(combo);
-		}
-
-		@Override
-		protected List<?> getList(String editing) {
-			return authorService.findByName(editing);
-		}
-		
-	}
 	
 	private class AddAuthorAction extends AbstractAction  {
 

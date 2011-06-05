@@ -1,6 +1,9 @@
 package org.jdal.samples.library.ui;
 
+import info.joseluismartin.beans.AppCtx;
 import info.joseluismartin.gui.AbstractView;
+import info.joseluismartin.gui.ApplicationContextGuiFactory;
+import info.joseluismartin.gui.View;
 import info.joseluismartin.gui.form.BoxFormBuilder;
 import info.joseluismartin.gui.form.FormUtils;
 import info.joseluismartin.gui.list.ListComboBoxModel;
@@ -10,6 +13,7 @@ import java.util.List;
 
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JTextField;
 
 import org.freixas.jcalendar.JCalendarCombo;
@@ -23,12 +27,12 @@ import org.jdal.samples.library.model.Category;
  */
 public class BookFilterView extends AbstractView<BookFilter> {
 	
-	private JTextField name = new JTextField();
-	private JTextField authorName = new JTextField();
-	private JTextField authorSurname = new JTextField();
+	private JTextField name = new JTextField(20);
+	private JTextField authorName = new JTextField(20);
+	private JTextField authorSurname = new JTextField(20);
 	private JCalendarCombo before = FormUtils.newJCalendarCombo();
 	private JCalendarCombo after = FormUtils.newJCalendarCombo();
-	private JComboBox category = FormUtils.newCombo(25);
+	private JComboBox category = FormUtils.newCombo(20);
 	
 	private PersistentService<Category, Long> categoryService;
 	
@@ -36,18 +40,15 @@ public class BookFilterView extends AbstractView<BookFilter> {
 		this(new BookFilter());
 	}
 	
+	public void init() {
+			bind(name, "name");
+			autobind();
+	}
+	
 	public BookFilterView(BookFilter filter) {
 		setModel(filter);
 	}
 	
-	public void init() {
-		bind(name, "name");
-		bind(authorName, "authorName");
-		bind(authorSurname, "authorSurname");
-		bind(before, "before");
-		bind(after, "after");
-		bind(category, "category");
-	}
 	
 	@Override
 	protected JComponent buildPanel() {
@@ -89,5 +90,12 @@ public class BookFilterView extends AbstractView<BookFilter> {
 		this.categoryService = categoryService;
 	}
 
+	public static void main(String[] args) {
+		ApplicationContextGuiFactory.setPlasticLookAndFeel();
+		View<?> view = (View<?>) AppCtx.getInstance().getBean("filterView");
+		JFrame f = new JFrame();
+		f.add(view.getPanel());
+		f.setVisible(true);
+	}
 	
 }

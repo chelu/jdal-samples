@@ -11,8 +11,8 @@ import org.hibernate.annotations.ParamDef;
 
 @javax.persistence.Entity
 @Table(name="authors")
-@Filter(name="authorByNameFilter", condition="name like :pattern or surname like :pattern")
-@FilterDef(name="authorByNameFilter", parameters=@ParamDef(name="pattern", type="string"))
+@Filter(name="patternFilter", condition="name like :pattern or surname like :pattern")
+@FilterDef(name="patternFilter", parameters=@ParamDef(name="pattern", type="string"))
 public class Author  extends Entity {
 	
 	private static final long serialVersionUID = 1L;
@@ -32,7 +32,7 @@ public class Author  extends Entity {
 	}
 	
 	public String toString() {
-		return surname + (name != null ? ", " + name : ""); 
+		return name + " " + surname;
 	}
 
 }

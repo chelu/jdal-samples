@@ -6,7 +6,7 @@ import org.hibernate.Criteria;
 import org.springframework.util.StringUtils;
 
 /**
- * Criteria Builder for Bookfilter
+ * Criteria Builder for Book Filter
  * 
  * @author Jose Luis Martin - (jlm@joseluismartin.info)
  */

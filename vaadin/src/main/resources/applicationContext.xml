@@ -90,7 +90,7 @@
 					<property name="displayName" value="Author" />
 					<!-- really don't needed, HibernateDao figures them -->
 					<property name="sortPropertyName" value="author.name"/>
-					<property name="width" value="300" />
+					<property name="width" value="150" />
 					<property name="align" value="b" />
 				</bean>
 				<bean class="info.joseluismartin.vaadin.ui.table.Column">
@@ -102,15 +102,9 @@
 					<property name="align" value="b" />
 				</bean>
 				<bean class="info.joseluismartin.vaadin.ui.table.Column">
-					<property name="name" value="publishedDate"/>
-					<property name="displayName" value="Date"/>
-					<property name="width" value="100"/>
-					<property name="align" value="c"/>
-				</bean>
-				<bean class="info.joseluismartin.vaadin.ui.table.Column">
 					<property name="name" value="isbn" />
 					<property name="displayName" value="ISBN" />
-					<property name="width" value="180" />
+					<property name="width" value="150" />
 					<property name="align" value="b" />
 				</bean>
 			</list>

@@ -62,7 +62,9 @@
 	
 	<bean id="bookCriteriaBuilder" class="org.jdal.samples.library.dao.filter.BookCriteriaBuilder"/>
 	
-	<bean id="authorDao" class="org.jdal.samples.library.dao.hibernate.AuthorHibernateDao" parent="dao"/>
+	<bean id="authorDao" class="info.joseluismartin.dao.hibernate.HibernateDao" parent="dao">
+		<constructor-arg value="org.jdal.samples.library.model.Author"/>
+	</bean>
 	
 	<bean id="categoryDao" class="info.joseluismartin.dao.hibernate.HibernateDao" parent="dao">
 		<constructor-arg value="org.jdal.samples.library.model.Category"/>

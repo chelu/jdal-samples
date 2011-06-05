@@ -32,12 +32,28 @@
 		</property>
 	</bean>  
 	
+	<!--  Control Accessor Facotry that map classes to accesors -->
+	<bean id="controlAccessorFactory" class="info.joseluismartin.gui.bind.ConfigurableControlAccesorFactory">
+		<property name="accessors">
+			<map key-type="java.lang.Class" value-type="java.lang.Class">
+				<entry key="javax.swing.JComboBox" value="info.joseluismartin.gui.bind.ComboAccessor"/>
+				<entry key="javax.swing.text.JTextComponent" value="info.joseluismartin.gui.bind.TextComponentAccessor"/>
+				<entry key="javax.swing.JToggleButton" value="info.joseluismartin.gui.bind.ToggleButtonAccessor"/>
+				<entry key="javax.swing.JList" value="info.joseluismartin.gui.bind.ListAccessor"/>
+				<entry key="info.joseluismartin.gui.Selector" value="info.joseluismartin.gui.bind.SelectorAccessor"/>
+			</map>
+		</property>
+	</bean>
+	
+	
 	<bean id="guiFactory" class="info.joseluismartin.gui.ApplicationContextGuiFactory"/>
 	
 	<!-- Abstract bean definition for Views -->
 	<bean id="view" abstract="true">
 		<property name="binderFactory" ref="binderFactory"/>
+		<property name="autobinding" value="true"/>
 		<property name="messageSource" ref="messageSource"/>
+		<property name="controlAccessorFactory" ref="controlAccessorFactory"/>
 	</bean>
 	
 	<bean id="listPanel" class="info.joseluismartin.gui.ListPane">
