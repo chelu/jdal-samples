@@ -38,36 +38,52 @@
 		<property name="checkoutTimeout" value="60000" />
 	</bean>
 	
-	<!-- Hibernate SessionFactory -->
-    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
-        <property name="dataSource" ref="dataSource"/>
-        <property name="configLocation" value="classpath:hibernate.cfg.xml"/>
-    </bean>
-    
-    <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
-        <property name="sessionFactory" ref="sessionFactory"/>
+     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+      <property name="dataSource" ref="dataSource"/>
+
+	  <property name="jpaDialect">
+        <bean class="org.springframework.orm.jpa.vendor.HibernateJpaDialect"/>
+     </property>
+     <property name="jpaVendorAdapter">
+       <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+         <property name="databasePlatform" value="org.hibernate.dialect.MySQLDialect"/>
+       </bean>
+     </property>
     </bean>
 
-	<!-- DAOs -->
-	<bean id="dao" abstract="true">
-		<property name="sessionFactory" ref="sessionFactory"/>
-	</bean>
-  	
-	<bean id="bookDao" class="info.joseluismartin.dao.hibernate.HibernateDao" parent="dao">
-		<constructor-arg value="org.jdal.samples.model.Book"/>
-		<property name="criteriaBuilderMap">
-			<map key-type="java.lang.String" value-type="info.joseluismartin.dao.hibernate.CriteriaBuilder">
-				<entry key="bookFilter" value-ref="bookCriteriaBuilder"/>
-			</map>
-		</property>
-	</bean>
-	
-	<bean id="bookCriteriaBuilder" class="org.jdal.samples.dao.filter.BookCriteriaBuilder"/>
+
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+      <property name="entityManagerFactory" ref="entityManagerFactory"/>
+      <property name="dataSource" ref="dataSource"/>
+    </bean>
+    
+  <!-- bean post-processor for JPA annotations -->
+  <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
+
+   <bean id="categoryDao" class="info.joseluismartin.dao.jpa.JpaDao">
+   		<constructor-arg value="org.jdal.samples.model.Category"/>
+   </bean>
+   
+   <!-- Dao -->
+   <bean id="bookDao" class="info.joseluismartin.dao.jpa.JpaDao">
+   		<constructor-arg value="org.jdal.samples.model.Book"/>
+   		<property name="criteriaBuilderMap">
+   			<map>
+   				<entry key="bookFilter" value-ref="bookCriteriaBuilder"/>
+   			</map>
+   		</property>
+   </bean>
    	
-   	<!-- Persistent Service -->
-   	<bean id="bookService" class="info.joseluismartin.logic.PersistentManager">
+   <bean id="bookCriteriaBuilder" class="org.jdal.samples.dao.filter.BookCriteriaBuilder"/>
+   
+   <!-- Persistent Service -->
+   <bean id="bookService" class="info.joseluismartin.logic.PersistentManager">
    		<property name="dao" ref="bookDao"/>
-   	</bean>
+   </bean>
+   
+    <bean id="categoryService" class="info.joseluismartin.logic.PersistentManager">
+   		<property name="dao" ref="categoryDao"/>
+   </bean>
    	
    <!-- UI Widgets -->
    
@@ -117,6 +133,12 @@
 					<property name="width" value="150" />
 					<property name="align" value="b" />
 				</bean>
+				<bean class="info.joseluismartin.vaadin.ui.table.Column">
+					<property name="name" value="publishedDate" />
+					<property name="displayName" value="Published Date" />
+					<property name="width" value="150" />
+					<property name="align" value="b" />
+				</bean>
 			</list>
 		</property>
 	</bean>
@@ -150,7 +172,7 @@
 		scope="prototype" />
 
 
-	<!--<bean id="dataSourceTable" class="info.joseluismartin.vaadin.ui.table.ConfigurableTable" parent="table">
+	<bean id="dataSourceTable" class="info.joseluismartin.vaadin.ui.table.ConfigurableTable" parent="table">
 		<property name="containerDataSource" ref="bookContainerDataSource"/>
 	</bean>
 	
@@ -158,8 +180,13 @@
 		<property name="service" ref="bookService"/>
 	</bean>
 	
+	<bean id="bookFilterView" class="org.jdal.samples.vaadin.BookFilterView">
+		<property name="categoryService" ref="categoryService"/>
+		<property name="visibleProperties" value="name,category,isbn,before,after,authorName,authorSurname"/>
+	</bean>
+	
 
-	--><!-- Property Editors -->
+	<!-- Property Editors -->
 	<bean id="customEditorConfigurer"
 		class="org.springframework.beans.factory.config.CustomEditorConfigurer">
 		<property name="customEditors">
