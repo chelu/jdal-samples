@@ -26,8 +26,6 @@ import org.jdal.samples.dao.filter.BookFilter;
 import org.jdal.samples.model.Book;
 import org.jdal.samples.model.Category;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ExtendedModelMap;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -56,20 +54,20 @@ public class BookController  {
 	 * @return Model 
 	 */
 	@RequestMapping()
-	Model getPage(@ModelAttribute("paginatedList") PaginatedListAdapter paginatedList, 
+	void getPage(@ModelAttribute("paginatedList") PaginatedListAdapter paginatedList, 
 				@ModelAttribute("bookFilter") BookFilter filter) {
 		
 		Page<Book> page = (Page<Book>) paginatedList.getModel();
-		if (page == null) {
-			page = new Page<Book>(10);
-			paginatedList.setModel(page);
-		}
-		
+//		if (page == null) {
+//			page = new Page<Book>(10);
+//			paginatedList.setModel(page);
+//		}
+//		
 		page.setFilter(filter);
 		bookService.getPage(page);
-		Model model = new ExtendedModelMap();
-		model.addAttribute(paginatedList);
-		return model;
+//		Model model = new ExtendedModelMap();
+//		model.addAttribute(paginatedList);
+//		return model;
 	}
 
 	/**

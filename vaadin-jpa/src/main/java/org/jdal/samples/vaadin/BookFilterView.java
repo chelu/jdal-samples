@@ -40,7 +40,7 @@ import com.vaadin.ui.VerticalLayout;
  * @author Jose Luis Martin - (jlm@joseluismartin.info)
  *
  */
-public class BookFilterView extends AbstractView<BookFilter> {
+public class BookFilterView extends AbstractView<BookFilter>  {
 	
 	private Form form = new Form();
 	private String[] visibleProperties = new String[] {};
