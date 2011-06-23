@@ -53,8 +53,8 @@
   <display:table name="paginatedList" requestURI="getPage" >
     <display:column property="id" title="ID" sortable="true" style="width:80px" />
     <display:column property="name" title="Title" sortable="true" style="width:300px "/>
-    <display:column property="category" title="Category" sortable="true" style="width:200px"/>
-    <display:column property="author" title="Author" sortable="true" sortName="author.surname" style="width:200px" />
+    <display:column property="category" title="Category" sortable="true" sortProperty="category.name" style="width:200px"/>
+    <display:column property="author" title="Author" sortable="true" sortProperty="author.surname" style="width:200px" />
     <display:column property="isbn" title="ISBN" sortable="true" style="width:180px"/>
 </display:table>
 
