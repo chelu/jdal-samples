@@ -114,8 +114,8 @@ YAHOO.util.Event.addListener(window, "load", function() {
 var cols = [
     { key: "id", label: "ID", sortable: "true", width: 50 },
     { key: "name", label: "Title", sortable: "true", width: 250  },
-    { key: "category", label: "Category", sortable: "true", width: 140  },
-    { key: "author",   label: "Author", sortable: "true", width: 180  }, 
+    { key: "category", label: "Category", sortable: "true", sortProperty: "category.name", width: 140  },
+    { key: "author",   label: "Author", sortable: "true", sortProperty: "author.surname", width: 180  }, 
     { key: "publishedDate", label: "Published Date", sortable: "true", formatter:"date", width: 120 },
     { key: "isbn", label: "ISBN", sortable: "true", width: 180  }
 ];
