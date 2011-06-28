@@ -16,7 +16,13 @@ JDAL.requestBuilder = function(oState, oSelf) {
     var dir = (oState.sortedBy && oState.sortedBy.dir === YAHOO.widget.DataTable.CLASS_DESC) ? "desc" : "asc";
     var startIndex = (oState.pagination) ? oState.pagination.recordOffset : 0;
     var results = (oState.pagination) ? oState.pagination.rowsPerPage : 100;
- 
+    
+    // lookup for sortProperty
+    if (oSelf) {
+    	var column = oSelf.getColumn(sort);
+    	sort = column.sortProperty || sort;
+    }
+    
     // Build custom request
     return  "sort=" + sort +
             "&dir=" + dir +
