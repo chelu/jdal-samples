@@ -19,7 +19,7 @@ public class Book extends Entity {
 	@ManyToOne
 	@JoinColumn(name="categoryid")
 	private Category category;
-	private String isbn;
+	private String isbn = "";
 	private Date publishedDate;
 	
 	public String toString() {
@@ -74,5 +74,4 @@ public class Book extends Entity {
 	public void setPublishedDate(Date publishedDate) {
 		this.publishedDate = publishedDate;
 	}
-	
 }
