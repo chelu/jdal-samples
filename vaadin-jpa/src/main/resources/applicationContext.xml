@@ -291,12 +291,6 @@
 		<property name="service" ref="bookService"/>
 	</bean>
 	
-	<bean id="bookFilterView" class="org.jdal.samples.vaadin.BookFilterView" scope="prototype">
-		<property name="categoryService" ref="categoryService"/>
-		<property name="visibleProperties" value="#{ { 'name', 'author','category','isbn', 'publishedDate' } }" />
-	</bean>
-	
-
 	<!-- Property Editors -->
 	<bean id="customEditorConfigurer"
 		class="org.springframework.beans.factory.config.CustomEditorConfigurer">
