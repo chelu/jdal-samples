@@ -9,8 +9,9 @@ import javax.persistence.Table;
 public class Category extends Entity {
 	
 	private static final long serialVersionUID = 1L;
-
+	
 	public String toString() {
 		return getName();
 	}
+
 }

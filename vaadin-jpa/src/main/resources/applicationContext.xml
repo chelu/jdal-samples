@@ -185,7 +185,7 @@
 					<property name="align" value="b" />
 				</bean>
 				<bean class="info.joseluismartin.vaadin.ui.table.Column">
-					<property name="name" value="author.name" />
+					<property name="name" value="author" />
 					<property name="displayName" value="Author" />
 					<!-- really don't needed, HibernateDao figures them -->
 					<property name="sortPropertyName" value="author.name"/>
@@ -195,7 +195,6 @@
 				<bean class="info.joseluismartin.vaadin.ui.table.Column">
 					<property name="name" value="category" />
 					<property name="displayName" value="Category" />
-					<!-- really don't needed, HibernateDao figures them -->
 					<property name="sortPropertyName" value="category.name"/>
 					<property name="width" value="200" />
 					<property name="align" value="b" />

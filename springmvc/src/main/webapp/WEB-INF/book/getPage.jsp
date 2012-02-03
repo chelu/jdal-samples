@@ -24,7 +24,7 @@
               <td>Category:</td>
               <td><form:select path="category">
                 <form:option value="0">--Please Select</form:option>
-                <form:options items="${categoryList}" itemValue="id" itemLabel="name" /><
+                <form:options items="${categoryList}" itemValue="id" itemLabel="name" />
                 </form:select>
               </td>
           </tr>

@@ -33,35 +33,27 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.themes.Reindeer;
 
+/**
+ * Simple Test for PageableTable and ContainerDataSource.
+ * 
+ * @author Jose Luis Martin
+ */
 @SuppressWarnings("serial")
 public class TestApp extends Application {
 	
-	ApplicationContext context = AppCtx.getInstance();
+	@SuppressWarnings("unchecked")
 	@Override
 	public void init() {
 		Window mainWindow = new Window("JDAL Vaadin Sample");
 		Label title = new Label("JDAL Vaadin Sample Application");
 		title.setStyleName(Reindeer.LABEL_H1);
-		
-		PageableTable<Book> pageableTable = context.getBean("bookPageableTable", PageableTable.class);
-//		Component dataSourceTable = (Component) context.getBean("dataSourceTable");
-		BookFilter filter = new BookFilter();
-		filter.setAuthorName("Eric");
-		pageableTable.getPaginator().getModel().setFilter(filter);
-		pageableTable.getPaginator().firstPage();
-
+		PageableTable pageableTable = (PageableTable<Book>) AppCtx.getInstance().getBean("bookPageableTable");
 		Panel panel = new Panel("Table with external paginator and server side paging and sorting");
 		panel.addComponent(pageableTable);
-		Panel otherPanel = new Panel("Table with paginator in datasource and server side paging and sorting ");
-		
-	//	otherPanel.addComponent(dataSourceTable);
 		VerticalLayout layout = new VerticalLayout();
-                Box.addVerticalStruct(layout, 10);
-                layout.addComponent(title);
-                Box.addVerticalStruct(layout, 10);
+		layout.setSpacing(true);
+        layout.addComponent(title);
 		layout.addComponent(panel);
-		Box.addVerticalStruct(layout, 10);
-		layout.addComponent(otherPanel);
 		mainWindow.setContent(layout);
 		setMainWindow(mainWindow);
 	}
