@@ -28,8 +28,7 @@ public class AuthorView extends AbstractView<Author> {
 	}
 	
 	public void init() {
-		bind(name, "name");
-		bind(surname, "surname");
+		autobind();  // bind controls to model properties by name
 	}
 	
 	@Override

@@ -4,6 +4,11 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
+/**
+ * Spring Validator for Books.
+ * 
+ * @author Jose Luis Martin - (jlm@joseluismartin.info)
+ */
 public class BookValidator implements Validator {
 
 	public boolean supports(Class<?> clazz) {

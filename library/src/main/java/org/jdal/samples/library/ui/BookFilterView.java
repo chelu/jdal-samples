@@ -41,7 +41,6 @@ public class BookFilterView extends AbstractView<BookFilter> {
 	}
 	
 	public void init() {
-			bind(name, "name");
 			autobind();
 	}
 	

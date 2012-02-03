@@ -38,7 +38,7 @@ public class BookView extends AbstractView<Book> {
 	private JTextField name = new JTextField();
 	private JTextField isbn = new JTextField();
 	private JComboBox author = FormUtils.newCombo(25);
-	private JCalendarCombo published = FormUtils.newJCalendarCombo();
+	private JCalendarCombo publishedDate = FormUtils.newJCalendarCombo();
 	private JComboBox category = FormUtils.newCombo(25);
 	private String authorEditor = "authorEditor";
 	
@@ -55,11 +55,7 @@ public class BookView extends AbstractView<Book> {
 	}
 
 	public void init() {
-		bind(name, "name");
-		bind(isbn, "isbn");
-		bind(author, "author");
-		bind(category, "category");
-		bind(published, "publishedDate");
+		autobind(); //  bind controls by property name
 	}
 	
 	@Override
@@ -83,7 +79,7 @@ public class BookView extends AbstractView<Book> {
 		fb.row();
 		fb.add("ISBN: ", isbn);
 		fb.row();
-		fb.add("Published Date:", published);
+		fb.add("Published Date:", publishedDate);
 		fb.row();
 		fb.add("Category", category);
 		

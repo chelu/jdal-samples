@@ -19,21 +19,12 @@
 
 	
 	<!--  Binder Facotry that map classes to binders -->
-	<bean id="binderFactory" class="info.joseluismartin.gui.bind.BinderFactory">
-		<property name="binders">
-			<map key-type="java.lang.Class" value-type="java.lang.Class">
-				<entry key="javax.swing.JComboBox" value="info.joseluismartin.gui.bind.ComboBinder"/>
-				<entry key="javax.swing.text.JTextComponent" value="info.joseluismartin.gui.bind.TextComponentBinder"/>
-				<entry key="org.freixas.jcalendar.JCalendarCombo" value="info.joseluismartin.gui.bind.JCalendarComboBinder"/>
-				<entry key="info.joseluismartin.gui.Selector" value="info.joseluismartin.gui.bind.SelectorBinder"/>
-				<entry key="javax.swing.JLabel" value="info.joseluismartin.gui.bind.LabelBinder"/>
-				<entry key="info.joseluismartin.gui.View" value="info.joseluismartin.gui.bind.ViewBinder"/>
-			</map>
-		</property>
+	<bean id="binderFactory" class="info.joseluismartin.gui.bind.ControlAccessorBinderFactory">
+		<property name="controlAccessorFactory" ref="controlAccessorFactory"/>
 	</bean>  
 	
 	<!--  Control Accessor Facotry that map classes to accesors -->
-	<bean id="controlAccessorFactory" class="info.joseluismartin.gui.bind.ConfigurableControlAccesorFactory">
+	<bean id="controlAccessorFactory" class="info.joseluismartin.gui.bind.ConfigurableControlAccessorFactory">
 		<property name="accessors">
 			<map key-type="java.lang.Class" value-type="java.lang.Class">
 				<entry key="javax.swing.JComboBox" value="info.joseluismartin.gui.bind.ComboAccessor"/>
@@ -41,6 +32,7 @@
 				<entry key="javax.swing.JToggleButton" value="info.joseluismartin.gui.bind.ToggleButtonAccessor"/>
 				<entry key="javax.swing.JList" value="info.joseluismartin.gui.bind.ListAccessor"/>
 				<entry key="info.joseluismartin.gui.Selector" value="info.joseluismartin.gui.bind.SelectorAccessor"/>
+				<entry key="org.freixas.jcalendar.JCalendarCombo" value="info.joseluismartin.gui.bind.JCalendarComboAccessor"/>
 			</map>
 		</property>
 	</bean>
