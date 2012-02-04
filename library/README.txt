@@ -1,6 +1,7 @@
-JDAL Library Sample Application.
---------------------------------
+JDAL Library Sample Application 1.1.4 (Feb 2012).
+--------------------------------------------------------------------------------
 http://www.jdal.org
+
 
 - Compile with maven:  mvn package
 - Create mysql database with scripts in db directory
@@ -10,4 +11,5 @@ http://www.jdal.org
 
 For more information about jdal, see http://www.jdal.org.
 
-Contact info: Jose Luis Martin - (jlm@joseluismartin.info).
+--------------------------------------------------------------------------------
+Jose Luis Martin - (jlm@joseluismartin.info).

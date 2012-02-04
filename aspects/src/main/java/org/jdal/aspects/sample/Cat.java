@@ -16,6 +16,7 @@
 package org.jdal.aspects.sample;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
 /**
@@ -26,7 +27,7 @@ public class Cat extends info.joseluismartin.model.Entity {
 	
 	private static final long serialVersionUID = 1L;
 
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	private Dog dog;
 
 	/**

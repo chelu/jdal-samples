@@ -5,12 +5,13 @@
   <groupId>org.jdal</groupId>
   <artifactId>jdal-vaadin-sample</artifactId>
   <packaging>war</packaging>
-  <version>1.1-SNAPSHOT</version>
+  <version>1.1.4</version>
   <name>JDAL Vaadin Sample</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <vaadin.version>6.6.0</vaadin.version>
+    <jdal.version>1.1.4</jdal.version>
     <gwt.version>2.3.0</gwt.version>
     <gwt.plugin.version>2.2.0</gwt.plugin.version>
   </properties>
@@ -179,7 +180,7 @@
     <dependency>
        <groupId>org.jdal</groupId>
        <artifactId>jdal-vaadin</artifactId>
-       <version>1.1-SNAPSHOT</version>
+       <version>${jdal.version}</version>
     </dependency>
     	<dependency>
 			<groupId>org.slf4j</groupId>

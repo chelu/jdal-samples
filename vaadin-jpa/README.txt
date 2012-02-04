@@ -1,5 +1,5 @@
-JDAL Vaadin UI Library Sample Application.
-------------------------------------------
+JDAL Vaadin UI Library Sample Application 1.1.4 (Feb 2012)
+----------------------------------------------------------
 http://www.jdal.org
 
 - Create mysql database with scripts in db directory

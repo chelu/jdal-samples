@@ -33,7 +33,6 @@ public class Main {
 	
 	@SuppressWarnings("unchecked")
 	public static void main (String[] arg) {
-		AppCtx.getInstance();
 		Dao<Dog, Long> dogDao = (Dao<Dog, Long>) AppCtx.getInstance().getBean("dogDao");
 		Dog dog = dogDao.get(1l);
 		

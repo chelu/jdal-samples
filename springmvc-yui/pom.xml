@@ -9,6 +9,7 @@
 	<version>1.1-SNAPSHOT</version>
 	<properties>
 		<spring.version>3.0.5.RELEASE</spring.version>
+		<jdal.version>1.1.4</jdal.version>
 	</properties>
 	<dependencies>
 		<!-- Compile dependencies -->
@@ -68,12 +69,12 @@
 		<dependency>
 			<groupId>org.jdal</groupId>
 			<artifactId>jdal-core</artifactId>
-			<version>1.1-SNAPSHOT</version>
+			<version>${jdal.version}</version>
 		</dependency> 
 		<dependency>
 			<groupId>org.jdal</groupId>
 			<artifactId>jdal-web</artifactId>
-			<version>1.1-SNAPSHOT</version>
+			<version>${jdal.version}</version>
 		</dependency> 
 		<dependency>
 			<groupId>org.slf4j</groupId>

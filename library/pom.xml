@@ -4,9 +4,12 @@
 	<groupId>org.jdal.samples</groupId>
 	<artifactId>library</artifactId>
 	<name>JDAL Library Sample</name>
-	<version>1.0</version>
+	<version>1.1.4</version>
 	<description>JDAL Library Sample</description>
-
+	
+	<properties>
+		<jdal.version>1.1.4</jdal.version>
+	</properties>
 	<build>
 		<plugins>
 			<plugin>
@@ -129,7 +132,7 @@
 		<dependency>
 			<groupId>org.jdal</groupId>
 			<artifactId>jdal-swing</artifactId>
-			<version>1.1-SNAPSHOT</version>
+			<version>${jdal.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-logging</groupId>
