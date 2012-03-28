@@ -13,12 +13,12 @@ import org.jdal.samples.model.Category;
  */
 public class BookFilter extends BeanFilter {
 	
-	private String name;
-	private String authorName;
-	private String authorSurname;
+	private String name = "";
+	private String authorName = "";
+	private String authorSurname = "";
 	private Date before;
 	private Date after;
-	private String isbn;
+	private String isbn = "";
 	private Category category;
 	
 	public BookFilter() {

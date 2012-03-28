@@ -256,11 +256,17 @@
 					<list>
 						<bean class="info.joseluismartin.vaadin.ui.form.SizeFieldProcessor">
 							<property name="defaultWidth" value="400px" />
+							<property name="widths">
+								<map>
+									<entry key="publishedDate" value="150px" />
+								</map>
+								
+							</property>
 						</bean>
 					</list>
 				</property>
-			</bean>
-		</property>
+			</bean>		</property>
+
 	</bean>
 	
 	<!-- The book Filter Editor -->

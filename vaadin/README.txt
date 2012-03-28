@@ -1,5 +1,5 @@
-JDAL Vaadin UI Library Sample Application.
-------------------------------------------
+JDAL Vaadin Library Sample Application.
+-------------------------------------------------------------------------------
 http://www.jdal.org
 
 - Create mysql database with scripts in db directory
@@ -10,5 +10,4 @@ http://www.jdal.org
 
 
 For more information about jdal, see http://www.jdal.org.
-
-Contact info: Jose Luis Martin - (jlm@joseluismartin.info).
+-------------------------------------------------------------------------------
