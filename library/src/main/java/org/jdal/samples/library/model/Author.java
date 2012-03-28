@@ -1,22 +1,34 @@
 package org.jdal.samples.library.model;
 
-import info.joseluismartin.model.Entity;
-
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.ParamDef;
+import org.hibernate.validator.constraints.NotBlank;
 
 
 @javax.persistence.Entity
 @Table(name="authors")
 @Filter(name="patternFilter", condition="name like :pattern or surname like :pattern")
 @FilterDef(name="patternFilter", parameters=@ParamDef(name="pattern", type="string"))
-public class Author  extends Entity {
+/**
+ * Author Entity 
+ * 
+ * @author Jose Luis Martin - (jlm@joseluismartin.info)
+ */
+public class Author  {
 	
-	private static final long serialVersionUID = 1L;
-	private String surname;
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	protected Long id;
+	@NotBlank
+	protected String name = "";
+	@NotBlank
+	private String surname = "";
 
 	/**
 	 * @return the surname
@@ -34,5 +46,28 @@ public class Author  extends Entity {
 	public String toString() {
 		return name + " " + surname;
 	}
-
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
 }

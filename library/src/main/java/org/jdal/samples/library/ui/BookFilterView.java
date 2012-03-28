@@ -30,8 +30,8 @@ public class BookFilterView extends AbstractView<BookFilter> {
 	private JTextField name = new JTextField(20);
 	private JTextField authorName = new JTextField(20);
 	private JTextField authorSurname = new JTextField(20);
-	private JCalendarCombo before = FormUtils.newJCalendarCombo();
-	private JCalendarCombo after = FormUtils.newJCalendarCombo();
+	private JCalendarCombo before = new JCalendarCombo();
+	private JCalendarCombo after = new JCalendarCombo();
 	private JComboBox category = FormUtils.newCombo(20);
 	
 	private PersistentService<Category, Long> categoryService;

@@ -9,7 +9,7 @@ import org.jdal.samples.library.model.Author;
 import org.jdal.samples.library.service.AuthorService;
 
 /**
- * AuthorService 
+ * Author Service 
  * 
  * @author Jose Luis Martin - (jlm@joseluismartin.info)
  */

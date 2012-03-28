@@ -32,11 +32,13 @@
 				<entry key="javax.swing.JToggleButton" value="info.joseluismartin.gui.bind.ToggleButtonAccessor"/>
 				<entry key="javax.swing.JList" value="info.joseluismartin.gui.bind.ListAccessor"/>
 				<entry key="info.joseluismartin.gui.Selector" value="info.joseluismartin.gui.bind.SelectorAccessor"/>
-				<entry key="org.freixas.jcalendar.JCalendarCombo" value="info.joseluismartin.gui.bind.JCalendarComboAccessor"/>
+				<entry key="org.freixas.jcalendar.JCalendarCombo" value="org.jdal.samples.bind.JCalendarComboAccessor"/>
 			</map>
 		</property>
 	</bean>
 	
+	<!-- Spring JSR-303 validator -->
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
 	
 	<bean id="guiFactory" class="info.joseluismartin.gui.ApplicationContextGuiFactory"/>
 	
@@ -46,6 +48,11 @@
 		<property name="autobinding" value="true"/>
 		<property name="messageSource" ref="messageSource"/>
 		<property name="controlAccessorFactory" ref="controlAccessorFactory"/>
+		<property name="errorProcessors">
+			<list>
+				<bean class="info.joseluismartin.gui.validation.BackgroundErrorProcessor" />
+			</list>
+		</property>
 	</bean>
 	
 	<bean id="listPanel" class="info.joseluismartin.gui.ListPane">
@@ -201,12 +208,16 @@
 		<property name="categoryService" ref="categoryService"/>
 		<property name="authorEditor" value="authorDialog"/>
 		<property name="guiFactory" ref="guiFactory"/>
+		<!-- inject a custom spring validator -->
 		<property name="validator" ref="bookValidator"/>
 	</bean>
 	
 	<bean id="bookValidator" class="org.jdal.samples.library.ui.BookValidator"/>
 	
-	<bean id="authorView" class="org.jdal.samples.library.ui.AuthorView" scope="prototype" parent="view"/>
+	<bean id="authorView" class="org.jdal.samples.library.ui.AuthorView" scope="prototype" parent="view">
+		<!--  inject the spring validator factory bean to use the jsr 303 validation on views -->
+		<property name="validator" ref="validator" />
+	</bean>
 	
 	<bean id="authorDialog" class="info.joseluismartin.gui.ViewDialog" scope="prototype">
 		<property name="view" ref="authorView"/>
@@ -218,7 +229,7 @@
 		<property name="view" ref="bookView"/>
 		<property name="acceptAction" ref="acceptAction"/>
 		<property name="cancelAction" ref="cancelAction"/>
-		<property name="dialogWidth" value="400"/>
+		<property name="dialogWidth" value="500"/>
 		<property name="dialogHeight" value="300"/>
 	</bean>
 	

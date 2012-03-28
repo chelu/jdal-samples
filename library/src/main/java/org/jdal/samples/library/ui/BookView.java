@@ -38,7 +38,7 @@ public class BookView extends AbstractView<Book> {
 	private JTextField name = new JTextField();
 	private JTextField isbn = new JTextField();
 	private JComboBox author = FormUtils.newCombo(25);
-	private JCalendarCombo publishedDate = FormUtils.newJCalendarCombo();
+	private JCalendarCombo publishedDate =  new JCalendarCombo();
 	private JComboBox category = FormUtils.newCombo(25);
 	private String authorEditor = "authorEditor";
 	
@@ -96,8 +96,10 @@ public class BookView extends AbstractView<Book> {
 			putValue(Action.SMALL_ICON, icon);
 		}
 
+		@SuppressWarnings("unchecked")
 		public void actionPerformed(ActionEvent e) {
-			ViewDialog dlg = (ViewDialog) guiFactory.getDialog(authorEditor);
+			
+			ViewDialog<Author> dlg = (ViewDialog<Author>) guiFactory.getDialog(authorEditor);
 			dlg.setModal(true);
 			dlg.setVisible(true);
 			if (dlg.getValue() == ViewDialog.OK) {

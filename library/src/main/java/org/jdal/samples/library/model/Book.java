@@ -4,15 +4,29 @@ import info.joseluismartin.model.Entity;
 
 import java.util.Date;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 @javax.persistence.Entity
 @Table(name="books")
-public class Book extends Entity {
+/**
+ * Book Entity
+ * 
+ * @author Jose Luis Martin - (jlm@joseluismartin.info)
+ */
+public class Book {
 	
-	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	protected Long id;
+	@NotBlank
+	protected String name = "";
 	@ManyToOne
 	@JoinColumn(name="authorid")
 	private Author author;
@@ -73,6 +87,34 @@ public class Book extends Entity {
 	 */
 	public void setPublishedDate(Date publishedDate) {
 		this.publishedDate = publishedDate;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 }

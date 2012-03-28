@@ -13,6 +13,8 @@
 		default-lazy-init="false" default-init-method="init">
 	
   
+  	<context:annotation-config base-package="org.jdal.samples.library" />
+  	
   	<bean id="propertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
