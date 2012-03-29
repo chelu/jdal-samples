@@ -229,7 +229,7 @@
 		<property name="view" ref="bookView"/>
 		<property name="acceptAction" ref="acceptAction"/>
 		<property name="cancelAction" ref="cancelAction"/>
-		<property name="dialogWidth" value="500"/>
+		<property name="dialogWidth" value="5	00"/>
 		<property name="dialogHeight" value="300"/>
 	</bean>
 	
