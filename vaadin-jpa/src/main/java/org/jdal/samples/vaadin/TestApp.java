@@ -41,7 +41,7 @@ public class TestApp extends Application {
 		Window mainWindow = new Window("JDAL Vaadin Sample");
 		Label title = new Label("JDAL Vaadin Sample Application");
 		title.setStyleName(Reindeer.LABEL_H1);
-		PageableTable pageableTable = (PageableTable<Book>) AppCtx.getInstance().getBean("bookPageableTable");
+		PageableTable<Book> pageableTable = (PageableTable<Book>) AppCtx.getInstance().getBean("bookPageableTable");
 		Panel panel = new Panel("Table with external paginator and server side paging and sorting");
 		panel.addComponent(pageableTable);
 		VerticalLayout layout = new VerticalLayout();
