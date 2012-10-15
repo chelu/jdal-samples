@@ -19,6 +19,8 @@ import info.joseluismartin.beans.AppCtx;
 import info.joseluismartin.vaadin.ui.table.PageableTable;
 
 import org.jdal.samples.model.Book;
+import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.vaadin.Application;
 import com.vaadin.ui.Label;
@@ -41,6 +43,8 @@ public class TestApp extends Application {
 		Window mainWindow = new Window("JDAL Vaadin Sample");
 		Label title = new Label("JDAL Vaadin Sample Application");
 		title.setStyleName(Reindeer.LABEL_H1);
+		AbstractApplicationContext context = (AbstractApplicationContext) AppCtx.getInstance();
+		WebApplicationContextUtils.registerWebApplicationScopes(context.getBeanFactory());
 		PageableTable<Book> pageableTable = (PageableTable<Book>) AppCtx.getInstance().getBean("bookPageableTable");
 		Panel panel = new Panel("Table with external paginator and server side paging and sorting");
 		panel.addComponent(pageableTable);

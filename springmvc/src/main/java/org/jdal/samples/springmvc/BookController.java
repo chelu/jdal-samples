@@ -51,7 +51,7 @@ public class BookController  {
 	 * and query service for data.
 	 * @param paginatedList the displaytag PaginatedList interface
 	 * @param filter filter to apply
-	 * @return Model 
+	 * 
 	 */
 	@RequestMapping()
 	void getPage(@ModelAttribute("paginatedList") PaginatedListAdapter paginatedList, 
@@ -86,8 +86,9 @@ public class BookController  {
 	 */
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
+		@SuppressWarnings("unused")
+		Object lala = binder.getTarget();
 		binder.registerCustomEditor(Category.class, new CategoryPropertyEditor());
-		
 	}
 	
 	

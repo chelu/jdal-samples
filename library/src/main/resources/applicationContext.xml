@@ -30,17 +30,4 @@
 		<property name="basename" value="org.jdal.samples.library.error" />
 	</bean>
 
-	<!-- Property Editors -->
-	<bean id="customEditorConfigurer" class="org.springframework.beans.factory.config.CustomEditorConfigurer">
-  		<property name="customEditors">
-    		<map>
-      			<entry key="java.awt.Image">
-        			<bean class="info.joseluismartin.beans.ImagePropertyEditor"/>
-    	  		</entry>
-    	  		<entry key="javax.swing.Icon">
-    	  			<bean class="info.joseluismartin.beans.IconPropertyEditor"/>
-    	  		</entry>
-	   		</map>
-  		</property>
-	</bean>
 </beans>

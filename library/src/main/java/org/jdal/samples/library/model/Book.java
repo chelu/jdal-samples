@@ -1,9 +1,8 @@
 package org.jdal.samples.library.model;
 
-import info.joseluismartin.model.Entity;
-
 import java.util.Date;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,15 +10,18 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.NamedNativeQuery;
 import org.hibernate.validator.constraints.NotBlank;
 
-@javax.persistence.Entity
-@Table(name="books")
+
 /**
  * Book Entity
  * 
  * @author Jose Luis Martin - (jlm@joseluismartin.info)
  */
+@Entity
+@Table(name="books")
+@NamedNativeQuery(name="test", query="select * from books where id = test(:id)", resultClass=Book.class)
 public class Book {
 	
 	@Id

@@ -75,6 +75,11 @@
 			<artifactId>jdal-vaadin</artifactId>
 			<version>${jdal.version}</version>
 		</dependency>
+		 <dependency>
+      		<groupId>org.jdal</groupId>
+     		<artifactId>jdal-core</artifactId>
+      		<version>${jdal.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>

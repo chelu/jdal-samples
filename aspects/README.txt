@@ -1,9 +1,10 @@
 JDAL Aspects Library Sample Application.
-----------------------------------------
+-------------------------------------------------------------------------------
 http://www.jdal.org
 
 
-This sample use LWT with spring framework to configure and apply the HibernateLazyGuard aspect.
+This sample use LWT with spring framework to configure and apply the 
+HibernateLazyGuard aspect.
 
 - Create mysql database with scripts in db directory
 - Configure database in src/main/resources/conf/jdbc.properties property file
@@ -12,5 +13,4 @@ This sample use LWT with spring framework to configure and apply the HibernateLa
 
 
 For more information about jdal, see http://www.jdal.org.
-
-Contact info: Jose Luis Martin - (jlm@joseluismartin.info).
+-------------------------------------------------------------------------------

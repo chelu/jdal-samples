@@ -35,17 +35,6 @@
   <bean id="persistentService" class="info.joseluismartin.logic.PersistentManager">
   	<property name="dao" ref="basicDao"/>
   </bean>
-  
-  <bean id="bookService" class="info.joseluismartin.logic.PersistentManager">
-  	<property name="dao" ref="bookDao"/>
-  </bean>
-  
-  <bean id="authorService" class="org.jdal.samples.library.logic.AuthorManager">
-  	<property name="dao" ref="authorDao"/>
-  </bean>
-  
-  <bean id="categoryService" class="info.joseluismartin.logic.PersistentManager">
-  	<property name="dao" ref="categoryDao"/>
-  </bean>
+ 
 	
 </beans>

@@ -1,27 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:util="http://www.springframework.org/schema/util"
-	
-	xsi:schemaLocation="http://www.springframework.org/schema/beans 
-			http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
-			http://www.springframework.org/schema/context
-           	http://www.springframework.org/schema/context/spring-context-2.5.xsd 
-			http://www.springframework.org/schema/tx
-			http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
-			http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
-			http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd" 
-	default-init-method="init"
-	default-lazy-init="true">
+	default-init-method="init" default-lazy-init="true"
+	xmlns:swing="http://www.jdal.org/schema/swing"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.jdal.org/schema/swing http://www.jdal.org/schema/jdal/jdal-swing.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 
-	
-	<!--  Binder Facotry that map classes to binders -->
-	<bean id="binderFactory" class="info.joseluismartin.gui.bind.ControlAccessorBinderFactory">
-		<property name="controlAccessorFactory" ref="controlAccessorFactory"/>
-	</bean>  
+
+	<swing:defaults />
 	
 	<!--  Control Accessor Facotry that map classes to accesors -->
 	<bean id="controlAccessorFactory" class="info.joseluismartin.gui.bind.ConfigurableControlAccessorFactory">
@@ -37,30 +31,29 @@
 		</property>
 	</bean>
 	
+	 <!-- Abstract bean definition for Views -->
+      <bean id="view" abstract="true">
+          <property name="binderFactory" ref="binderFactory"/>
+          <property name="autobinding" value="true"/>
+          <property name="messageSource" ref="messageSource"/>
+          <property name="controlAccessorFactory" ref="controlAccessorFactory"/>
+          <property name="errorProcessors">
+                  <list>
+                          <bean class="info.joseluismartin.gui.validation.BackgroundErrorProcessor" />
+                   </list>
+         </property>
+      </bean>
+	
+	
 	<!-- Spring JSR-303 validator -->
 	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
-	
-	<bean id="guiFactory" class="info.joseluismartin.gui.ApplicationContextGuiFactory"/>
-	
-	<!-- Abstract bean definition for Views -->
-	<bean id="view" abstract="true">
-		<property name="binderFactory" ref="binderFactory"/>
-		<property name="autobinding" value="true"/>
-		<property name="messageSource" ref="messageSource"/>
-		<property name="controlAccessorFactory" ref="controlAccessorFactory"/>
-		<property name="errorProcessors">
-			<list>
-				<bean class="info.joseluismartin.gui.validation.BackgroundErrorProcessor" />
-			</list>
-		</property>
-	</bean>
 	
 	<bean id="listPanel" class="info.joseluismartin.gui.ListPane">
 		<property name="panels">
 			<list value-type="info.joseluismartin.gui.PanelHolder">
 				<bean class="info.joseluismartin.gui.JComponentPanelHolder">
 					<property name="name" value= "Books"/>
-					<property name="component" ref="bookTablePanel"/>
+					<property name="component" ref="bookTable"/>
 				</bean>
 				<bean class="info.joseluismartin.gui.ViewPanelHolder">
 					<property name="view" ref="authorEditor"/>
@@ -72,19 +65,22 @@
 		</property>
 	</bean>
 	
-	<!-- Abstract bean definition for TableEditors -->
-	<bean id="tableEditor" abstract="true" parent="view">
-		<property name="addIcon" value="/images/table/22x22/add.png"/>
-		<property name="saveIcon" value="/images/table/22x22/save.png"/>
-		<property name="removeIcon" value="/images/table/22x22/remove.png"/>
-	</bean>
+	<swing:table entity="org.jdal.samples.library.model.Book" filterView="filterView">
+		<swing:columns>
+			<swing:column name="name"     displayName="Name"/>
+			<swing:column name="author"   displayName="Author"   sortProperty="author.name"/>
+			<swing:column name="category" displayName="Category" sortProperty="category.name" />
+			<swing:column name="isbn"     displayName="ISBN" />
+		</swing:columns>
+	</swing:table>
 	
-	<bean id="bookEditor" class="info.joseluismartin.gui.TableEditor" parent="tableEditor">
-		<constructor-arg value="org.jdal.samples.library.model.Book"/>
-		<property name="name" value="Books"/>
-		<property name="tableModel" ref="bookTableModel"/>
-		<property name="service" ref="bookService"/>
-	</bean>
+	
+   <!-- Abstract bean definition for TableEditors -->
+   <bean id="tableEditor" abstract="true" parent="view">
+       <property name="addIcon" value="/images/table/22x22/add.png"/>
+       <property name="saveIcon" value="/images/table/22x22/save.png"/>
+       <property name="removeIcon" value="/images/table/22x22/remove.png"/>
+   </bean>
 	
 	
 	<bean id="authorEditor" class="info.joseluismartin.gui.TableEditor" parent="tableEditor">
@@ -100,34 +96,6 @@
 		<property name="name" value="Categories"/>
 		<property name="tableModel" ref="categoryTableModel"/>
 		<property name="service" ref="categoryService"/>
-	</bean>
-
-	<bean id="bookTableModel" class="info.joseluismartin.gui.ListTableModel" scope="prototype">
-		<property name="modelClass" value="org.jdal.samples.library.model.Book"/>
-		<property name="columns">
-			<list value-type="info.joseluismartin.gui.ColumnDefinition">
-				<bean class="info.joseluismartin.gui.ColumnDefinition">
-					<property name="name" value="name"/>
-					<property name="displayName" value="Name"/>
-				</bean>
-				<bean class="info.joseluismartin.gui.ColumnDefinition">
-					<property name="name" value="author"/>
-					<property name="displayName" value="Author"/>
-					<property name="sortProperty" value="author.name"/>
-				</bean>
-					<bean class="info.joseluismartin.gui.ColumnDefinition">
-					<property name="name" value="category"/>
-					<property name="displayName" value="Category"/>
-					<property name="sortProperty" value="category.name"/>
-				</bean>
-					<bean class="info.joseluismartin.gui.ColumnDefinition">
-					<property name="name" value="isbn"/>
-					<property name="displayName" value="ISBN"/>
-				</bean>
-			</list>
-		</property>
-		<property name="usingActions" value="true"/>
-		<property name="usingChecks" value="true"/>
 	</bean>
 	
 	<bean id="authorTableModel" class="info.joseluismartin.gui.ListTableModel">
@@ -163,42 +131,8 @@
 		<property name="usingChecks" value="false"/>
 	</bean>
 	
-	<bean name="tablePanel" abstract="true">
-		<property name="actions">
-			<list value-type="java.awt.Action">
-				<bean class="info.joseluismartin.gui.table.AddAction"/>
-				<bean class="info.joseluismartin.gui.table.SelectAllAction"/>
-				<bean class="info.joseluismartin.gui.table.DeselectAllAction"/>
-				<bean class="info.joseluismartin.gui.table.RemoveAllAction"/>
-				<bean class="info.joseluismartin.gui.table.HideShowFilterAction"/>
-				<bean class="info.joseluismartin.gui.table.ApplyFilterAction"/>
-				<bean class="info.joseluismartin.gui.table.ClearFilterAction"/>
-			</list>
-		</property>
-	</bean>
 	
-	<bean id="paginatorView" class="info.joseluismartin.gui.PaginatorView" scope="prototype">
-		<property name="firstIcon" value="images/table/22x22/go-first.png"/>
-		<property name="lastIcon"  value="images/table/22x22/go-last.png"/>
-		<property name="nextIcon"  value="images/table/22x22/go-next.png"/>
-		<property name="previousIcon" value="images/table/22x22/go-previous.png"/>
-		<property name="pageSizes" value="10,20,30,40,50,100,All"/>
-	</bean>
-	
-	<bean id="bookTable" class="info.joseluismartin.gui.PageableTable">
-		<property name="dataSource" ref="bookService"/>
-		<property name="tableModel" ref="bookTableModel"/>
-		<property name="paginatorView" ref="paginatorView"/>
-	</bean>
-	
-	<bean id="bookTablePanel" class="info.joseluismartin.gui.table.TablePanel" parent="tablePanel">
-		<property name="table" ref="bookTable"/>
-		<property name="filterView" ref="filterView"/>
-		<property name="editorName" value="bookDialog"/>
-		<property name="guiFactory" ref="guiFactory"/>
-		<property name="persistentService" ref="bookService"/>
-	</bean>
-		
+
 	<bean id="filterView" class="org.jdal.samples.library.ui.BookFilterView" parent="view">
 		<property name="categoryService" ref="categoryService"/>
 	</bean>
@@ -207,7 +141,7 @@
 		<property name="authorService" ref="authorService"/>
 		<property name="categoryService" ref="categoryService"/>
 		<property name="authorEditor" value="authorDialog"/>
-		<property name="guiFactory" ref="guiFactory"/>
+		<property name="guiFactory" ref="defaultGuiFactory"/>
 		<!-- inject a custom spring validator -->
 		<property name="validator" ref="bookValidator"/>
 	</bean>
@@ -225,7 +159,7 @@
 		<property name="cancelAction" ref="cancelAction"/>
 	</bean>
 	
-	<bean id="bookDialog" class="info.joseluismartin.gui.ViewDialog" scope="prototype">
+	<bean id="bookEditor" class="info.joseluismartin.gui.ViewDialog" scope="prototype">
 		<property name="view" ref="bookView"/>
 		<property name="acceptAction" ref="acceptAction"/>
 		<property name="cancelAction" ref="cancelAction"/>
