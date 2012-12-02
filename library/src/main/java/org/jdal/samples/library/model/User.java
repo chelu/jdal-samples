@@ -13,33 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jdal.samples.library.logic;
+package org.jdal.samples.library.model;
 
-import info.joseluismartin.logic.TableManagerSupport;
-import info.joseluismartin.service.TableService;
-
-import org.jdal.samples.library.model.User;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
- * Store table preferences on database.
+ * User entity
  * 
  * @author Jose Luis Martin - (jlm@joseluismartin.info)
  */
-public class TableManager extends TableManagerSupport implements TableService {
-
-	User user = new User();
-	
-	public TableManager() {
-		user.setName("default");
-		user.setId(1L);
-	}
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	protected User getUser() {
-		// should get it from SecurityContext
-		return user;    
-	}
+@Entity
+@Table(name="user")
+public class User extends info.joseluismartin.model.User {
 
 }

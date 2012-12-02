@@ -15,5 +15,7 @@
 		<mapping class="org.jdal.samples.library.model.Author"/>
 		<mapping class="org.jdal.samples.library.model.Category"/>
 		<mapping class="org.jdal.samples.library.model.Reader" />
+		<mapping class="org.jdal.samples.library.model.User" />
+		<mapping class="org.jdal.samples.library.model.UserPreference" />
 	</session-factory>
 </hibernate-configuration>

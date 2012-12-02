@@ -17,15 +17,10 @@
 
 	<swing:defaults />
 	
-	<!--  Control Accessor Facotry that map classes to accesors -->
+	<!--  Control Accessor Factory that map classes to accesors. Add JCalendarCombo Control Accessor -->
 	<bean id="controlAccessorFactory" class="info.joseluismartin.gui.bind.ConfigurableControlAccessorFactory">
 		<property name="accessors">
 			<map key-type="java.lang.Class" value-type="java.lang.Class">
-			<!-- 	<entry key="javax.swing.JComboBox" value="info.joseluismartin.gui.bind.ComboAccessor"/>
-				<entry key="javax.swing.text.JTextComponent" value="info.joseluismartin.gui.bind.TextComponentAccessor"/>
-				<entry key="javax.swing.JToggleButton" value="info.joseluismartin.gui.bind.ToggleButtonAccessor"/>
-				<entry key="javax.swing.JList" value="info.joseluismartin.gui.bind.ListAccessor"/>
-				<entry key="info.joseluismartin.gui.Selector" value="info.joseluismartin.gui.bind.SelectorAccessor"/> -->
 				<entry key="org.freixas.jcalendar.JCalendarCombo" value="org.jdal.samples.bind.JCalendarComboAccessor"/>
 			</map>
 		</property>
@@ -171,6 +166,8 @@
 		<property name="view" ref="authorView"/>
 		<property name="acceptAction" ref="acceptAction"/>
 		<property name="cancelAction" ref="cancelAction"/>
+		<property name="windowHeight" value="150" />
+		<property name="windowWidth"  value="400" />
 	</bean>
 	
 	<bean id="bookEditor" class="info.joseluismartin.gui.ViewDialog" scope="prototype">
@@ -178,7 +175,7 @@
 		<property name="acceptAction" ref="acceptAction"/>
 		<property name="cancelAction" ref="cancelAction"/>
 		<property name="windowWidth" value="500"/>
-		<property name="windowHeight" value="300"/>
+		<property name="windowHeight" value="260"/>
 	</bean>
 	
 	<bean id="readerView" class="org.jdal.samples.library.ui.ReaderView" scope="prototype" parent="view">

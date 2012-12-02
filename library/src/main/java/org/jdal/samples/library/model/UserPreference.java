@@ -15,15 +15,36 @@
  */
 package org.jdal.samples.library.model;
 
+
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
+ * Model to store table preferences on database.
+ * 
  * @author Jose Luis Martin - (jlm@joseluismartin.info)
- *
  */
 @Entity
 @Table(name="user_preference")
 public class UserPreference extends info.joseluismartin.model.UserPreference {
+	
+	/**
+	 * @return the user
+	 */
+	@ManyToOne
+	@JoinColumn(name="user_id")
+	public User getUser() {
+		return (User) super.getUser();
+	}
+
+	/**
+	 * @param user the user to set
+	 */
+	public void setUser(User user) {
+		super.setUser(user);
+	}
+
 
 }
