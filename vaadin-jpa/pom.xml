@@ -5,13 +5,13 @@
 	<groupId>org.jdal</groupId>
 	<artifactId>jdal-vaadin-sample-jpa</artifactId>
 	<packaging>war</packaging>
-	<version>1.2.0</version>
+	<version>1.3.1</version>
 	<name>JDAL Vaadin Sample (JPA)</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<vaadin.version>6.7.5</vaadin.version>
-		<jdal.version>1.2.0</jdal.version>
+		<jdal.version>1.3.1</jdal.version>
 		<gwt.version>2.3.0</gwt.version>
 		<gwt.plugin.version>2.2.0</gwt.plugin.version>
 	</properties>

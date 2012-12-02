@@ -6,14 +6,14 @@
 	<artifactId>jdal-springmvc-yui-sample</artifactId>
 	<packaging>war</packaging>
 	<name>JDAL Spring MVC YUI Sample</name>
-	<version>1.2.0</version>
+	<version>1.3.1</version>
 	<description>JDAL Sample using Spring MVC and YUI Table</description>
 
 	<properties>
 		<file.encoding>UTF-8</file.encoding>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.version>3.1.1.RELEASE</spring.version>
-		<jdal.version>1.2.0</jdal.version>
+		<jdal.version>1.3.1</jdal.version>
 	</properties>
 
 

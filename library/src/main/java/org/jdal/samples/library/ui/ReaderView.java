@@ -30,8 +30,7 @@ import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JTextField;
 
-import model.Book;
-
+import org.jdal.samples.library.model.Book;
 import org.jdal.samples.library.model.Reader;
 
 /**
@@ -110,7 +109,7 @@ public class ReaderView extends AbstractView<Reader> {
 	@Override
 	public void onSetModel(Reader reader) {
 		if (readerService != null) {
-			readerService.initialize(reader);
+			readerService.initialize(reader);   
 		}
 	}
 

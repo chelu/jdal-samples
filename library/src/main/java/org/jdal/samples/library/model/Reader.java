@@ -25,7 +25,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * Reader entity. Used to show the ManyToMany Selector editor in ReaderView.
