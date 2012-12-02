@@ -166,7 +166,7 @@
 		<property name="view" ref="authorView"/>
 		<property name="acceptAction" ref="acceptAction"/>
 		<property name="cancelAction" ref="cancelAction"/>
-		<property name="windowHeight" value="150" />
+		<property name="windowHeight" value="200" />
 		<property name="windowWidth"  value="400" />
 	</bean>
 	

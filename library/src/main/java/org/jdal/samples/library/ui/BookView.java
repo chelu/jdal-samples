@@ -104,6 +104,7 @@ public class BookView extends AbstractView<Book> {
 			dlg.setVisible(true);
 			if (dlg.getValue() == ViewDialog.OK) {
 				getModel().setAuthor((Author) dlg.getModel());
+				author.addItem(dlg.getModel());
 				refresh();
 			}
 			
