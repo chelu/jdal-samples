@@ -16,14 +16,15 @@ public class Main {
 	public static void main (String[] args) {
 		
 		ApplicationContextGuiFactory.setPlasticLookAndFeel();
+		AppCtx.setConfigPackage("conf");
 		
 		JFrame f = new JFrame("JDAL Library Demo");
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		ListPane listPane = (ListPane) AppCtx.getInstance().getBean("listPanel");
 		f.add(listPane);
-		f.setSize(1024, 768);
 		f.setVisible(true);
+		f.setExtendedState(JFrame.MAXIMIZED_BOTH);
 	}
 
 }

@@ -1,4 +1,4 @@
-JDAL Library Sample Application 1.1.4 (Feb 2012).
+JDAL Library Sample Application 1.3.1 (Nov 2012).
 --------------------------------------------------------------------------------
 http://www.jdal.org
 

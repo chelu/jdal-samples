@@ -5,10 +5,8 @@ import info.joseluismartin.dao.hibernate.HibernateDao;
 import java.util.List;
 
 import org.hibernate.Filter;
-import org.hibernate.Query;
 import org.jdal.samples.library.dao.AuthorDao;
 import org.jdal.samples.library.model.Author;
-import org.jdal.samples.library.model.Book;
 
 /**
  * Author Dao hibernate implementation
@@ -32,11 +30,5 @@ public class AuthorHibernateDao extends HibernateDao<Author, Long> implements Au
 		
 		return getAll();
 	}
-	
-	public Book findBookById(int id) {
-		Query q = getSession().getNamedQuery("test");
-		q.setParameter("id", 7);
-		
-		return (Book) q.list().get(0);
-	}
+
 }

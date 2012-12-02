@@ -73,18 +73,18 @@ public class BookView extends AbstractView<Book> {
 		authorBox.add(new JButton(new AddAuthorAction(FormUtils.getIcon(ADD_ICON))));
 		// Build Form with a BoxFormBuilder
 		BoxFormBuilder fb = new BoxFormBuilder();
-		fb.add("Title: ", name);
+		fb.add(getMessage("Title"), name);
 		fb.row();
-		fb.add("Author: ", authorBox);	
+		fb.add(getMessage("Author"), authorBox);	
 		fb.row();
-		fb.add("ISBN: ", isbn);
+		fb.add(getMessage("ISBN"), isbn);
 		fb.row();
-		fb.add("Published Date:", publishedDate);
+		fb.add(getMessage("PublishedDate"), publishedDate);
 		fb.row();
-		fb.add("Category", category);
+		fb.add(getMessage("Category"), category);
 		
 		JComponent form = fb.getForm();
-		form.setBorder(FormUtils.createTitledBorder("Book"));
+		form.setBorder(FormUtils.createTitledBorder(getMessage("Book")));
 		return form;
 	}
 	

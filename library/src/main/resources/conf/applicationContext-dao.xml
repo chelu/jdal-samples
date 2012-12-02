@@ -40,7 +40,7 @@
 	<!-- Hibernate SessionFactory -->
     <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
-        <property name="configLocation" value="classpath:hibernate.cfg.xml"/>
+        <property name="configLocation" value="classpath:/conf/hibernate.cfg.xml"/>
     </bean>
     
     <!-- Transaction Manager -->
@@ -66,5 +66,9 @@
 		serviceClass="org.jdal.samples.library.logic.AuthorManager"  />
 	
 	<jdal:service entity="org.jdal.samples.library.model.Category" daoClass="info.joseluismartin.dao.hibernate.HibernateDao" />
+	
+	<jdal:service entity="org.jdal.samples.library.model.Reader" daoClass="info.joseluismartin.dao.hibernate.HibernateDao" />
+	
+	<bean id="userPreferenceDao" class="info.joseluismartin.dao.hibernate.HibernateUserPreferenceDao" parent="dao" />
 	
 </beans>

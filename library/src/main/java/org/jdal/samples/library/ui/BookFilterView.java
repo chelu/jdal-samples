@@ -27,12 +27,12 @@ import org.jdal.samples.library.model.Category;
  */
 public class BookFilterView extends AbstractView<BookFilter> {
 	
-	private JTextField name = new JTextField(20);
-	private JTextField authorName = new JTextField(20);
-	private JTextField authorSurname = new JTextField(20);
+	private JTextField name = new JTextField(15);
+	private JTextField authorName = new JTextField(15);
+	private JTextField authorSurname = new JTextField(15);
 	private JCalendarCombo before = new JCalendarCombo();
 	private JCalendarCombo after = new JCalendarCombo();
-	private JComboBox category = FormUtils.newCombo(20);
+	private JComboBox category = FormUtils.newCombo(15);
 	
 	private PersistentService<Category, Long> categoryService;
 	
@@ -53,16 +53,16 @@ public class BookFilterView extends AbstractView<BookFilter> {
 	protected JComponent buildPanel() {
 		BoxFormBuilder fb = new BoxFormBuilder();
 		
-		fb.add("Title: ", name);
-		fb.add("Author Name: ", authorName);
-		fb.add("Author Surname: ", authorSurname);
+		fb.add(getMessage("Title"), name);
+		fb.add(getMessage("Author.name"), authorName);
+		fb.add(getMessage("Author.surname"), authorSurname);
 		fb.row();
-		fb.add("Category: ", category);
-		fb.add("Published Before: ", before);
-		fb.add("Published After: ", after);
+		fb.add(getMessage("Category"), category);
+		fb.add(getMessage("PublishedBefore"), before);
+		fb.add(getMessage("PublishedAfter"), after);
 		
 		JComponent box = fb.getForm();
-		box.setBorder(FormUtils.createTitledBorder("Book Filter"));
+		box.setBorder(FormUtils.createTitledBorder(getMessage("Book.filter")));
 		
 		return box;
 	}

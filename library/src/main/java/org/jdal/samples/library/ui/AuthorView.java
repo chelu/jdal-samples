@@ -34,11 +34,11 @@ public class AuthorView extends AbstractView<Author> {
 	@Override
 	public JComponent buildPanel() {
 		BoxFormBuilder fb = new BoxFormBuilder();
-		fb.add("Name: ", name);
+		fb.add(getMessage("Name"), name);
 		fb.row();
-		fb.add("Surname: ", surname);
+		fb.add(getMessage("Surname"), surname);
 		JComponent form = fb.getForm();
-		form.setBorder(FormUtils.createTitledBorder("Author"));
+		form.setBorder(FormUtils.createTitledBorder(getMessage("Author")));
 		
 		return form;
 	}

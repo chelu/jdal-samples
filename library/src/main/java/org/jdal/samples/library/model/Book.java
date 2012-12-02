@@ -15,7 +15,8 @@ import org.hibernate.validator.constraints.NotBlank;
 
 
 /**
- * Book Entity
+ * Book Entity. Use ID identity for equals and hashcode. Don't store in
+ * a map before save.
  * 
  * @author Jose Luis Martin - (jlm@joseluismartin.info)
  */
@@ -48,42 +49,49 @@ public class Book {
 	public Author getAuthor() {
 		return author;
 	}
+	
 	/**
 	 * @param author the author to set
 	 */
 	public void setAuthor(Author author) {
 		this.author = author;
 	}
+	
 	/**
 	 * @return the category
 	 */
 	public Category getCategory() {
 		return category;
 	}
+	
 	/**
 	 * @param category the category to set
 	 */
 	public void setCategory(Category category) {
 		this.category = category;
 	}
+	
 	/**
 	 * @return the isbn
 	 */
 	public String getIsbn() {
 		return isbn;
 	}
+	
 	/**
 	 * @param isbn the isbn to set
 	 */
 	public void setIsbn(String isbn) {
 		this.isbn = isbn;
 	}
+	
 	/**
 	 * @return the publishedDate
 	 */
 	public Date getPublishedDate() {
 		return publishedDate;
 	}
+	
 	/**
 	 * @param publishedDate the publishedDate to set
 	 */
@@ -117,6 +125,37 @@ public class Book {
 	 */
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Book other = (Book) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 	
 }
