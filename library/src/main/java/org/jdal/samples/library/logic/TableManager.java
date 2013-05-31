@@ -15,10 +15,9 @@
  */
 package org.jdal.samples.library.logic;
 
-import info.joseluismartin.logic.TableManagerSupport;
-import info.joseluismartin.service.TableService;
-
+import org.jdal.logic.TableManagerSupport;
 import org.jdal.samples.library.model.User;
+import org.jdal.service.TableService;
 
 /**
  * Store table preferences on database.

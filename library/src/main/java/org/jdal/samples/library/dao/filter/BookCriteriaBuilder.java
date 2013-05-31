@@ -1,8 +1,7 @@
 package org.jdal.samples.library.dao.filter;
 
-import info.joseluismartin.dao.hibernate.AbstractCriteriaBuilder;
-
 import org.hibernate.Criteria;
+import org.jdal.dao.hibernate.AbstractCriteriaBuilder;
 import org.springframework.util.StringUtils;
 
 /**

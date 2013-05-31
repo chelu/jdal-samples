@@ -1,14 +1,5 @@
 package org.jdal.samples.library.ui;
 
-import info.joseluismartin.gui.AbstractView;
-import info.joseluismartin.gui.GuiFactory;
-import info.joseluismartin.gui.ViewDialog;
-import info.joseluismartin.gui.action.FilterAutoCompletionListener;
-import info.joseluismartin.gui.form.BoxFormBuilder;
-import info.joseluismartin.gui.form.FormUtils;
-import info.joseluismartin.gui.list.ListComboBoxModel;
-import info.joseluismartin.service.PersistentService;
-
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
@@ -25,6 +16,14 @@ import org.jdal.samples.library.model.Author;
 import org.jdal.samples.library.model.Book;
 import org.jdal.samples.library.model.Category;
 import org.jdal.samples.library.service.AuthorService;
+import org.jdal.service.PersistentService;
+import org.jdal.swing.AbstractView;
+import org.jdal.swing.GuiFactory;
+import org.jdal.swing.ViewDialog;
+import org.jdal.swing.action.FilterAutoCompletionListener;
+import org.jdal.swing.form.BoxFormBuilder;
+import org.jdal.swing.form.FormUtils;
+import org.jdal.swing.list.ListComboBoxModel;
 
 /**
  * View Form for Books

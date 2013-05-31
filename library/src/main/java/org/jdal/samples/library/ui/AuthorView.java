@@ -1,13 +1,12 @@
 package org.jdal.samples.library.ui;
 
-import info.joseluismartin.gui.AbstractView;
-import info.joseluismartin.gui.form.BoxFormBuilder;
-import info.joseluismartin.gui.form.FormUtils;
-
 import javax.swing.JComponent;
 import javax.swing.JTextField;
 
 import org.jdal.samples.library.model.Author;
+import org.jdal.swing.AbstractView;
+import org.jdal.swing.form.BoxFormBuilder;
+import org.jdal.swing.form.FormUtils;
 
 /**
  * Author View

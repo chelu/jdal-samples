@@ -15,30 +15,29 @@
  */
 package org.jdal.samples.library.ui;
 
-import info.joseluismartin.beans.AppCtx;
-import info.joseluismartin.gui.AbstractView;
-import info.joseluismartin.gui.Selector;
-import info.joseluismartin.gui.TitledSeparator;
-import info.joseluismartin.gui.ViewDialog;
-import info.joseluismartin.gui.form.BoxFormBuilder;
-import info.joseluismartin.gui.form.FormUtils;
-import info.joseluismartin.gui.form.SimpleBoxFormBuilder;
-import info.joseluismartin.service.PersistentService;
-
 import javax.annotation.Resource;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JTextField;
 
+import org.jdal.beans.AppCtx;
 import org.jdal.samples.library.model.Book;
 import org.jdal.samples.library.model.Reader;
+import org.jdal.service.PersistentService;
+import org.jdal.swing.AbstractView;
+import org.jdal.swing.Selector;
+import org.jdal.swing.TitledSeparator;
+import org.jdal.swing.ViewDialog;
+import org.jdal.swing.form.BoxFormBuilder;
+import org.jdal.swing.form.FormUtils;
+import org.jdal.swing.form.SimpleBoxFormBuilder;
 
 /**
  * Reader GUI Editor. Show Selector component for editing ManyToMany
  * relations with Books.
  * 
  * @author Jose Luis Martin - (jlm@joseluismartin.info)
- * @see info.joseluismartin.gui.Selector
+ * @see org.jdal.swing.Selector
  * @since 1.3.0
  */
 public class ReaderView extends AbstractView<Reader> {
@@ -50,7 +49,6 @@ public class ReaderView extends AbstractView<Reader> {
 	private PersistentService<Book, Long> bookService;
 	@Resource 
 	private PersistentService<Reader, Long> readerService;
-	
 	
 	/**
 	 * Default Ctor 
@@ -77,7 +75,6 @@ public class ReaderView extends AbstractView<Reader> {
 		autobind();
 		refresh();
 	}
-
 
 	/**
 	 * Build View component. Use a BoxFormBuilder to do it.

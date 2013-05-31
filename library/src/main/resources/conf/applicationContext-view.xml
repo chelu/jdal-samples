@@ -17,13 +17,21 @@
 
 	<swing:defaults />
 	
-	<!--  Control Accessor Factory that map classes to accesors. Add JCalendarCombo Control Accessor -->
-	<bean id="controlAccessorFactory" class="info.joseluismartin.gui.bind.ConfigurableControlAccessorFactory">
+	<!--  Control Accessor Factory that map classes to accesors. Override default to add the JCalendarCombo Control Accessor -->
+	<bean id="controlAccessorFactory" class="org.jdal.ui.bind.ConfigurableControlAccessorFactory">
 		<property name="accessors">
-			<map key-type="java.lang.Class" value-type="java.lang.Class">
-				<entry key="org.freixas.jcalendar.JCalendarCombo" value="org.jdal.samples.bind.JCalendarComboAccessor"/>
-			</map>
-		</property>
+        	<map key-type="java.lang.Class" value-type="java.lang.Class">
+            	<entry key="javax.swing.JComboBox"      value="org.jdal.swing.bind.ComboAccessor"/>
+                <entry key="javax.swing.text.JTextComponent" value="org.jdal.swing.bind.TextComponentAccessor"/>
+                <entry key="javax.swing.JToggleButton" value="org.jdal.swing.bind.ToggleButtonAccessor"/>
+                <entry key="javax.swing.JLabel" value="org.jdal.swing.bind.LabelAccessor" />
+                <entry key="javax.swing.JList" value="org.jdal.swing.bind.ListAccessor"/>
+                <entry key="org.jdal.swing.Selector" value="org.jdal.swing.bind.SelectorAccessor"/>
+                <entry key="org.jdal.swing.View" value="org.jdal.ui.bind.ViewAccessor"/>
+                <entry key="org.freixas.jcalendar.JCalendarCombo" value="org.jdal.samples.bind.JCalendarComboAccessor"/>
+                <entry key="org.jdal.swing.table.TablePanel" value="org.jdal.swing.bind.TablePanelAccessor" />
+            </map>
+        </property>
 	</bean>
 	
 	 <!-- Abstract bean definition for Views -->
@@ -34,13 +42,13 @@
           <property name="controlInitializer" ref="defaultControlInitializer" />
           <property name="errorProcessors">
                   <list>
-                          <bean class="info.joseluismartin.gui.validation.BackgroundErrorProcessor" />
+                          <bean class="org.jdal.swing.validation.BackgroundErrorProcessor" />
                    </list>
          </property>
      </bean>
 	
 	<!-- Initialize controls by jpa annotations -->
-	<bean id="defaultControlInitializer" class="info.joseluismartin.gui.bind.AnnotationControlInitializer">
+	<bean id="defaultControlInitializer" class="org.jdal.swing.bind.AnnotationControlInitializer">
 		<property name="persistentService" ref="contextPersistentService" />
 	</bean>
 	
@@ -48,20 +56,20 @@
 	<!-- Spring JSR-303 validator -->
 	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
 	
-	<bean id="listPanel" class="info.joseluismartin.gui.ListPane">
+	<bean id="listPanel" class="org.jdal.swing.ListPane">
 		<property name="panels">
-			<list value-type="info.joseluismartin.gui.PanelHolder">
-				<bean class="info.joseluismartin.gui.JComponentPanelHolder">
+			<list value-type="org.jdal.swing.PanelHolder">
+				<bean class="org.jdal.swing.JComponentPanelHolder">
 					<property name="name" value= "Books"/>
 					<property name="component" ref="bookTable"/>
 				</bean>
-				<bean class="info.joseluismartin.gui.ViewPanelHolder">
+				<bean class="org.jdal.swing.ViewPanelHolder">
 					<property name="view" ref="authorEditor"/>
 				</bean>
-				<bean class="info.joseluismartin.gui.ViewPanelHolder">
+				<bean class="org.jdal.swing.ViewPanelHolder">
 					<property name="view" ref="categoryEditor"/>
 				</bean>
-				<bean class="info.joseluismartin.gui.JComponentPanelHolder">
+				<bean class="org.jdal.swing.JComponentPanelHolder">
 					<property name="name" value="Readers" />
 					<property name="component" ref="readerTable"/>
 				</bean>
@@ -69,13 +77,13 @@
 		</property>
 	</bean>
 	
-	<swing:table entity="org.jdal.samples.library.model.Book" filterView="filterView"
-		tableService="tableService">
+	<swing:table entity="org.jdal.samples.library.model.Book" filter-view="filterView"
+		table-service="tableService">
 		<swing:columns>
-			<swing:column name="name"     displayName="Name"/>
-			<swing:column name="author"  displayName="Author" />
-			<swing:column name="category" displayName="Category" sortProperty="category.name" />
-			<swing:column name="isbn"     displayName="ISBN" />
+			<swing:column name="name"     display-name="Name"/>
+			<swing:column name="author"  display-name="Author" />
+			<swing:column name="category" display-name="Category" sort-property="category.name" />
+			<swing:column name="isbn"     display-name="ISBN" />
 		</swing:columns>
 	</swing:table>
 	
@@ -92,7 +100,7 @@
    </bean>
 	
 	
-	<bean id="authorEditor" class="info.joseluismartin.gui.TableEditor" parent="tableEditor">
+	<bean id="authorEditor" class="org.jdal.swing.TableEditor" parent="tableEditor">
 		<constructor-arg value="org.jdal.samples.library.model.Author"/>
 		<property name="name" value="Authors"/>
 		<property name="tableModel" ref="authorTableModel"/>
@@ -100,42 +108,30 @@
 	</bean>
 	
 	
-	<bean id="categoryEditor" class="info.joseluismartin.gui.TableEditor" parent="tableEditor">
+	<bean id="categoryEditor" class="org.jdal.swing.TableEditor" parent="tableEditor">
 		<constructor-arg value="org.jdal.samples.library.model.Category"/>
 		<property name="name" value="Categories"/>
 		<property name="tableModel" ref="categoryTableModel"/>
 		<property name="service" ref="categoryService"/>
 	</bean>
 	
-	<bean id="authorTableModel" class="info.joseluismartin.gui.ListTableModel">
+	<bean id="authorTableModel" class="org.jdal.swing.ListTableModel">
 		<property name="modelClass" value="org.jdal.samples.library.model.Author"/>
 		<property name="columns">
-			<list value-type="info.joseluismartin.gui.ColumnDefinition">
-				<bean class="info.joseluismartin.gui.ColumnDefinition">
-					<property name="name" value="name"/>
-					<property name="displayName" value="Name"/>
-					<property name="editable" value="true"/>
-				</bean>
-				<bean class="info.joseluismartin.gui.ColumnDefinition">
-					<property name="name" value="surname"/>
-					<property name="displayName" value="Surname"/>
-					<property name="editable" value="true"/>
-				</bean>
-			</list>
+			<swing:columns>
+				<swing:column name="name" display-name="Name" editable="true" />
+				<swing:column name="surname" display-name="Surname" editable="true" />
+			</swing:columns>
 		</property>
 		<property name="usingChecks" value="false"/>
 	</bean>
 	
-	<bean id="categoryTableModel" class="info.joseluismartin.gui.ListTableModel">
+	<bean id="categoryTableModel" class="org.jdal.swing.ListTableModel">
 		<property name="modelClass" value="org.jdal.samples.library.model.Category"/>
 		<property name="columns">
-			<list value-type="info.joseluismartin.gui.ColumnDefinition">
-				<bean class="info.joseluismartin.gui.ColumnDefinition">
-					<property name="name" value="name"/>
-					<property name="displayName" value="Name"/>
-					<property name="editable" value="true"/>
-				</bean>
-			</list>
+			<swing:columns>
+				<swing:column name="name" display-name="Name" editable="true" />
+			</swing:columns>
 		</property>
 		<property name="usingChecks" value="false"/>
 	</bean>
@@ -162,7 +158,7 @@
 		<property name="validator" ref="validator" />
 	</bean>
 	
-	<bean id="authorDialog" class="info.joseluismartin.gui.ViewDialog" scope="prototype">
+	<bean id="authorDialog" class="org.jdal.swing.ViewDialog" scope="prototype">
 		<property name="view" ref="authorView"/>
 		<property name="acceptAction" ref="acceptAction"/>
 		<property name="cancelAction" ref="cancelAction"/>
@@ -170,7 +166,7 @@
 		<property name="windowWidth"  value="400" />
 	</bean>
 	
-	<bean id="bookEditor" class="info.joseluismartin.gui.ViewDialog" scope="prototype">
+	<bean id="bookEditor" class="org.jdal.swing.ViewDialog" scope="prototype">
 		<property name="view" ref="bookView"/>
 		<property name="acceptAction" ref="acceptAction"/>
 		<property name="cancelAction" ref="cancelAction"/>
@@ -182,7 +178,7 @@
 		<property name="validator" ref="validator" />
 	</bean>
 	
-	<bean id="readerEditor" class="info.joseluismartin.gui.ViewDialog" scope="prototype">
+	<bean id="readerEditor" class="org.jdal.swing.ViewDialog" scope="prototype">
 		<property name="view" ref="readerView" />
 		<property name="acceptAction" ref="acceptAction"/>
 		<property name="cancelAction" ref="cancelAction"/>
@@ -190,20 +186,20 @@
 		<property name="windowHeight" value="700"/>
 	</bean>
 	
-	<swing:table entity="org.jdal.samples.library.model.Reader" tableService="tableService">
+	<swing:table entity="org.jdal.samples.library.model.Reader" table-service="tableService">
 		<swing:columns>
-			<swing:column name="name"    displayName="Name"/>
-			<swing:column name="surname" displayName="Surname" />
+			<swing:column name="name"    display-name="Name"/>
+			<swing:column name="surname" display-name="Surname" />
 		</swing:columns>
 	</swing:table>
 	
-	<bean id="acceptAction" class="info.joseluismartin.gui.action.ViewSaveAction" scope="prototype">
+	<bean id="acceptAction" class="org.jdal.swing.action.ViewSaveAction" scope="prototype">
 		<property name="icon" value="/images/16x16/dialog-ok.png"/>
 		<property name="service" ref="contextPersistentService"/>
 		<property name="name" value="Accept"/>
 	</bean>
 	
-	<bean id="cancelAction" class="info.joseluismartin.gui.action.ViewCancelAction" scope="prototype">
+	<bean id="cancelAction" class="org.jdal.swing.action.ViewCancelAction" scope="prototype">
 		<property name="icon" value="/images/16x16/dialog-cancel.png"/>
 		<property name="name" value="Cancel"/>
 	</bean>

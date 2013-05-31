@@ -1,14 +1,5 @@
 package org.jdal.samples.library.ui;
 
-import info.joseluismartin.beans.AppCtx;
-import info.joseluismartin.gui.AbstractView;
-import info.joseluismartin.gui.ApplicationContextGuiFactory;
-import info.joseluismartin.gui.View;
-import info.joseluismartin.gui.form.BoxFormBuilder;
-import info.joseluismartin.gui.form.FormUtils;
-import info.joseluismartin.gui.list.ListComboBoxModel;
-import info.joseluismartin.service.PersistentService;
-
 import java.util.List;
 
 import javax.swing.JComboBox;
@@ -17,8 +8,16 @@ import javax.swing.JFrame;
 import javax.swing.JTextField;
 
 import org.freixas.jcalendar.JCalendarCombo;
+import org.jdal.beans.AppCtx;
 import org.jdal.samples.library.dao.filter.BookFilter;
 import org.jdal.samples.library.model.Category;
+import org.jdal.service.PersistentService;
+import org.jdal.swing.AbstractView;
+import org.jdal.swing.ApplicationContextGuiFactory;
+import org.jdal.swing.View;
+import org.jdal.swing.form.BoxFormBuilder;
+import org.jdal.swing.form.FormUtils;
+import org.jdal.swing.list.ListComboBoxModel;
 
 /**
  * View for Book Filter

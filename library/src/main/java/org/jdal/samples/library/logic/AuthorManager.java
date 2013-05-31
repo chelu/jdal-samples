@@ -1,9 +1,8 @@
 package org.jdal.samples.library.logic;
 
-import info.joseluismartin.logic.PersistentManager;
-
 import java.util.List;
 
+import org.jdal.logic.PersistentManager;
 import org.jdal.samples.library.dao.AuthorDao;
 import org.jdal.samples.library.model.Author;
 import org.jdal.samples.library.service.AuthorService;

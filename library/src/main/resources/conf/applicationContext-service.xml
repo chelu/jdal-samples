@@ -29,13 +29,11 @@
     <!-- Make all methods on package service transactional  -->
      <aop:pointcut id="serviceOperation" 
      	expression="execution(* org.jdal.samples.library.service.*.*(..)) or 
-     			    execution(* info.joseluismartin.service.PersistentService.*(..)) or
-     			    execution(* info.joseluismartin.service.TableService.*(..))"/>
+     			    execution(* org.jdal.service.PersistentService.*(..)) or
+     			    execution(* org.jdal.service.TableService.*(..))"/>
      <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceOperation"/>
   </aop:config>
   
-  <bean id="contextPersistentService" class="info.joseluismartin.logic.ContextPersistentManager" />
+  <bean id="contextPersistentService" class="org.jdal.logic.ContextPersistentManager" />
 
- 
-	
 </beans>

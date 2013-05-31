@@ -1,9 +1,8 @@
 package org.jdal.samples.library.dao;
 
-import info.joseluismartin.dao.Dao;
-
 import java.util.List;
 
+import org.jdal.dao.Dao;
 import org.jdal.samples.library.model.Author;
 
 

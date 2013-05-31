@@ -1,10 +1,9 @@
 package org.jdal.samples.library.dao.hibernate;
 
-import info.joseluismartin.dao.hibernate.HibernateDao;
-
 import java.util.List;
 
 import org.hibernate.Filter;
+import org.jdal.dao.hibernate.HibernateDao;
 import org.jdal.samples.library.dao.AuthorDao;
 import org.jdal.samples.library.model.Author;
 

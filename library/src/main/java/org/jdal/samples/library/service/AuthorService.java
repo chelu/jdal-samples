@@ -1,10 +1,9 @@
 package org.jdal.samples.library.service;
 
-import info.joseluismartin.service.PersistentService;
-
 import java.util.List;
 
 import org.jdal.samples.library.model.Author;
+import org.jdal.service.PersistentService;
 
 /**
  * Author DAO

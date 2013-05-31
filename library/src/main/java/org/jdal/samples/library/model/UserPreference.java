@@ -28,7 +28,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="user_preference")
-public class UserPreference extends info.joseluismartin.model.UserPreference {
+public class UserPreference extends org.jdal.model.UserPreference {
 	
 	/**
 	 * @return the user

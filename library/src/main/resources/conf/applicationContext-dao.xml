@@ -53,23 +53,23 @@
 		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
 	
-	<jdal:service entity="org.jdal.samples.library.model.Book" daoClass="info.joseluismartin.dao.hibernate.HibernateDao">
+	<jdal:service entity="org.jdal.samples.library.model.Book" dao-class="org.jdal.dao.hibernate.HibernateDao">
 		<jdal:criteria name="bookFilter" builder="bookCriteriaBuilder" />
 	</jdal:service>
 	
 	<bean id="bookCriteriaBuilder" class="org.jdal.samples.library.dao.filter.BookCriteriaBuilder"/>
 	
-	<bean id="basicDao" class="info.joseluismartin.dao.hibernate.HibernateDao" parent="dao"/>
+	<bean id="basicDao" class="org.jdal.dao.hibernate.HibernateDao" parent="dao"/>
 	
 	<jdal:service entity="org.jdal.samples.library.model.Author" 
-		daoClass="org.jdal.samples.library.dao.hibernate.AuthorHibernateDao"
-		serviceClass="org.jdal.samples.library.logic.AuthorManager"  />
+		dao-class="org.jdal.samples.library.dao.hibernate.AuthorHibernateDao"
+		service-class="org.jdal.samples.library.logic.AuthorManager"  />
 	
-	<jdal:service entity="org.jdal.samples.library.model.Category" daoClass="info.joseluismartin.dao.hibernate.HibernateDao" />
+	<jdal:service entity="org.jdal.samples.library.model.Category" dao-class="org.jdal.dao.hibernate.HibernateDao" />
+
+	<jdal:service entity="org.jdal.samples.library.model.Reader" dao-class="org.jdal.dao.hibernate.HibernateDao" />
 	
-	<jdal:service entity="org.jdal.samples.library.model.Reader" daoClass="info.joseluismartin.dao.hibernate.HibernateDao" />
-	
-	<bean id="userPreferenceDao" class="info.joseluismartin.dao.hibernate.HibernateUserPreferenceDao" parent="dao">
+	<bean id="userPreferenceDao" class="org.jdal.dao.hibernate.HibernateUserPreferenceDao" parent="dao">
 		<constructor-arg value="org.jdal.samples.library.model.UserPreference" />
 	</bean>
 	

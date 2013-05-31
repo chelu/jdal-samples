@@ -15,11 +15,10 @@
  */
 package org.jdal.samples.bind;
 
-import info.joseluismartin.gui.bind.ComboAccessor;
-
 import java.util.Date;
 
 import org.freixas.jcalendar.JCalendarCombo;
+import org.jdal.swing.bind.ComboAccessor;
 
 /**
  * ControlAccessor for JCalendar

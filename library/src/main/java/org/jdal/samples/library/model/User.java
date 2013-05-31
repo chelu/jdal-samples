@@ -25,6 +25,6 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="user")
-public class User extends info.joseluismartin.model.User {
+public class User extends org.jdal.model.User {
 
 }
