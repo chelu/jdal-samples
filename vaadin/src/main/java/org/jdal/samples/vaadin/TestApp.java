@@ -15,46 +15,42 @@
  */
 package org.jdal.samples.vaadin;
 
-import info.joseluismartin.beans.AppCtx;
-import info.joseluismartin.dao.Filter;
-import info.joseluismartin.vaadin.ui.Box;
-import info.joseluismartin.vaadin.ui.table.PageableTable;
-
 import java.awt.print.Book;
 
-import org.jdal.samples.dao.filter.BookFilter;
-import org.springframework.context.ApplicationContext;
+import org.jdal.vaadin.ui.form.BoxFormBuilder;
+import org.jdal.vaadin.ui.table.PageableTable;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import com.vaadin.Application;
-import com.vaadin.ui.Component;
+import com.vaadin.annotations.Theme;
+import com.vaadin.annotations.Title;
+import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.Label;
-import com.vaadin.ui.Panel;
-import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.Window;
-import com.vaadin.ui.themes.Reindeer;
 
 /**
- * Simple Test for PageableTable and ContainerDataSource.
+ * Simple Test for PageableTable
  * 
  * @author Jose Luis Martin
  */
-@SuppressWarnings("serial")
-public class TestApp extends Application {
+@Theme("Runo")
+@Title("JDAL Vaadin Pageable Table Sample")
+public class TestApp extends UI {
 	
-	@SuppressWarnings("unchecked")
+	@Autowired
+	private PageableTable<Book> bookTable;
+	
+	
 	@Override
-	public void init() {
-		Window mainWindow = new Window("JDAL Vaadin Sample");
+	public void init(VaadinRequest request) {
 		Label title = new Label("JDAL Vaadin Sample Application");
-		title.setStyleName(Reindeer.LABEL_H1);
-		PageableTable pageableTable = (PageableTable<Book>) AppCtx.getInstance().getBean("bookPageableTable");
-		Panel panel = new Panel("Table with external paginator and server side paging and sorting");
-		panel.addComponent(pageableTable);
-		VerticalLayout layout = new VerticalLayout();
-		layout.setSpacing(true);
-        layout.addComponent(title);
-		layout.addComponent(panel);
-		mainWindow.setContent(layout);
-		setMainWindow(mainWindow);
+		
+		BoxFormBuilder fb = new BoxFormBuilder();
+		fb.row();
+		fb.add(title);
+		fb.row();
+		fb.add(bookTable);
+		
+		setContent(fb.getForm());
 	}
 }

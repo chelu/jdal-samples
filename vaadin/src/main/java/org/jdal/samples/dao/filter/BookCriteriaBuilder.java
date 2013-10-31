@@ -1,14 +1,13 @@
 package org.jdal.samples.dao.filter;
 
-import info.joseluismartin.dao.hibernate.AbstractCriteriaBuilder;
-
 import org.hibernate.Criteria;
+import org.jdal.dao.hibernate.AbstractCriteriaBuilder;
 import org.springframework.util.StringUtils;
 
 /**
  * Criteria Builder for Book Filter
  * 
- * @author Jose Luis Martin - (jlm@joseluismartin.info)
+ * @author Jose Luis Martin
  */
 public class BookCriteriaBuilder extends AbstractCriteriaBuilder {
 

@@ -1,10 +1,9 @@
 package org.jdal.samples.dao.hibernate;
 
-import info.joseluismartin.dao.hibernate.HibernateDao;
-
 import java.util.List;
 
 import org.hibernate.Filter;
+import org.jdal.dao.hibernate.HibernateDao;
 import org.jdal.samples.dao.AuthorDao;
 import org.jdal.samples.model.Author;
 
@@ -16,9 +15,13 @@ import org.jdal.samples.model.Author;
 public class AuthorHibernateDao extends HibernateDao<Author, Long> implements AuthorDao {
 
 	public AuthorHibernateDao() {
-		super(Author.class);
+		this(Author.class);
 	}
 	
+	public AuthorHibernateDao(Class<Author> persistentClass) {
+		super(persistentClass);
+	}
+
 	public List<Author> findByName(String pattern) {
 		String name = pattern.trim() + "%";
 		Filter filter = getSession().enableFilter("authorByNameFilter");
