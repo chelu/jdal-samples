@@ -1,4 +1,4 @@
-JDAL 1.3.1 Samples. December 2012
+JDAL 2.0 Samples. November 2013
 ---------------------------------
 
 All samples use the database db/library.sql with the following 
