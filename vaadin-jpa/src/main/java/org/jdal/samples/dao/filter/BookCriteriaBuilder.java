@@ -1,65 +1,55 @@
 package org.jdal.samples.dao.filter;
 
-import info.joseluismartin.dao.Filter;
-import info.joseluismartin.dao.jpa.JpaCriteriaBuilder;
-
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 
 import org.apache.commons.lang.StringUtils;
-import org.jdal.samples.model.Author;
+import org.jdal.dao.Filter;
+import org.jdal.dao.jpa.JpaCriteriaBuilderSupport;
 import org.jdal.samples.model.Book;
-import org.jdal.samples.model.Category;
 
 /**
  * Criteria Builder for Book Filter
  * 
- * @author Jose Luis Martin - (jlm@joseluismartin.info)
+ * @author Jose Luis Martin
  */
-public class BookCriteriaBuilder implements  JpaCriteriaBuilder<Book> {
+public class BookCriteriaBuilder extends JpaCriteriaBuilderSupport<Book, Book> {
+
+	public BookCriteriaBuilder() {
+		super(Book.class);
+	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public CriteriaQuery<Book> build(CriteriaQuery<Book> criteria, CriteriaBuilder cb, Filter filter) {
+	@Override
+	protected void doBuild(CriteriaQuery<Book> criteria, CriteriaBuilder cb, Filter filter) {
 		BookFilter f = (BookFilter) filter;
-		
-		Root<Book> root = criteria.from(Book.class);
-		Path<Author> author = root.<Author>get("author");
 		List<Predicate> predicates = new ArrayList<Predicate>();
 		
-		if (StringUtils.isNotEmpty(f.getName()))
-			predicates.add(cb.like(root.<String>get("name"), f.getName()));
+		if (!StringUtils.isEmpty(f.getName()))
+			predicates.add(like("name", f.getName()));
+		
+		if (!StringUtils.isEmpty(f.getAuthorName()))
+			predicates.add(like("author.name", f.getAuthorName()));
+		
+		if (!StringUtils.isEmpty(f.getAuthorSurname()))
+			predicates.add(like("author.surname", f.getAuthorSurname()));
 		
 		if (f.getCategory() != null)
-			predicates.add(cb.equal(root.<Category>get("category"), f.getCategory()));
+			predicates.add(equal("category", f.getCategory()));
+		
+		if (f.getAfter() != null) 
+			predicates.add(greatThanOrEqualTo("publishedDate", f.getAfter()));
 		
 		if (f.getBefore() != null)
-			predicates.add(cb.lessThanOrEqualTo(root.<Date>get("publishedDate"), f.getBefore()));
+			predicates.add(lessThanOrEqualTo("publishedDate", f.getBefore()));
 		
-		if (f.getAfter() != null)
-			predicates.add(cb.greaterThanOrEqualTo(root.<Date>get("publishedDate"), f.getAfter()));
-		
-		if (StringUtils.isNotEmpty(f.getAuthorName()))
-			 predicates.add(cb.like(author.<String>get("name"), f.getAuthorName()));
-		
-		if (StringUtils.isNotEmpty(f.getAuthorSurname()))
-			predicates.add(cb.like(author.<String>get("surname"), f.getAuthorSurname()));
-		
-		if (StringUtils.isNotEmpty(f.getIsbn()))
-			predicates.add(cb.like(root.<String>get("isbn"), f.getIsbn()));
-		
-		
-		if (predicates.size() > 0)
-			criteria.where(cb.and(predicates.toArray(new Predicate[]{})));
-		
-		return criteria;
+		if (!predicates.isEmpty())
+			addAndWhere(criteria, cb, predicates);
 	}
 }

@@ -11,4 +11,4 @@ http://www.jdal.org
 
 For more information about jdal, see http://www.jdal.org.
 
-Contact info: Jose Luis Martin - (jlm@joseluismartin.info).
+

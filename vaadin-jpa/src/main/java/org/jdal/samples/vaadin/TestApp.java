@@ -15,12 +15,10 @@
  */
 package org.jdal.samples.vaadin;
 
-import info.joseluismartin.beans.AppCtx;
-import info.joseluismartin.vaadin.ui.table.PageableTable;
+import javax.annotation.Resource;
 
 import org.jdal.samples.model.Book;
-import org.springframework.context.support.AbstractApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
+import org.jdal.vaadin.ui.table.PageableTable;
 
 import com.vaadin.Application;
 import com.vaadin.ui.Label;
@@ -34,20 +32,20 @@ import com.vaadin.ui.themes.Reindeer;
  * 
  * @author Jose Luis Martin
  */
-@SuppressWarnings("serial")
 public class TestApp extends Application {
 	
-	@SuppressWarnings("unchecked")
+	@Resource
+	private PageableTable<Book> bookPageableTable;
+	
 	@Override
 	public void init() {
+		setTheme("sample");
 		Window mainWindow = new Window("JDAL Vaadin Sample");
 		Label title = new Label("JDAL Vaadin Sample Application");
 		title.setStyleName(Reindeer.LABEL_H1);
-		AbstractApplicationContext context = (AbstractApplicationContext) AppCtx.getInstance();
-		WebApplicationContextUtils.registerWebApplicationScopes(context.getBeanFactory());
-		PageableTable<Book> pageableTable = (PageableTable<Book>) AppCtx.getInstance().getBean("bookPageableTable");
 		Panel panel = new Panel("Table with external paginator and server side paging and sorting");
-		panel.addComponent(pageableTable);
+		bookPageableTable.setWidthFull();
+		panel.addComponent(bookPageableTable);
 		VerticalLayout layout = new VerticalLayout();
 		layout.setSpacing(true);
         layout.addComponent(title);

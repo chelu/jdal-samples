@@ -16,21 +16,21 @@
 package org.jdal.samples.mvc;
 
 
-import info.joseluismartin.dao.Filter;
-import info.joseluismartin.dao.Page;
-import info.joseluismartin.service.PersistentService;
-
 import java.beans.PropertyEditorSupport;
 import java.io.IOException;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSON;
 import net.sf.json.JSONSerializer;
 
+import org.jdal.dao.Filter;
+import org.jdal.dao.Page;
 import org.jdal.samples.dao.filter.BookFilter;
 import org.jdal.samples.model.Category;
+import org.jdal.service.PersistentService;
 import org.jdal.web.table.DataTableModel;
 import org.jdal.web.table.ModelMapper;
 import org.springframework.stereotype.Controller;
@@ -42,18 +42,23 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 /**
  * Controller to handle "/book" requests
+ * 
  * @author Jose Luis Martin - (jlm@joseluismartin.info)
  */
 @Controller
 @SessionAttributes("filter")   // Store filter on Session
+@RequestMapping("/book")
 public class BookController  {
 	
 	/** Persistent service for book categories */
+	@Resource
 	PersistentService<Category, Long> categoryService;
 	/** Persistent Service for Books */
+	@Resource
 	PersistentService<Object, Long> bookService;
 	/** Model mapper */
-	ModelMapper modelMapper;
+	@Resource
+	ModelMapper bookModelMapper;
 	
 	/**
 	 * Handle getPage request. Gets the Page from PaginatedListAdapter wrapper
@@ -62,20 +67,20 @@ public class BookController  {
 	 * @param filter filter to apply
 	 * @return Model 
 	 */
-	@RequestMapping
-	void getPage(@ModelAttribute Filter filter) {
+	@RequestMapping("/getPage")
+	public void getPage(@ModelAttribute Filter filter) {
 		// do nothing, only store filter on session
 		// the table will request data using AJAX
 	}
 	
-	@RequestMapping
+	@RequestMapping("/getData")
 	public void  getData(HttpServletResponse response, @ModelAttribute DataTableModel dtm, 
 			@ModelAttribute Filter filter) throws IOException {
 		
 		Page<Object> page = dtm.buildPage();
 		page.setFilter(filter);
 		bookService.getPage(page);
-		dtm.setRecords(modelMapper.fromModel(page.getData()));
+		dtm.setRecords(bookModelMapper.fromModel(page.getData()));
 		dtm.setTotalRecords(page.getCount());
 		
 		JSON json = JSONSerializer.toJSON(dtm);
@@ -173,13 +178,13 @@ public class BookController  {
 	 * @return the modelMapper
 	 */
 	public ModelMapper getModelMapper() {
-		return modelMapper;
+		return bookModelMapper;
 	}
 
 	/**
 	 * @param modelMapper the modelMapper to set
 	 */
 	public void setModelMapper(ModelMapper modelMapper) {
-		this.modelMapper = modelMapper;
+		this.bookModelMapper = modelMapper;
 	}
 }

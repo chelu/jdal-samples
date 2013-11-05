@@ -1,6 +1,6 @@
 package org.jdal.samples.dao.filter;
 
-import info.joseluismartin.dao.BeanFilter;
+import org.jdal.dao.BeanFilter;
 
 import java.util.Date;
 

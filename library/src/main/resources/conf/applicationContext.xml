@@ -15,16 +15,8 @@
   
   	<context:annotation-config base-package="org.jdal.samples.library" />
   	
-  	<bean id="propertyConfigurer"
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="locations">
-			<list>
-				<value>classpath*:conf/jdbc.properties</value>
-			</list>
-		</property>
-	</bean>
-	
-	<!-- Message Source -->
+  	<context:property-placeholder location="classpath:conf/jdbc.properties"/>
+  	
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basenames" value="i18n.jdal,i18n.i18n" />

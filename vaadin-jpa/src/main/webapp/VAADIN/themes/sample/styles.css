@@ -1,0 +1,20 @@
+@import "../reindeer/styles.css";
+
+
+.v-gridlayout-margin {
+	padding: 10px;
+}
+
+.v-label-paginator {
+	font-weight: bold;
+}
+
+/* .v-horizontallayout {
+	border: solid 1px blue;
+} 
+
+.v-verticallayout {
+	border: solid 1px red;
+} 
+ */
+

@@ -15,8 +15,6 @@
  */
 package org.jdal.samples.mvc;
 
-import java.util.Date;
-
 import org.jdal.samples.model.Book;
 
 /**

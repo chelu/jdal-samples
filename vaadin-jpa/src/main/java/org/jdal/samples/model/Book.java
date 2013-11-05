@@ -1,17 +1,26 @@
 package org.jdal.samples.model;
 
-import info.joseluismartin.model.Entity;
-
+import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-@javax.persistence.Entity
+import org.hibernate.validator.constraints.NotEmpty;
+
+@Entity
 @Table(name="books")
-public class Book extends Entity {
+public class Book implements Serializable  {
 	
+	@Id
+	@GeneratedValue
+	private Long id;
+	@NotEmpty
+	private String name;
 	private static final long serialVersionUID = 1L;
 	@ManyToOne
 	@JoinColumn(name="authorid")
@@ -73,5 +82,33 @@ public class Book extends Entity {
 	 */
 	public void setPublishedDate(Date publishedDate) {
 		this.publishedDate = publishedDate;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
 	}
 }
