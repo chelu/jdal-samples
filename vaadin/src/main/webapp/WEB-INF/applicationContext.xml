@@ -87,7 +87,7 @@
    		<vaadin:column name="id" display-name="ID" width="60" align="center"/>
    		<vaadin:column name="name" display-name="Name" width="300" align="left" />
    		<vaadin:column name="author" display-name="Author" width="150" align="left" sort-property-name="author.name" />
-   		<vaadin:column name="category" display-name="Category" width="200" align="left" sort-property-name="author.name" />
+   		<vaadin:column name="category" display-name="Category" width="200" align="left" sort-property-name="category.name" />
    		<vaadin:column name="isbn" display-name="ISBN" width="150" align="left" />
    		<vaadin:column name="publishedDate" display-name="Published Date" width="150" property-editor="customDateEditor"/>
    	</vaadin:columns>
