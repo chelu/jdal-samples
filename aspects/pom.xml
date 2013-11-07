@@ -46,7 +46,7 @@
 	<repositories>
 		<repository>
 			<id>jdal</id>
-			<name>jdal</name>
+			<name>JDAL Repository</name>
 			<url>http://www.jdal.org/repo</url>
 		</repository>
 	</repositories>

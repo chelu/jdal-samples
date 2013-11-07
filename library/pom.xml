@@ -135,6 +135,7 @@
 	<repositories>
 		<repository>
 			<id>jdal</id>
+			<name>JDAL Repository</name>
 			<url>http://www.jdal.org/repo</url>
 		</repository>
 	</repositories>
