@@ -61,19 +61,28 @@
    		<jdal:criteria name="book" builder="bookCriteriaBuilder"/>
     </jdal:service>
     
-    <bean id="bookCriteriaBuilder" class="org.jdal.samples.dao.filter.BookCriteriaBuilder"/>
+    <bean id="contextPersistentService" class="org.jdal.logic.ContextPersistentManager" />
+    
+    <bean id="bookCriteriaBuilder" class="org.jdal.samples.dao.hibernate.BookCriteriaBuilder"/>
     
    <!-- UI Widgets -->
    
    <vaadin:defaults />
    
    <bean id="uid" class="org.jdal.samples.vaadin.TestApp" scope="prototype" />
-  
    
+   <bean id="controlInitializer" class="org.jdal.vaadin.ui.bind.VaadinControlInitializer">
+   		<property name="persistentService" ref="contextPersistentService" />
+   </bean>
 
-   
+   <!-- Spring JSR-303 validator -->
+   <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+
+   <!-- Error Processor -->
+   <bean id="errorProcessor" class="org.jdal.vaadin.ui.bind.UserErrorProcessor" />  
+    
    <!-- Book Table Definition -->   
-   <vaadin:table entity="org.jdal.samples.model.book" filter-form="bookFilterEditor">
+   <vaadin:table entity="org.jdal.samples.model.Book" filter-form="bookFilterEditor">
    	<vaadin:columns>
    		<vaadin:column name="id" display-name="ID" width="60" align="center"/>
    		<vaadin:column name="name" display-name="Name" width="300" align="left" />
@@ -95,16 +104,35 @@
 	</bean>
    
 	<!-- Book Form Editor -->
-	<bean id="bookEditor" class="org.jdal.samples.vaadin.BookView" scope="prototype" />
-
+	<bean id="bookEditor" class="org.jdal.samples.vaadin.BookView" scope="prototype">
+		<property name="controlInitializer" ref="controlInitializer"/>
+		<property name="width" value="600" />
+		<property name="height" value="300" />
+		<property name="persistentService" ref="bookService" />
+		<property name="errorProcessors">
+			<list>
+				<ref bean="errorProcessor" />
+			</list>
+		</property>
+		<property name="validator" ref="validator" />
+	</bean>
+	
+	<!-- View Dialog Prototype -->
+	<bean id="viewDialog" class="org.jdal.vaadin.ui.form.ViewDialog" />
 	
 	<!-- The book Filter Editor -->
-	<bean id="bookFilterEditor" class="org.jdal.samples.vaadin.BookFilterView" scope="prototype" />
+	<bean id="bookFilterEditor" class="org.jdal.samples.vaadin.BookFilterView" scope="prototype">
+		<property name="controlInitializer" ref="controlInitializer" />
+	</bean>
 	
 	<!-- Message Source -->
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">
-		<property name="basenames" value="i18n/jdal" />
+		<property name="basenames" value="i18n/jdal,i18n/vaadin-sample" />
+	</bean>
+	
+	<bean id="staticMessageSource" class="org.jdal.beans.StaticMessageSource">
+		<constructor-arg ref="messageSource" />
 	</bean>
 
 	<!-- Tx Advice -->
@@ -122,7 +150,7 @@
    <aop:config>
     <!-- Make all methods on package service transactional  -->
      <aop:pointcut id="serviceOperation" 
-     	expression="execution(* org.jdal.service.*.*(..))"/>
+     	expression="execution(* org.jdal.service.PersistentService.*(..))"/>
      <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceOperation"/>
   </aop:config>
 

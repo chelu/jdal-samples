@@ -15,8 +15,7 @@
  */
 package org.jdal.samples.vaadin;
 
-import java.awt.print.Book;
-
+import org.jdal.samples.model.Book;
 import org.jdal.vaadin.ui.form.BoxFormBuilder;
 import org.jdal.vaadin.ui.table.PageableTable;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,16 +23,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
 import com.vaadin.server.VaadinRequest;
-import com.vaadin.ui.Label;
+import com.vaadin.ui.Panel;
 import com.vaadin.ui.UI;
-import com.vaadin.ui.Window;
 
 /**
  * Simple Test for PageableTable
  * 
  * @author Jose Luis Martin
  */
-@Theme("Runo")
+@Theme("sample")
 @Title("JDAL Vaadin Pageable Table Sample")
 public class TestApp extends UI {
 	
@@ -43,14 +41,12 @@ public class TestApp extends UI {
 	
 	@Override
 	public void init(VaadinRequest request) {
-		Label title = new Label("JDAL Vaadin Sample Application");
-		
+		Panel panel = new Panel();
+		panel.setCaption("JDAL Vaadin Sample Application");
 		BoxFormBuilder fb = new BoxFormBuilder();
 		fb.row();
-		fb.add(title);
-		fb.row();
 		fb.add(bookTable);
-		
+		panel.setContent(fb.getForm());
 		setContent(fb.getForm());
 	}
 }

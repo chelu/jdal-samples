@@ -1,8 +1,8 @@
-package org.jdal.samples.dao.filter;
+package org.jdal.samples.dao.hibernate;
 
 import org.hibernate.Criteria;
 import org.jdal.dao.hibernate.AbstractCriteriaBuilder;
-import org.springframework.util.StringUtils;
+import org.jdal.samples.dao.filter.BookFilter;
 
 /**
  * Criteria Builder for Book Filter
@@ -15,16 +15,11 @@ public class BookCriteriaBuilder extends AbstractCriteriaBuilder {
 		BookFilter f = (BookFilter) filter;
 		
 		like(criteria, "name", f.getName());
+		like(criteria, "isbn", f.getIsbn());
 		eq(criteria, "category", f.getCategory());
+		eq(criteria, "author", f.getAuthor());
 		le(criteria, "publishedDate", f.getBefore());
 		ge(criteria, "publishedDate", f.getAfter());
-		
-		// Author
-		if (StringUtils.hasText(f.getAuthorName()) || StringUtils.hasText(f.getAuthorSurname())) {
-			criteria.createAlias("author", "author");
-			like(criteria, "author.name", f.getAuthorName());
-			like(criteria, "author.surname", f.getAuthorSurname());
-		}
 		
 		return criteria;
 	}

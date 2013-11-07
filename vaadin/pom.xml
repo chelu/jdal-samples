@@ -6,12 +6,13 @@
 	<artifactId>jdal-vaadin-sample</artifactId>
 	<packaging>war</packaging>
 	<name>JDAL Vaadin Sample</name>
+	<version>2.0</version>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<vaadin.version>7.0.5</vaadin.version>
 		<vaadin.plugin.version>${vaadin.version}</vaadin.plugin.version>
-		<jdal.version>2.0-SNAPSHOT</jdal.version>
+		<jdal.version>2.0.M1</jdal.version>
 	</properties>
 
 	<build>
@@ -179,17 +180,10 @@
 			<version>2.4</version>
 			<scope>provided</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>org.jdal</groupId>
 			<artifactId>jdal-vaadin</artifactId>
 			<version>${jdal.version}</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>vaadin</artifactId>
-					<groupId>com.vaadin</groupId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.jdal</groupId>
@@ -216,7 +210,12 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.18</version>
 		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>4.3.1.Final</version>
+		</dependency>
+
 	</dependencies>
 
-	<version>2.0</version>
 </project>

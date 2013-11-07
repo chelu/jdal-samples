@@ -1,4 +1,4 @@
-package org.jdal.samples.dao.filter;
+package org.jdal.samples.dao.jpa;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +10,7 @@ import javax.persistence.criteria.Predicate;
 import org.apache.commons.lang.StringUtils;
 import org.jdal.dao.Filter;
 import org.jdal.dao.jpa.JpaCriteriaBuilderSupport;
+import org.jdal.samples.dao.filter.BookFilter;
 import org.jdal.samples.model.Book;
 
 /**
@@ -34,11 +35,8 @@ public class BookCriteriaBuilder extends JpaCriteriaBuilderSupport<Book, Book> {
 		if (!StringUtils.isEmpty(f.getName()))
 			predicates.add(like("name", f.getName()));
 		
-		if (!StringUtils.isEmpty(f.getAuthorName()))
-			predicates.add(like("author.name", f.getAuthorName()));
-		
-		if (!StringUtils.isEmpty(f.getAuthorSurname()))
-			predicates.add(like("author.surname", f.getAuthorSurname()));
+		if (f.getAuthor() != null)
+			predicates.add(equal("author", f.getAuthor()));
 		
 		if (f.getCategory() != null)
 			predicates.add(equal("category", f.getCategory()));

@@ -76,7 +76,7 @@
   
 	 <aop:config>
        <!-- Make all methods on package service transactional  -->
-       <aop:pointcut id="daoOperation" expression="execution(* info.joseluismartin.dao.*.*(..))"/>
+       <aop:pointcut id="daoOperation" expression="execution(* org.jdal.dao.*.*(..))"/>
        <aop:advisor advice-ref="txAdvice" pointcut-ref="daoOperation" order="1"/>
 	</aop:config>
 	

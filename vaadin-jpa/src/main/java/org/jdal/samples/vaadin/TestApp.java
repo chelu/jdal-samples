@@ -15,42 +15,38 @@
  */
 package org.jdal.samples.vaadin;
 
-import javax.annotation.Resource;
-
 import org.jdal.samples.model.Book;
+import org.jdal.vaadin.ui.form.BoxFormBuilder;
 import org.jdal.vaadin.ui.table.PageableTable;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import com.vaadin.Application;
-import com.vaadin.ui.Label;
+import com.vaadin.annotations.Theme;
+import com.vaadin.annotations.Title;
+import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.Panel;
-import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.Window;
-import com.vaadin.ui.themes.Reindeer;
+import com.vaadin.ui.UI;
 
 /**
- * Simple Test for PageableTable and ContainerDataSource.
+ * Simple Test for PageableTable
  * 
  * @author Jose Luis Martin
  */
-public class TestApp extends Application {
+@Theme("sample")
+@Title("JDAL Vaadin Pageable Table Sample")
+public class TestApp extends UI {
 	
-	@Resource
-	private PageableTable<Book> bookPageableTable;
+	@Autowired
+	private PageableTable<Book> bookTable;
+	
 	
 	@Override
-	public void init() {
-		setTheme("sample");
-		Window mainWindow = new Window("JDAL Vaadin Sample");
-		Label title = new Label("JDAL Vaadin Sample Application");
-		title.setStyleName(Reindeer.LABEL_H1);
-		Panel panel = new Panel("Table with external paginator and server side paging and sorting");
-		bookPageableTable.setWidthFull();
-		panel.addComponent(bookPageableTable);
-		VerticalLayout layout = new VerticalLayout();
-		layout.setSpacing(true);
-        layout.addComponent(title);
-		layout.addComponent(panel);
-		mainWindow.setContent(layout);
-		setMainWindow(mainWindow);
+	public void init(VaadinRequest request) {
+		Panel panel = new Panel();
+		panel.setCaption("JDAL Vaadin Sample Application");
+		BoxFormBuilder fb = new BoxFormBuilder();
+		fb.row();
+		fb.add(bookTable);
+		panel.setContent(fb.getForm());
+		setContent(fb.getForm());
 	}
 }

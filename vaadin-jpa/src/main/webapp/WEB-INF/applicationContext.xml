@@ -62,80 +62,88 @@
 	
    	<!-- Persistent Services -->
    	
-  	<jdal:service entity="org.jdal.samples.model.Category" />
-  	
-    <jdal:service entity="org.jdal.samples.model.Book">
-    	<jdal:criteria name="bookFilter" builder="bookCriteriaBuilder"/>
+  	<!-- DAOs -->
+	<jdal:service entity="org.jdal.samples.model.Category" />
+	
+	<jdal:service entity="org.jdal.samples.model.Author" />
+	
+    <jdal:service entity="org.jdal.samples.model.Book" >
+   		<jdal:criteria name="book" builder="bookCriteriaBuilder"/>
     </jdal:service>
     
-    <!-- Used in field builders only  -->
-    <bean id="jpaDaoFactory" class="org.jdal.dao.jpa.JpaDaoFactory" />
-    <bean id="persistentServiceFactory" class="org.jdal.service.PersistentServiceFactory" />
-   	
-   <bean id="bookCriteriaBuilder" class="org.jdal.samples.dao.filter.BookCriteriaBuilder"/>
-   	
+    <bean id="contextPersistentService" class="org.jdal.logic.ContextPersistentManager" />
+    
+    <bean id="bookCriteriaBuilder" class="org.jdal.samples.dao.jpa.BookCriteriaBuilder"/>
+    
    <!-- UI Widgets -->
-
-	<bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
-		<property name="scopes">
-			<map>
-				<entry key="vaadin">
-					<bean class="org.jdal.vaadin.beans.VaadinScope" />
-				</entry>
-			</map>
-		</property>
-	</bean>
    
-	<vaadin:defaults />
-	   
-	<!-- Book table -->
-	<vaadin:table entity="org.jdal.samples.model.Book" editor="bookEditor"
-		filter-form="bookFilterView" scope="vaadin" selectable="true">
-		<vaadin:columns>
-			<vaadin:column name="id" display-name="ID" width="60" align="center" />
-			<vaadin:column name="name" display-name="book.title" align="left" />
-			<vaadin:column name="author" display-name="book.author" sort-property-name="author.name" width="150"/>
-			<vaadin:column name="category" display-name="book.category" sort-property-name="category.name" width="200"/>
-			<vaadin:column name="publishedDate" display-name="book.publishedDate" property-editor="customDatePropertyEditor"
-				align="right"/>
-			<vaadin:column name="isbn" display-name="book.isbn" />
-		</vaadin:columns>
-		<aop:scoped-proxy/>
-	</vaadin:table>
-	
-	<!-- Sample of property editor for dates -->
-	<bean id="customDatePropertyEditor" class="org.springframework.beans.propertyeditors.CustomDateEditor">
+   <vaadin:defaults />
+   
+   <bean id="uid" class="org.jdal.samples.vaadin.TestApp" scope="prototype" />
+   
+   <bean id="controlInitializer" class="org.jdal.vaadin.ui.bind.VaadinControlInitializer">
+   		<property name="persistentService" ref="contextPersistentService" />
+   </bean>
+
+   <!-- Spring JSR-303 validator -->
+   <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+
+   <!-- Error Processor -->
+   <bean id="errorProcessor" class="org.jdal.vaadin.ui.bind.UserErrorProcessor" />  
+    
+   <!-- Book Table Definition -->   
+   <vaadin:table entity="org.jdal.samples.model.Book" filter-form="bookFilterEditor">
+   	<vaadin:columns>
+   		<vaadin:column name="id" display-name="ID" width="60" align="center"/>
+   		<vaadin:column name="name" display-name="Name" width="300" align="left" />
+   		<vaadin:column name="author" display-name="Author" width="150" align="left" sort-property-name="author.name" />
+   		<vaadin:column name="category" display-name="Category" width="200" align="left" sort-property-name="author.name" />
+   		<vaadin:column name="isbn" display-name="ISBN" width="150" align="left" />
+   		<vaadin:column name="publishedDate" display-name="Published Date" width="150" property-editor="customDateEditor"/>
+   	</vaadin:columns>
+   </vaadin:table>
+
+	<bean id="customDateEditor" class="org.springframework.beans.propertyeditors.CustomDateEditor"
+		scope="prototype">
 		<constructor-arg>
 			<bean class="java.text.SimpleDateFormat">
 				<constructor-arg value="MM/dd/yyyy" />
-		    </bean>
+			</bean>
 		</constructor-arg>
 		<constructor-arg value="true" />
 	</bean>
-
+   
 	<!-- Book Form Editor -->
-	<bean id="bookEditor" class="com.vaadin.ui.Form" scope="prototype">
-		<property name="visibleItemProperties" value="#{ { 'name', 'author','category','isbn', 'publishedDate' } }" />
-		<property name="width" value="500"  />
-		<property name="formFieldFactory">
-			<bean class="org.jdal.vaadin.ui.form.AnnotationFieldFactory">
-				<property name="fieldProcessors">
-					<list>
-						<bean class="org.jdal.vaadin.ui.form.SizeFieldProcessor">
-							<property name="defaultWidth" value="400px" />
-						</bean>
-					</list>
-				</property>
-			</bean>
+	<bean id="bookEditor" class="org.jdal.samples.vaadin.BookView" scope="prototype">
+		<property name="controlInitializer" ref="controlInitializer"/>
+		<property name="width" value="600" />
+		<property name="height" value="300" />
+		<property name="persistentService" ref="bookService" />
+		<property name="errorProcessors">
+			<list>
+				<ref bean="errorProcessor" />
+			</list>
 		</property>
+		<property name="validator" ref="validator" />
+	</bean>
+	
+	<!-- View Dialog Prototype -->
+	<bean id="viewDialog" class="org.jdal.vaadin.ui.form.ViewDialog" />
+	
+	<!-- The book Filter Editor -->
+	<bean id="bookFilterEditor" class="org.jdal.samples.vaadin.BookFilterView" scope="prototype">
+		<property name="controlInitializer" ref="controlInitializer" />
 	</bean>
 	
 	<!-- Message Source -->
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">
-		<property name="basenames" value="i18n/jdal" />
+		<property name="basenames" value="i18n/jdal,i18n/vaadin-sample" />
 	</bean>
 	
+	<bean id="staticMessageSource" class="org.jdal.beans.StaticMessageSource">
+		<constructor-arg ref="messageSource" />
+	</bean>
 
 	<!-- Tx Advice -->
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
@@ -154,7 +162,6 @@
      <aop:pointcut id="serviceOperation" 
      	expression="execution(* org.jdal.service.PersistentService.*(..))"/>
      <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceOperation"/>
-  </aop:config>
-
+   </aop:config>
 </beans>
 

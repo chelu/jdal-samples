@@ -16,15 +16,14 @@
 package org.jdal.samples.springmvc;
 
 
-import info.joseluismartin.dao.Page;
-import info.joseluismartin.service.PersistentService;
-
 import java.beans.PropertyEditorSupport;
 import java.util.List;
 
+import org.jdal.dao.Page;
 import org.jdal.samples.dao.filter.BookFilter;
 import org.jdal.samples.model.Book;
 import org.jdal.samples.model.Category;
+import org.jdal.service.PersistentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -34,6 +33,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 /**
  * Controller to handle "/book" requests
+ * 
  * @author Jose Luis Martin - (jlm@joseluismartin.info)
  */
 @Controller

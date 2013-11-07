@@ -2,7 +2,9 @@ package org.jdal.samples.dao.filter;
 
 import java.util.Date;
 
+import org.jdal.annotations.Reference;
 import org.jdal.dao.BeanFilter;
+import org.jdal.samples.model.Author;
 import org.jdal.samples.model.Category;
 
 /**
@@ -13,15 +15,16 @@ import org.jdal.samples.model.Category;
 public class BookFilter extends BeanFilter {
 	
 	private String name = "";
-	private String authorName = "";
-	private String authorSurname = "";
+	@Reference
+	private Author author;
 	private Date before;
 	private Date after;
 	private String isbn = "";
+	@Reference
 	private Category category;
 	
 	public BookFilter() {
-		this("bookFilter");
+		this("book");
 	}
 	
 	public BookFilter(String filterName) {
@@ -67,34 +70,6 @@ public class BookFilter extends BeanFilter {
 	}
 
 	/**
-	 * @return the authorName
-	 */
-	public String getAuthorName() {
-		return authorName;
-	}
-
-	/**
-	 * @param authorName the authorName to set
-	 */
-	public void setAuthorName(String authorName) {
-		this.authorName = authorName;
-	}
-
-	/**
-	 * @return the authorSurname
-	 */
-	public String getAuthorSurname() {
-		return authorSurname;
-	}
-
-	/**
-	 * @param authorSurname the authorSurname to set
-	 */
-	public void setAuthorSurname(String authorSurname) {
-		this.authorSurname = authorSurname;
-	}
-
-	/**
 	 * @return the before
 	 */
 	public Date getBefore() {
@@ -121,6 +96,12 @@ public class BookFilter extends BeanFilter {
 	public void setAfter(Date after) {
 		this.after = after;
 	}
-	
-	
+
+	public Author getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(Author author) {
+		this.author = author;
+	}
 }

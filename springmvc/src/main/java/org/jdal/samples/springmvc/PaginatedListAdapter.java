@@ -17,16 +17,15 @@ package org.jdal.samples.springmvc;
 
 import java.util.List;
 
-import info.joseluismartin.dao.Page;
-
 import org.displaytag.pagination.PaginatedList;
 import org.displaytag.properties.SortOrderEnum;
+import org.jdal.dao.Page;
 
 /**
  * @author Jose Luis Martin - (jlm@joseluismartin.info)
  *
  */
-@SuppressWarnings("unchecked")
+@SuppressWarnings("rawtypes")
 public class PaginatedListAdapter implements PaginatedList {
 	
 	private Page<?> model;
