@@ -80,6 +80,14 @@
    
    <vaadin:defaults />
    
+   <bean id="vaadinScopeConfigurer" class="org.springframework.beans.factory.config.CustomScopeConfigurer">
+   		<property name="scopes">
+   			<map>
+   				<entry key="vaadin" value="org.jdal.vaadin.beans.VaadinScope" />
+   			</map>
+   		</property>
+   </bean>
+   
    <bean id="uid" class="org.jdal.samples.vaadin.TestApp" scope="prototype" />
    
    <bean id="controlInitializer" class="org.jdal.vaadin.ui.bind.VaadinControlInitializer">
@@ -93,7 +101,7 @@
    <bean id="errorProcessor" class="org.jdal.vaadin.ui.bind.UserErrorProcessor" />  
     
    <!-- Book Table Definition -->   
-   <vaadin:table entity="org.jdal.samples.model.Book" filter-form="bookFilterEditor">
+   <vaadin:table entity="org.jdal.samples.model.Book" filter-form="bookFilterEditor" scope="vaadin">
    	<vaadin:columns>
    		<vaadin:column name="id" display-name="ID" width="60" align="center"/>
    		<vaadin:column name="name" display-name="Name" width="300" align="left" />
@@ -102,7 +110,9 @@
    		<vaadin:column name="isbn" display-name="ISBN" width="150" align="left" />
    		<vaadin:column name="publishedDate" display-name="Published Date" width="150" property-editor="customDateEditor"/>
    	</vaadin:columns>
+   	<aop:scoped-proxy/>
    </vaadin:table>
+
 
 	<bean id="customDateEditor" class="org.springframework.beans.propertyeditors.CustomDateEditor"
 		scope="prototype">
