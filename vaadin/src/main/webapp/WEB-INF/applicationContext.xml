@@ -127,7 +127,7 @@
 	</bean>
 	
 	<!-- View Dialog Prototype -->
-	<bean id="viewDialog" class="org.jdal.vaadin.ui.form.ViewDialog" />
+	<bean id="viewDialog" class="org.jdal.vaadin.ui.form.ViewDialog" scope="prototype"/>
 	
 	<!-- The book Filter Editor -->
 	<bean id="bookFilterEditor" class="org.jdal.samples.vaadin.BookFilterView" scope="prototype">
