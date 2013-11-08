@@ -23,8 +23,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
 import com.vaadin.server.VaadinRequest;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.UI;
+import com.vaadin.ui.themes.Reindeer;
 
 /**
  * Simple Test for PageableTable
@@ -41,12 +43,17 @@ public class TestApp extends UI {
 	
 	@Override
 	public void init(VaadinRequest request) {
-		Panel panel = new Panel();
-		panel.setCaption("JDAL Vaadin Sample Application");
+		Label title = new Label("JDAL Vaadin Sample Application - version 2.0.M1");
+		title.setStyleName(Reindeer.LABEL_H1);
+	
 		BoxFormBuilder fb = new BoxFormBuilder();
+	
+		fb.row(100);
+		fb.add(title);
 		fb.row();
+		fb.setElastic();
 		fb.add(bookTable);
-		panel.setContent(fb.getForm());
+		
 		setContent(fb.getForm());
 	}
 }
