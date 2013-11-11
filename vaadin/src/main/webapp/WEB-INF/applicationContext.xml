@@ -69,6 +69,7 @@
    
    <vaadin:defaults />
    
+   <!-- Vaadin scoped beans are linked to UI class instances -->
    <bean id="vaadinScopeConfigurer" class="org.springframework.beans.factory.config.CustomScopeConfigurer">
    		<property name="scopes">
    			<map>
@@ -99,7 +100,8 @@
    		<vaadin:column name="isbn" display-name="ISBN" width="150" align="left" />
    		<vaadin:column name="publishedDate" display-name="Published Date" width="150" property-editor="customDateEditor"/>
    	</vaadin:columns>
-   	<aop:scoped-proxy/>
+   	<!--  for serialization -->
+   	<vaadin:proxy />
    </vaadin:table>
 
 	<bean id="customDateEditor" class="org.springframework.beans.propertyeditors.CustomDateEditor"

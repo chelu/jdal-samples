@@ -80,6 +80,7 @@
    
    <vaadin:defaults />
    
+   <!-- Vaadin scoped beans are linked to UI class instances -->
    <bean id="vaadinScopeConfigurer" class="org.springframework.beans.factory.config.CustomScopeConfigurer">
    		<property name="scopes">
    			<map>
