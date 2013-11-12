@@ -80,15 +80,6 @@
    
    <vaadin:defaults />
    
-   <!-- Vaadin scoped beans are linked to UI class instances -->
-   <bean id="vaadinScopeConfigurer" class="org.springframework.beans.factory.config.CustomScopeConfigurer">
-   		<property name="scopes">
-   			<map>
-   				<entry key="vaadin" value="org.jdal.vaadin.beans.VaadinScope" />
-   			</map>
-   		</property>
-   </bean>
-   
    <bean id="uid" class="org.jdal.samples.vaadin.TestApp" scope="prototype" />
    
    <bean id="controlInitializer" class="org.jdal.vaadin.ui.bind.VaadinControlInitializer">
@@ -111,7 +102,7 @@
    		<vaadin:column name="isbn" display-name="ISBN" width="150" align="left" />
    		<vaadin:column name="publishedDate" display-name="Published Date" width="150" property-editor="customDateEditor"/>
    	</vaadin:columns>
-   	<aop:scoped-proxy/>
+   	<jdal:serializable-proxy />
    </vaadin:table>
 
 
