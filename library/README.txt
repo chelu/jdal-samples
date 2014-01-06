@@ -4,9 +4,10 @@ http://www.jdal.org
 
 
 - Compile with maven:  mvn package
-- Create mysql database with scripts in db directory
-- Configure database in target/conf/jdbc.properties property file
-- Run with java -jar library-1.0.jar from target directory.
+- Run with "java -jar library-*.jar" from target directory.
+
+This app comes with an file-based H2 database which is created in a 
+subdirectory "h2db".
 
 
 For more information about jdal, see http://www.jdal.org.

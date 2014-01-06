@@ -10,6 +10,7 @@
 		<property name="hibernate.cache.region.factory_class">net.sf.ehcache.hibernate.EhCacheRegionFactory</property>
 		<property name="hibernate.cache.use_second_level_cache">true</property>
 		<property name="hibernate.cache.use_query_cache">true</property>
+		<property name="hibernate.hbm2ddl.auto">create</property>
 		
 		<mapping class="org.jdal.samples.library.model.Book"/>
 		<mapping class="org.jdal.samples.library.model.Author"/>
