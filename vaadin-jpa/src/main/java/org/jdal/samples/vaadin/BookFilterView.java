@@ -36,34 +36,25 @@ public class BookFilterView extends AbstractView<BookFilter> {
 	
 	@PostConstruct
 	public void init() {
+		// bind controls to model by name
 		autobind();
+		// update controls from model
 		refresh();
 	}
 
 	@Override
 	protected Component buildPanel() {
-		setFieldCaptions();
 		BoxFormBuilder fb = new BoxFormBuilder();
 		fb.setMargin(false);
 		
 		fb.row();
-		fb.add(name, BoxFormBuilder.SIZE_FULL);
-		fb.add(author);
-		fb.add(category);
-		fb.add(before);
-		fb.add(after);
-		fb.add(isbn, 100);
+		fb.add(name, getMessage("Book.title"), BoxFormBuilder.SIZE_FULL);
+		fb.add(author, getMessage("Book.author"));
+		fb.add(category, getMessage("Book.category"));
+		fb.add(before, getMessage("BookFilter.publishedBefore"));
+		fb.add(after, getMessage("BookFilter.publishedAfter"));
+		fb.add(isbn, getMessage("Book.isbn"), 100);
 		
 		return fb.getForm();
 	}
-
-	private void setFieldCaptions() {
-		name.setCaption(getMessage("Book.title"));
-		author.setCaption(getMessage("Book.author"));
-		category.setCaption(getMessage("Book.category"));
-		before.setCaption(getMessage("BookFilter.publishedBefore"));
-		after.setCaption(getMessage("BookFilter.publishedAfter"));
-		isbn.setCaption(getMessage("Book.isbn"));
-	}
-
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2011 the original author or authors.
+ * Copyright 2009-2014 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,16 +15,16 @@
  */
 package org.jdal.samples.vaadin;
 
+import javax.annotation.Resource;
+
 import org.jdal.samples.model.Book;
 import org.jdal.vaadin.ui.form.BoxFormBuilder;
 import org.jdal.vaadin.ui.table.PageableTable;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.Label;
-import com.vaadin.ui.Panel;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.themes.Reindeer;
 
@@ -37,13 +37,13 @@ import com.vaadin.ui.themes.Reindeer;
 @Title("JDAL Vaadin Pageable Table Sample")
 public class TestApp extends UI {
 	
-	@Autowired
-	private PageableTable<Book> bookTable;
+	@Resource
+	private PageableTable<Book> bookPageableTable;
 	
 	
 	@Override
 	public void init(VaadinRequest request) {
-		Label title = new Label("JDAL Vaadin Sample Application - version 2.0.M1");
+		Label title = new Label("JDAL Vaadin Sample Application - version 2.0-SNAPSHOT");
 		title.setStyleName(Reindeer.LABEL_H1);
 	
 		BoxFormBuilder fb = new BoxFormBuilder();
@@ -51,8 +51,8 @@ public class TestApp extends UI {
 		fb.row(100);
 		fb.add(title);
 		fb.row();
-		fb.setElastic();
-		fb.add(bookTable);
+		fb.setElastic();  // let this row to grow 
+		fb.add(bookPageableTable);
 		
 		setContent(fb.getForm());
 	}

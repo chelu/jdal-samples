@@ -1,9 +1,10 @@
 package org.jdal.samples.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -12,16 +13,13 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.jdal.beans.StaticMessageSource;
-import org.jdal.model.Entity;
 
-@javax.persistence.Entity
+@Entity
 @Table(name="books")
-public class Book {
-	
-	private static final long serialVersionUID = 1L;
-	
+public class Book implements Serializable {
+		
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue
 	private Long id;
 	@NotEmpty
 	private String name = "";

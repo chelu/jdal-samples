@@ -10,7 +10,7 @@ import org.jdal.samples.model.Category;
 /**
  * Filter for Books
  * 
- * @author Jose Luis Martin - (jlm@joseluismartin.info)
+ * @author Jose Luis Martin
  */
 public class BookFilter extends BeanFilter {
 	

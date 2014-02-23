@@ -1,13 +1,8 @@
 package org.jdal.samples.vaadin;
 
-import java.io.Serializable;
-
 import javax.annotation.PostConstruct;
 
 import org.jdal.samples.model.Book;
-import org.jdal.service.PersistentService;
-import org.jdal.ui.Editor;
-import org.jdal.ui.EditorListener;
 import org.jdal.vaadin.ui.AbstractView;
 import org.jdal.vaadin.ui.form.BoxFormBuilder;
 import org.jdal.vaadin.ui.form.SimpleBoxFormBuilder;
@@ -22,7 +17,7 @@ import com.vaadin.ui.TextField;
  * 
  * @author Jose Luis Martin
  */
-public class BookView extends AbstractView<Book> implements Editor<Book> {
+public class BookView extends AbstractView<Book> {
 
 	private TextField name = new TextField();
 	private TextField isbn = new TextField();
@@ -41,35 +36,29 @@ public class BookView extends AbstractView<Book> implements Editor<Book> {
 
 	@PostConstruct
 	public void init()  {
+		// bind controls to model by property name
 		autobind();
 	}
 	
 	@Override
 	protected Component buildPanel() {
-		// Sets captions
-		name.setCaption(getMessage("Book.title"));
-		publishedDate.setCaption(getMessage("Book.publishedDate"));
-		author.setCaption(getMessage("Book.author"));
-		category.setCaption(getMessage("Book.category"));
-		isbn.setCaption(getMessage("Book.isbn"));
-		
 		BoxFormBuilder fb = new BoxFormBuilder();
 		fb.setDefaultWidth(SimpleBoxFormBuilder.SIZE_FULL);
 		fb.setFixedHeight();
 		
 		fb.row();
-		fb.add(name);
+		fb.add(name, getMessage("Book.title"));
 		fb.row();
 		fb.startBox();
 		fb.row();
-		fb.add(author);
-		fb.add(category);
+		fb.add(author, getMessage("Book.author"));
+		fb.add(category, getMessage("Book.category"));
 		fb.endBox();
 		fb.row();
 		fb.startBox();
 		fb.row();
-		fb.add(isbn);
-		fb.add(publishedDate, 120);
+		fb.add(isbn, getMessage("Book.isbn"));
+		fb.add(publishedDate, getMessage("Book.publishedDate"), 120);
 		fb.endBox();
 		
 		return fb.getForm();
