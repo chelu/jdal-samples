@@ -12,11 +12,11 @@ import javax.swing.JComponent;
 import javax.swing.JTextField;
 
 import org.freixas.jcalendar.JCalendarCombo;
+import org.jdal.dao.Dao;
+import org.jdal.samples.library.dao.AuthorDao;
 import org.jdal.samples.library.model.Author;
 import org.jdal.samples.library.model.Book;
 import org.jdal.samples.library.model.Category;
-import org.jdal.samples.library.service.AuthorService;
-import org.jdal.service.PersistentService;
 import org.jdal.swing.AbstractView;
 import org.jdal.swing.GuiFactory;
 import org.jdal.swing.ViewDialog;
@@ -36,14 +36,14 @@ public class BookView extends AbstractView<Book> {
 	
 	private JTextField name = new JTextField();
 	private JTextField isbn = new JTextField();
-	private JComboBox author = FormUtils.newCombo(25);
+	private JComboBox<Author> author = FormUtils.newCombo(Author.class, 25);
 	private JCalendarCombo publishedDate =  new JCalendarCombo();
-	private JComboBox category = FormUtils.newCombo(25);
+	private JComboBox<Category> category = FormUtils.newCombo(Category.class, 25);
 	private String authorEditor = "authorEditor";
 	
 	private GuiFactory guiFactory;
-	private PersistentService<Category, Long> categoryService;
-	private AuthorService authorService;
+	private Dao<Category, Long> categoryService;
+	private AuthorDao authorService;
 	
 	public BookView() {
 		this(new Book());
@@ -128,28 +128,28 @@ public class BookView extends AbstractView<Book> {
 	/**
 	 * @return the categoryService
 	 */
-	public PersistentService<Category, Long> getCategoryService() {
+	public Dao<Category, Long> getCategoryService() {
 		return categoryService;
 	}
 
 	/**
 	 * @param categoryService the categoryService to set
 	 */
-	public void setCategoryService(PersistentService<Category, Long> categoryService) {
+	public void setCategoryService(Dao<Category, Long> categoryService) {
 		this.categoryService = categoryService;
 	}
 
 	/**
 	 * @return the authorService
 	 */
-	public AuthorService getAuthorService() {
+	public AuthorDao getAuthorService() {
 		return authorService;
 	}
 
 	/**
 	 * @param authorService the authorService to set
 	 */
-	public void setAuthorService(AuthorService authorService) {
+	public void setAuthorService(AuthorDao authorService) {
 		this.authorService = authorService;
 	}
 

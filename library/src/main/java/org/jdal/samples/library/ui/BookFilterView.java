@@ -9,6 +9,7 @@ import javax.swing.JTextField;
 
 import org.freixas.jcalendar.JCalendarCombo;
 import org.jdal.beans.AppCtx;
+import org.jdal.dao.Dao;
 import org.jdal.samples.library.dao.filter.BookFilter;
 import org.jdal.samples.library.model.Category;
 import org.jdal.service.PersistentService;
@@ -31,9 +32,9 @@ public class BookFilterView extends AbstractView<BookFilter> {
 	private JTextField authorSurname = new JTextField(15);
 	private JCalendarCombo before = new JCalendarCombo();
 	private JCalendarCombo after = new JCalendarCombo();
-	private JComboBox category = FormUtils.newCombo(15);
+	private JComboBox<Category> category = FormUtils.newCombo(Category.class, 15);
 	
-	private PersistentService<Category, Long> categoryService;
+	private Dao<Category, Long> categoryService;
 	
 	public BookFilterView() {
 		this(new BookFilter());
@@ -77,14 +78,14 @@ public class BookFilterView extends AbstractView<BookFilter> {
 	/**
 	 * @return the categoryService
 	 */
-	public PersistentService<Category, Long> getCategoryService() {
+	public Dao<Category, Long> getCategoryService() {
 		return categoryService;
 	}
 
 	/**
 	 * @param categoryService the categoryService to set
 	 */
-	public void setCategoryService(PersistentService<Category, Long> categoryService) {
+	public void setCategoryService(Dao<Category, Long> categoryService) {
 		this.categoryService = categoryService;
 	}
 

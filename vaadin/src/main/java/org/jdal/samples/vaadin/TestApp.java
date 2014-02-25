@@ -43,7 +43,7 @@ public class TestApp extends UI {
 	
 	@Override
 	public void init(VaadinRequest request) {
-		Label title = new Label("JDAL Vaadin Sample Application - version 2.0.M1");
+		Label title = new Label("JDAL Vaadin Sample Application - version 2.0");
 		title.setStyleName(Reindeer.LABEL_H1);
 	
 		BoxFormBuilder fb = new BoxFormBuilder();

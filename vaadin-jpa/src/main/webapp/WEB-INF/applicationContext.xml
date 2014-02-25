@@ -9,7 +9,9 @@
 	xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:vaadin="http://www.jdal.org/schema/vaadin"
 	xmlns:jdal="http://www.jdal.org/schema/jdal"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
 	xsi:schemaLocation="http://www.jdal.org/schema/jdal http://www.jdal.org/schema/jdal/jdal-core.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
 		http://www.jdal.org/schema/vaadin http://www.jdal.org/schema/jdal/jdal-vaadin.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
@@ -21,25 +23,11 @@
 	<context:property-placeholder location="classpath:jdbc.properties"/>
 	 
 	<!-- DataSource -->
-	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-		<property name="driverClass" value="${jdbc.driverClassName}" />
-		<property name="jdbcUrl" value="${jdbc.url}" />
-		<property name="user" value="${jdbc.username}" />
-		<property name="password" value="${jdbc.password}" />
 
-		<property name="acquireIncrement" value="3" />
-		<property name="minPoolSize" value="2" />
-		<property name="maxPoolSize" value="15" />
-		<property name="maxIdleTime" value="5" />
-		<property name="numHelperThreads" value="5" />
-
-		<property name="idleConnectionTestPeriod" value="10" />
-		<property name="autoCommitOnClose" value="false" />
-		<property name="preferredTestQuery" value="select 1;" />
-		<property name="testConnectionOnCheckin" value="true" />
-
-		<property name="checkoutTimeout" value="60000" />
-	</bean>
+	<jdbc:embedded-database id="dataSource" type="H2">
+        <jdbc:script location="classpath:create.sql"/>
+        <jdbc:script location="classpath:import.sql"/>
+    </jdbc:embedded-database>
 	
      <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
       <property name="dataSource" ref="dataSource"/>

@@ -4,14 +4,12 @@
 <hibernate-configuration>
 	<session-factory>
 		<property name="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</property>
-		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.H2Dialect</property>
 		<property name="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
 		<property name="hibernate.show_sql">true</property>
 		<property name="hibernate.cache.region.factory_class">net.sf.ehcache.hibernate.EhCacheRegionFactory</property>
 		<property name="hibernate.cache.use_second_level_cache">true</property>
 		<property name="hibernate.cache.use_query_cache">true</property>
-		<property name="hibernate.hbm2ddl.auto">create</property>
-		
 		<mapping class="org.jdal.samples.library.model.Book"/>
 		<mapping class="org.jdal.samples.library.model.Author"/>
 		<mapping class="org.jdal.samples.library.model.Category"/>

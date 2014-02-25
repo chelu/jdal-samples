@@ -7,7 +7,9 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:jdal="http://www.jdal.org/schema/jdal"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
 	xsi:schemaLocation="http://www.jdal.org/schema/jdal http://www.jdal.org/schema/jdal/jdal-core.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
@@ -17,29 +19,12 @@
 	
 	<!-- Scans within the base package of the application for @Components to configure as beans -->
 	<context:component-scan base-package="org.jdal.samples.mvc" />
+
 	
-	<context:property-placeholder location="classpath:jdbc.properties" />
-
-	<!-- DataSource -->
-	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-		<property name="driverClass" value="${jdbc.driverClassName}" />
-		<property name="jdbcUrl" value="${jdbc.url}" />
-		<property name="user" value="${jdbc.username}" />
-		<property name="password" value="${jdbc.password}" />
-
-		<property name="acquireIncrement" value="3" />
-		<property name="minPoolSize" value="2" />
-		<property name="maxPoolSize" value="15" />
-		<property name="maxIdleTime" value="5" />
-		<property name="numHelperThreads" value="5" />
-
-		<property name="idleConnectionTestPeriod" value="10" />
-		<property name="autoCommitOnClose" value="false" />
-		<property name="preferredTestQuery" value="select 1;" />
-		<property name="testConnectionOnCheckin" value="true" />
-
-		<property name="checkoutTimeout" value="60000" />
-	</bean>
+	<jdbc:embedded-database id="dataSource" type="H2">
+        <jdbc:script location="classpath:create.sql"/>
+        <jdbc:script location="classpath:import.sql"/>
+    </jdbc:embedded-database>
 	
      <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
       <property name="dataSource" ref="dataSource"/>
@@ -49,7 +34,7 @@
      </property>
      <property name="jpaVendorAdapter">
        <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-         <property name="databasePlatform" value="org.hibernate.dialect.MySQLDialect"/>
+         <property name="databasePlatform" value="org.hibernate.dialect.H2Dialect"/>
        </bean>
      </property>
     </bean>
@@ -64,7 +49,7 @@
    <jdal:service entity="org.jdal.samples.model.Category" />
    
    <jdal:service entity="org.jdal.samples.model.Book">
-   		<jdal:criteria builder="bookCriteriaBuilder" />
+   		<jdal:criteria name="bookFilter" builder="bookCriteriaBuilder" />
    </jdal:service>
    	
    <bean id="bookCriteriaBuilder" class="org.jdal.samples.dao.filter.BookCriteriaBuilder"/>
@@ -83,17 +68,21 @@
   </tx:advice>
 	
    <aop:config>
-    <!-- Make all methods on package service transactional  -->
-     <aop:pointcut id="serviceOperation" 
-     	expression="execution(* org.jdal.service.PersistentService.*(..))"/>
-     <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceOperation"/>
+    <!-- Make all Dao methods transactional  -->
+     <aop:pointcut id="daoOperation" 
+     	expression="execution(* org.jdal.dao.Dao.*(..))"/>
+     <aop:advisor advice-ref="txAdvice" pointcut-ref="daoOperation"/>
   </aop:config>
   
    <!-- MVC -->
     
    <mvc:annotation-driven />
-   <mvc:resources location="scripts" mapping="/scripts" />
-    
+   	<!-- Resolves view names to protected .jsp resources within the /WEB-INF directory -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/book/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+	
    <bean id="bookModelMapper" class="org.jdal.samples.mvc.BookModelMapper" />
   
 	

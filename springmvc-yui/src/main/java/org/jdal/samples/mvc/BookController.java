@@ -26,11 +26,11 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSON;
 import net.sf.json.JSONSerializer;
 
+import org.jdal.dao.Dao;
 import org.jdal.dao.Filter;
 import org.jdal.dao.Page;
 import org.jdal.samples.dao.filter.BookFilter;
 import org.jdal.samples.model.Category;
-import org.jdal.service.PersistentService;
 import org.jdal.web.table.DataTableModel;
 import org.jdal.web.table.ModelMapper;
 import org.springframework.stereotype.Controller;
@@ -47,15 +47,14 @@ import org.springframework.web.bind.annotation.SessionAttributes;
  */
 @Controller
 @SessionAttributes("filter")   // Store filter on Session
-@RequestMapping("/book")
 public class BookController  {
 	
 	/** Persistent service for book categories */
 	@Resource
-	PersistentService<Category, Long> categoryService;
+	private Dao<Category, Long> categoryService;
 	/** Persistent Service for Books */
 	@Resource
-	PersistentService<Object, Long> bookService;
+	private Dao<Object, Long> bookService;
 	/** Model mapper */
 	@Resource
 	ModelMapper bookModelMapper;
@@ -124,28 +123,28 @@ public class BookController  {
 	/**
 	 * @return the categoryService
 	 */
-	public PersistentService<Category, Long> getCategoryService() {
+	public Dao<Category, Long> getCategoryService() {
 		return categoryService;
 	}
 
 	/**
 	 * @param categoryService the categoryService to set
 	 */
-	public void setCategoryService(PersistentService<Category, Long> categoryService) {
+	public void setCategoryService(Dao<Category, Long> categoryService) {
 		this.categoryService = categoryService;
 	}
 
 	/**
 	 * @return the bookService
 	 */
-	public PersistentService<Object, Long> getBookService() {
+	public Dao<Object, Long> getBookService() {
 		return bookService;
 	}
 
 	/**
 	 * @param bookService the bookService to set
 	 */
-	public void setBookService(PersistentService<Object, Long> bookService) {
+	public void setBookService(Dao<Object, Long> bookService) {
 		this.bookService = bookService;
 	}
 	

@@ -29,7 +29,7 @@
     <!-- Make all methods on package service transactional  -->
      <aop:pointcut id="serviceOperation" 
      	expression="execution(* org.jdal.samples.library.service.*.*(..)) or 
-     			    execution(* org.jdal.service.PersistentService.*(..)) or
+     			    execution(* org.jdal.dao.Dao.*(..)) or
      			    execution(* org.jdal.service.TableService.*(..))"/>
      <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceOperation"/>
   </aop:config>

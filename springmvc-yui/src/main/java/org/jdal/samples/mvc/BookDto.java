@@ -18,8 +18,9 @@ package org.jdal.samples.mvc;
 import org.jdal.samples.model.Book;
 
 /**
- * @author Jose Luis Martin - (jlm@joseluismartin.info)
+ * Book Data Transfer Object to exchange with YUI Datatable 
  *
+ * @author Jose Luis Martin
  */
 public class BookDto {
 	private long id;
@@ -44,60 +45,70 @@ public class BookDto {
 		this.publishedDate = b.getPublishedDate().getTime();
 		this.name = b.getName();
 	}
+	
 	/**
 	 * @return the id
 	 */
 	public long getId() {
 		return id;
 	}
+	
 	/**
 	 * @param id the id to set
 	 */
 	public void setId(long id) {
 		this.id = id;
 	}
+	
 	/**
 	 * @return the author
 	 */
 	public String getAuthor() {
 		return author;
 	}
+	
 	/**
 	 * @param author the author to set
 	 */
 	public void setAuthor(String author) {
 		this.author = author;
 	}
+	
 	/**
 	 * @return the category
 	 */
 	public String getCategory() {
 		return category;
 	}
+	
 	/**
 	 * @param category the category to set
 	 */
 	public void setCategory(String category) {
 		this.category = category;
 	}
+	
 	/**
 	 * @return the isbn
 	 */
 	public String getIsbn() {
 		return isbn;
 	}
+	
 	/**
 	 * @param isbn the isbn to set
 	 */
 	public void setIsbn(String isbn) {
 		this.isbn = isbn;
 	}
+	
 	/**
 	 * @return the publishedDate
 	 */
 	public long getPublishedDate() {
 		return publishedDate;
 	}
+	
 	/**
 	 * @param publishedDate the publishedDate to set
 	 */

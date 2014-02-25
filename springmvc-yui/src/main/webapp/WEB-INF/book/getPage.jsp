@@ -9,7 +9,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- Core + Skin CSS -->
 <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/paginator/assets/skins/sam/paginator.css"/>
-<link rel="stylesheet" type="text/css" href="<c:out value="${pageContext.request.contextPath}"/>/styles/displaytag.css"/>
+<link rel="stylesheet" type="text/css" href="<c:out value="${pageContext.request.contextPath}"/>/styles/styles.css"/>
 <title>JDAL Spring MVC and YUI DataTable Sample</title>
 
 <!--CSS file (default YUI Sam Skin) -->

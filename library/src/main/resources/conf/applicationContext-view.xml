@@ -14,7 +14,7 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 
-
+    <!-- Declare default beans for swing -->
 	<swing:defaults />
 	
 	<!--  Control Accessor Factory that map classes to accesors. Override default to add the JCalendarCombo Control Accessor -->

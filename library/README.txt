@@ -1,4 +1,4 @@
-JDAL Library Sample Application 1.3.1 (Nov 2012).
+JDAL Library Sample Application 2.0 (Feb 2014).
 --------------------------------------------------------------------------------
 http://www.jdal.org
 
@@ -6,8 +6,7 @@ http://www.jdal.org
 - Compile with maven:  mvn package
 - Run with "java -jar library-*.jar" from target directory.
 
-This app comes with an file-based H2 database which is created in a 
-subdirectory "h2db".
+This app comes with an embedded H2 database.
 
 
 For more information about jdal, see http://www.jdal.org.

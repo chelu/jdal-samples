@@ -15,15 +15,17 @@
  */
 package org.jdal.samples.springmvc;
 
-
 import java.beans.PropertyEditorSupport;
 import java.util.List;
 
+import javax.annotation.Resource;
+
+import org.jdal.dao.Dao;
 import org.jdal.dao.Page;
 import org.jdal.samples.dao.filter.BookFilter;
 import org.jdal.samples.model.Book;
 import org.jdal.samples.model.Category;
-import org.jdal.service.PersistentService;
+import org.jdal.web.table.PaginatedListAdapter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -37,14 +39,16 @@ import org.springframework.web.bind.annotation.SessionAttributes;
  * @author Jose Luis Martin - (jlm@joseluismartin.info)
  */
 @Controller
-@SessionAttributes("bookFilter")   // Store filter on Session
+@SessionAttributes("bookFilter")
 @SuppressWarnings("unchecked")
 public class BookController  {
 	
 	/** Persistent service for book categories */
-	PersistentService<Category, Long> categoryService;
+	@Resource
+	private Dao<Category, Long> categoryService;
 	/** Persistent Service for Books */
-	PersistentService<Book, Long> bookService;
+	@Resource
+	private Dao<Book, Long> bookService;
 	
 	/**
 	 * Handle getPage request. Gets the Page from PaginatedListAdapter wrapper
@@ -54,20 +58,12 @@ public class BookController  {
 	 * 
 	 */
 	@RequestMapping()
-	void getPage(@ModelAttribute("paginatedList") PaginatedListAdapter paginatedList, 
+	public void getPage(@ModelAttribute("paginatedList") PaginatedListAdapter paginatedList, 
 				@ModelAttribute("bookFilter") BookFilter filter) {
 		
 		Page<Book> page = (Page<Book>) paginatedList.getModel();
-//		if (page == null) {
-//			page = new Page<Book>(10);
-//			paginatedList.setModel(page);
-//		}
-//		
 		page.setFilter(filter);
 		bookService.getPage(page);
-//		Model model = new ExtendedModelMap();
-//		model.addAttribute(paginatedList);
-//		return model;
 	}
 
 	/**
@@ -86,8 +82,6 @@ public class BookController  {
 	 */
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
-		@SuppressWarnings("unused")
-		Object lala = binder.getTarget();
 		binder.registerCustomEditor(Category.class, new CategoryPropertyEditor());
 	}
 	
@@ -100,28 +94,28 @@ public class BookController  {
 	/**
 	 * @return the categoryService
 	 */
-	public PersistentService<Category, Long> getCategoryService() {
+	public Dao<Category, Long> getCategoryService() {
 		return categoryService;
 	}
 
 	/**
 	 * @param categoryService the categoryService to set
 	 */
-	public void setCategoryService(PersistentService<Category, Long> categoryService) {
+	public void setCategoryService(Dao<Category, Long> categoryService) {
 		this.categoryService = categoryService;
 	}
 
 	/**
 	 * @return the bookService
 	 */
-	public PersistentService<Book, Long> getBookService() {
+	public Dao<Book, Long> getBookService() {
 		return bookService;
 	}
 
 	/**
 	 * @param bookService the bookService to set
 	 */
-	public void setBookService(PersistentService<Book, Long> bookService) {
+	public void setBookService(Dao<Book, Long> bookService) {
 		this.bookService = bookService;
 	}
 	

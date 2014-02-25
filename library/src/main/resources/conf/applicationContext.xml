@@ -15,8 +15,6 @@
   
   	<context:annotation-config base-package="org.jdal.samples.library" />
   	
-  	<context:property-placeholder location="classpath:conf/jdbc.properties"/>
-  	
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basenames" value="i18n.jdal,i18n.i18n" />

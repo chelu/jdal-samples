@@ -6,14 +6,14 @@
 	<artifactId>jdal-springmvc-yui-sample</artifactId>
 	<packaging>war</packaging>
 	<name>JDAL Spring MVC YUI Sample</name>
-	<version>2.0.M1</version>
+	<version>2.0-SNAPSHOT</version>
 	<description>JDAL Sample using Spring MVC and YUI Table</description>
 
 	<properties>
 		<file.encoding>UTF-8</file.encoding>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring.version>3.1.1.RELEASE</spring.version>
-		<jdal.version>2.0.M1</jdal.version>
+		<spring.version>4.0.1.RELEASE</spring.version>
+		<jdal.version>2.0-SNAPSHOT</jdal.version>
 	</properties>
 
 
@@ -23,8 +23,8 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<source>1.5</source>
-					<target>1.5</target>
+					<source>1.6</source>
+					<target>1.6</target>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -91,11 +91,6 @@
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>1.2.14</version>
-		</dependency>
-		<dependency>
-			<groupId>org.tuckey</groupId>
-			<artifactId>urlrewritefilter</artifactId>
-			<version>3.1.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.jdal</groupId>
@@ -192,10 +187,11 @@
 			<version>0.9.1.2</version>
 		</dependency>
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.18</version>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>1.3.172</version>
 		</dependency>
+	
 		<!-- Test dependencies -->
 		<dependency>
 			<groupId>junit</groupId>

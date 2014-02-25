@@ -21,6 +21,7 @@ import javax.swing.JDialog;
 import javax.swing.JTextField;
 
 import org.jdal.beans.AppCtx;
+import org.jdal.dao.Dao;
 import org.jdal.samples.library.model.Book;
 import org.jdal.samples.library.model.Reader;
 import org.jdal.service.PersistentService;
@@ -46,9 +47,9 @@ public class ReaderView extends AbstractView<Reader> {
 	private JTextField surname = new JTextField();
 	private Selector<Book> books = new Selector<Book>();
 	@Resource
-	private PersistentService<Book, Long> bookService;
+	private Dao<Book, Long> bookService;
 	@Resource 
-	private PersistentService<Reader, Long> readerService;
+	private Dao<Reader, Long> readerService;
 	
 	/**
 	 * Default Ctor 
@@ -113,14 +114,14 @@ public class ReaderView extends AbstractView<Reader> {
 	/**
 	 * @return the bookService
 	 */
-	public PersistentService<Book, Long> getBookService() {
+	public Dao<Book, Long> getBookService() {
 		return bookService;
 	}
 
 	/**
 	 * @param bookService the bookService to set
 	 */
-	public void setBookService(PersistentService<Book, Long> bookService) {
+	public void setBookService(Dao<Book, Long> bookService) {
 		this.bookService = bookService;
 	}
 	
@@ -139,14 +140,14 @@ public class ReaderView extends AbstractView<Reader> {
 	/**
 	 * @return the readerService
 	 */
-	public PersistentService<Reader, Long> getReaderService() {
+	public Dao<Reader, Long> getReaderService() {
 		return readerService;
 	}
 
 	/**
 	 * @param readerService the readerService to set
 	 */
-	public void setReaderService(PersistentService<Reader, Long> readerService) {
+	public void setReaderService(Dao<Reader, Long> readerService) {
 		this.readerService = readerService;
 	}
 	
