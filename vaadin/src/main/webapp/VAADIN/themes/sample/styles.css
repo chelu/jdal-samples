@@ -1,14 +1,125 @@
 @import "../reindeer/legacy-styles.css";
 
-
-/* .v-horizontallayout {
+/* Debug BoxFormBuilder forms */
+.jd-box-debug {
 	border: 1px solid blue;
-} 
+}
 
-.v-verticallayout {
+.jd-box-column-debug {
 	border: 1px solid red;
 }
 
-.v-slot {
-	border: 1px solid green;
-} */
+/* login layout from dashboard demo */
+.jd-login-layout {
+	position: absolute;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: #333333;
+}
+
+.jd-login {
+	background: #ffffff;
+	opacity: 1;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	-webkit-box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+	padding: 2em;
+}
+
+.jd-login-appname {
+	text-align: right;
+}
+
+.jd-app-top {
+	background: #db911c;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	overflow: hidden;
+	color: #cccccc;
+}
+
+/* Top button bar */
+.jd-button-bar .v-nativebutton {
+	-webkit-appearance: none;
+	outline: none;
+	display: block;
+	padding: 10px 14px 10px;
+	border: none;
+	border-right: 1px solid  #cf8b20;
+	border-left: 1px solid  #cf8b20;
+	margin: 0;
+	background: transparent;
+	text-shadow: 0 1px 0  #d0850f;
+	text-align: center;
+	font-size: 14px;
+	font-weight: 700;
+	color: #dadada;
+	font-family: Ubuntu, Sans-serif;
+	text-transform: uppercase;
+}
+
+.jd-button-bar .v-nativebutton-caption {
+	margin: 1em 0 0 0;
+}
+
+.jd-button-bar .v-nativebutton:focus {
+	outline: none;
+}
+
+.jd-button-bar .v-nativebutton:hover, .jd-button-bar .v-nativebutton:focus
+{
+	color: #eeeeee;
+}
+
+.jd-button-bar .v-nativebutton:active {
+	background: rgba(0, 0, 0, .1);
+}
+
+.jd-button-bar .v-nativebutton.selected {
+	color: #f5f5f5;
+	text-shadow: 0 2px 2px  #d0850f;
+	border-right-color: #bd770a;
+	border-left-color: #b5791c;
+	background: #b5791c;
+}
+
+.app-title {
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  color: #dddddd;
+}
+
+@font-face {
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Ubuntu'), url(fonts/ubuntu_400.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Ubuntu Bold'), local('Ubuntu-Bold'), url(fonts/ubuntu_700.woff) format('woff');
+}
+
+
+.v-caption, label,.v-label,.v-button-caption {
+	font-family: Ubuntu;
+}
+
+.h4 {
+	font-family: Ubuntu;
+	font-size: 18px;
+	font-weight: normal;
+	color: #ff2aff;
+}

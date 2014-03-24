@@ -46,6 +46,6 @@ INSERT INTO `books` (`id`, `name`, `ISBN`, `authorid`, `categoryid`, `publishedD
 INSERT INTO `books` (`id`, `name`, `ISBN`, `authorid`, `categoryid`, `publishedDate`) VALUES (27,'Professional Java Development with the Spring Framework','978-0-7645-7483-2',1,1,'2005-07-08');
 INSERT INTO `books` (`id`, `name`, `ISBN`, `authorid`, `categoryid`, `publishedDate`) VALUES (28,'POJOs in Action: Developing Enterprise Applications with Lightweight Frameworks','978-1-9323-9458-0',11,1,'2006-01-30');
 INSERT INTO `books` (`id`, `name`, `ISBN`, `authorid`, `categoryid`, `publishedDate`) VALUES (29,'COBOL and Visual Basic on .NET: A Guide for the Reformed Mainframe Programmer ','978-1-5905-9048-5',11,5,'2003-04-10');
-INSERT INTO `user` (`id`, `surname`, `username`, `registerDate`, `password`, `name`, `email`) VALUES (1,'User','admin','2012-12-02 18:17:42','ISMvKXpXpadDiUoOSoAfww==','Admin','');
+INSERT INTO `user` (`id`, `surname`, `username`, `registerDate`, `password`, `name`, `email`) VALUES (1,'Default','user','2012-12-02 18:17:42','','User','');
 INSERT INTO `user_preference` (`id`, `user_id`, `name`, `value`) VALUES (1,1,'bookPageableTable.visible_columns','name,author,category,isbn');
 INSERT INTO `user_preference` (`id`, `user_id`, `name`, `value`) VALUES (2,1,'bookPageableTable.page_size','10');

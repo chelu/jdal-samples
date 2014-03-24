@@ -18,7 +18,7 @@ import com.vaadin.ui.TextField;
  * 
  * @author Jose Luis Martin
  */
-public class BookView extends AbstractView<Book> implements Editor<Book> {
+public class BookView extends AbstractView<Book> {
 
 	private TextField name = new TextField();
 	private TextField isbn = new TextField();

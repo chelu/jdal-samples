@@ -2,7 +2,6 @@ package org.jdal.samples.model;
 
 import javax.persistence.Table;
 
-import org.hibernate.validator.constraints.NotEmpty;
 import org.jdal.model.Entity;
 
 @javax.persistence.Entity
@@ -13,10 +12,5 @@ public class Category extends Entity {
 
 	public String toString() {
 		return getName();
-	}
-	
-	@NotEmpty
-	public String getName() {
-		return super.getName();
 	}
 }

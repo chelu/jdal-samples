@@ -5,7 +5,6 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.ParamDef;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.jdal.model.Entity;
 
 
@@ -13,7 +12,7 @@ import org.jdal.model.Entity;
 @Table(name="authors")
 @Filter(name="authorByNameFilter", condition="name like :pattern or surname like :pattern")
 @FilterDef(name="authorByNameFilter", parameters=@ParamDef(name="pattern", type="string"))
-public class Author  extends Entity {
+public class Author extends Entity {
 	
 	private static final long serialVersionUID = 1L;
 	private String surname;
@@ -21,7 +20,6 @@ public class Author  extends Entity {
 	/**
 	 * @return the surname
 	 */
-	@NotEmpty
 	public String getSurname() {
 		return surname;
 	}
@@ -34,11 +32,6 @@ public class Author  extends Entity {
 	
 	public String toString() {
 		return surname + (name != null ? ", " + name : ""); 
-	}
-	
-	@NotEmpty
-	public String getName() {
-		return super.getName();
 	}
 
 }

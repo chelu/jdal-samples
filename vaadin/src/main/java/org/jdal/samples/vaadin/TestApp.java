@@ -15,45 +15,36 @@
  */
 package org.jdal.samples.vaadin;
 
-import org.jdal.samples.model.Book;
-import org.jdal.vaadin.ui.form.BoxFormBuilder;
-import org.jdal.vaadin.ui.table.PageableTable;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.jdal.vaadin.ui.Box;
+import org.jdal.vaadin.ui.SimpleApplicationUI;
 
+import com.vaadin.annotations.PreserveOnRefresh;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
-import com.vaadin.server.VaadinRequest;
+import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Label;
-import com.vaadin.ui.Panel;
-import com.vaadin.ui.UI;
 import com.vaadin.ui.themes.Reindeer;
 
 /**
- * Simple Test for PageableTable
+ * Sample Application UI
  * 
  * @author Jose Luis Martin
  */
 @Theme("sample")
-@Title("JDAL Vaadin Pageable Table Sample")
-public class TestApp extends UI {
-	
-	@Autowired
-	private PageableTable<Book> bookTable;
-	
-	
+@PreserveOnRefresh
+@Title("JDAL Vaadin Sample")
+public class TestApp extends SimpleApplicationUI {
+
 	@Override
-	public void init(VaadinRequest request) {
-		Label title = new Label("JDAL Vaadin Sample Application - version 2.0");
-		title.setStyleName(Reindeer.LABEL_H1);
-	
-		BoxFormBuilder fb = new BoxFormBuilder();
-	
-		fb.row(100);
-		fb.add(title);
-		fb.row();
-		fb.setElastic();
-		fb.add(bookTable);
-		
-		setContent(fb.getForm());
+	protected void buildMain() {
+		super.buildMain();
+		Label logo = new Label("JDAL Vaadin Sample Application");
+		logo.setStyleName("app-title");
+		logo.setSizeUndefined();
+		this.top.setExpandRatio(getButtonBar(), 10);
+		this.top.addComponent(logo);
+		this.top.setComponentAlignment(logo, Alignment.MIDDLE_RIGHT);
+		Box.addHorizontalStruct(top, 20);
 	}
+	
 }
