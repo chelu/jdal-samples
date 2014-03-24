@@ -42,30 +42,23 @@ public class BookView extends AbstractView<Book> {
 	
 	@Override
 	protected Component buildPanel() {
-		// Sets captions
-		name.setCaption(getMessage("Book.title"));
-		publishedDate.setCaption(getMessage("Book.publishedDate"));
-		author.setCaption(getMessage("Book.author"));
-		category.setCaption(getMessage("Book.category"));
-		isbn.setCaption(getMessage("Book.isbn"));
-		
 		BoxFormBuilder fb = new BoxFormBuilder();
 		fb.setDefaultWidth(SimpleBoxFormBuilder.SIZE_FULL);
 		fb.setFixedHeight();
 		
 		fb.row();
-		fb.add(name);
+		fb.add(name, getMessage("Book.title"));
 		fb.row();
 		fb.startBox();
 		fb.row();
-		fb.add(author);
-		fb.add(category);
+		fb.add(author, getMessage("Book.author"));
+		fb.add(category, getMessage("Book.category"));
 		fb.endBox();
 		fb.row();
 		fb.startBox();
 		fb.row();
-		fb.add(isbn);
-		fb.add(publishedDate, 120);
+		fb.add(isbn, getMessage("Book.isbn"));
+		fb.add(publishedDate, getMessage("Book.publishedDate"), 120);
 		fb.endBox();
 		
 		return fb.getForm();
