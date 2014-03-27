@@ -1,14 +1,12 @@
-JDAL 2.0 Samples. November 2013
+JDAL 2.0 Samples. March 2014
 ---------------------------------
 
-All samples use the database db/library.sql with the following 
-configuration:
+library:        jdal-swing  sample.
+spring-mvc-yui: jdal-core intregation with yui datatable sample.
+springmvc:      jdal-core integration with spring mvc and displaytag.
+vaadin:         jdal-vaadin and hibernate sample.
+vaadin-jpa:     jdal-vaadin and JPA sample.
+db:             mysql script for sample database.  
 
-jdbc.driverClassName=com.mysql.jdbc.Driver
-jdbc.url=jdbc:mysql://localhost/library
-jdbc.username=jdal
-jdbc.password=jdal
-
-
-To change it edit the project jdbc.properties file
+All samples uses an embedded H2 database. 
 
