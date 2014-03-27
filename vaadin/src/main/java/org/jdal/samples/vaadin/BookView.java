@@ -3,7 +3,6 @@ package org.jdal.samples.vaadin;
 import javax.annotation.PostConstruct;
 
 import org.jdal.samples.model.Book;
-import org.jdal.ui.Editor;
 import org.jdal.vaadin.ui.AbstractView;
 import org.jdal.vaadin.ui.form.BoxFormBuilder;
 import org.jdal.vaadin.ui.form.SimpleBoxFormBuilder;

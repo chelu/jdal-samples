@@ -30,7 +30,7 @@
    
    <!-- Application UI -->
    <bean id="uid" class="org.jdal.samples.vaadin.TestApp" scope="prototype" 
-   		p:loginView-ref="loginView" p:buttonBar-ref="buttonBar"/>
+   	 p:buttonBar-ref="buttonBar"/>
    
    <bean id="springViewProvider" class="org.jdal.vaadin.ui.SpringViewProvider" scope="prototype"
    		p:defaultView="bookMainView" />
