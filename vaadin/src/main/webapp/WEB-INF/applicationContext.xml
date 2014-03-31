@@ -24,10 +24,15 @@
 	<import resource="context/dao-context.xml"/>
 	<import resource="context/view-context.xml" />
 	
+	<!-- Enable @SerializableProxy support -->
+	<bean id="serializableAnnotationBeanPostProcessor" class="org.jdal.aop.config.SerializableAnnotationBeanPostProcessor" />
+	<bean id="serializableProxyAdvisor" class="org.jdal.aop.SerializableProxyAdvisor" scope="prototype"/>
+	
 	<!-- Message Source -->
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basenames" value="i18n/jdal,i18n/i18n" />
+		<jdal:serializable-proxy/>
 	</bean>
 	
 	<bean id="staticMessageSource" class="org.jdal.beans.StaticMessageSource">

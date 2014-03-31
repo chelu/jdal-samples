@@ -19,138 +19,27 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
-	<context:component-scan base-package="org.jdal.samples"/>
-	<context:property-placeholder location="classpath:jdbc.properties"/>
-	 
-	<!-- DataSource -->
-
-	<jdbc:embedded-database id="dataSource" type="H2">
-        <jdbc:script location="classpath:create.sql"/>
-        <jdbc:script location="classpath:import.sql"/>
-    </jdbc:embedded-database>
+	<context:annotation-config/>
 	
-     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-      <property name="dataSource" ref="dataSource"/>
-      <property name="packagesToScan" value="org.jdal.samples.model" />
-
-	  <property name="jpaDialect">
-        <bean class="org.springframework.orm.jpa.vendor.HibernateJpaDialect"/>
-     </property>
-     <property name="jpaVendorAdapter">
-       <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-         <property name="databasePlatform" value="org.hibernate.dialect.MySQLDialect"/>
-       </bean>
-     </property>
-    </bean>
-
-
-    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-      <property name="entityManagerFactory" ref="entityManagerFactory"/>
-      <property name="dataSource" ref="dataSource"/>
-    </bean>
+	<import resource="context/dao-context.xml"/>
+	<import resource="context/view-context.xml" />
 	
-  	<!-- DAOs -->
-	<jdal:service entity="org.jdal.samples.model.Category" />
-	
-	<jdal:service entity="org.jdal.samples.model.Author" />
-	
-    <jdal:service entity="org.jdal.samples.model.Book" >
-   		<jdal:criteria name="book" builder="bookCriteriaBuilder"/>
-    </jdal:service>
-    
-    <bean id="contextPersistentService" class="org.jdal.logic.ContextPersistentManager" />
-    
-    <bean id="bookCriteriaBuilder" class="org.jdal.samples.dao.jpa.BookCriteriaBuilder"/>
-    
-   <!-- UI Widgets -->
-   
-   <vaadin:defaults />
-   
-   <bean id="uid" class="org.jdal.samples.vaadin.TestApp" scope="prototype" />
-   
-   <bean id="controlInitializer" class="org.jdal.vaadin.ui.bind.VaadinControlInitializer">
-   		<property name="persistentService" ref="contextPersistentService" />
-   </bean>
-
-   <!-- Spring JSR-303 validator -->
-   <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
-
-   <!-- Error Processor -->
-   <bean id="errorProcessor" class="org.jdal.vaadin.ui.bind.UserErrorProcessor" />  
-    
-   <!-- Book Table Definition -->   
-   <vaadin:table entity="org.jdal.samples.model.Book" filter-form="bookFilterEditor" scope="prototype">
-   	<vaadin:columns>
-   		<vaadin:column name="id" display-name="ID" width="60" align="center"/>
-   		<vaadin:column name="name" display-name="Name" width="300" align="left" />
-   		<vaadin:column name="author" display-name="Author" width="150" align="left" sort-property-name="author.name" />
-   		<vaadin:column name="category" display-name="Category" width="200" align="left" sort-property-name="category.name" />
-   		<vaadin:column name="isbn" display-name="ISBN" width="150" align="left" />
-   		<vaadin:column name="publishedDate" display-name="Published Date" width="150" property-editor="customDateEditor"/>
-   	</vaadin:columns>
-   	<jdal:serializable-proxy />
-   </vaadin:table>
-
-
-	<bean id="customDateEditor" class="org.springframework.beans.propertyeditors.CustomDateEditor"
-		scope="prototype">
-		<constructor-arg>
-			<bean class="java.text.SimpleDateFormat">
-				<constructor-arg value="MM/dd/yyyy" />
-			</bean>
-		</constructor-arg>
-		<constructor-arg value="true" />
-	</bean>
-   
-	<!-- Book Form Editor -->
-	<bean id="bookEditor" class="org.jdal.samples.vaadin.BookView" scope="prototype">
-		<property name="controlInitializer" ref="controlInitializer"/>
-		<property name="width" value="600" />
-		<property name="height" value="300" />
-		<property name="persistentService" ref="bookService" />
-		<property name="errorProcessors">
-			<list>
-				<ref bean="errorProcessor" />
-			</list>
-		</property>
-		<property name="validator" ref="validator" />
-	</bean>
-	
-	<!-- View Dialog Prototype -->
-	<bean id="viewDialog" class="org.jdal.vaadin.ui.form.ViewDialog" scope="prototype"/>
-	
-	<!-- The book Filter Editor -->
-	<bean id="bookFilterEditor" class="org.jdal.samples.vaadin.BookFilterView" scope="prototype">
-		<property name="controlInitializer" ref="controlInitializer" />
-	</bean>
+	<!-- Enable @SerializableProxy support -->
+	<bean id="serializableAnnotationBeanPostProcessor" class="org.jdal.aop.config.SerializableAnnotationBeanPostProcessor" />
+	<bean id="serializableProxyAdvisor" class="org.jdal.aop.SerializableProxyAdvisor" scope="prototype"/>
 	
 	<!-- Message Source -->
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basenames" value="i18n/jdal,i18n/i18n" />
+		<!-- Repalace with serializable proxy -->
+		<jdal:serializable-proxy/> 
 	</bean>
 	
+	<!--  Needed for jdal library, don't delete -->
 	<bean id="staticMessageSource" class="org.jdal.beans.StaticMessageSource">
 		<constructor-arg ref="messageSource" />
 	</bean>
 
-	<!-- Tx Advice -->
-    <tx:advice id="txAdvice" transaction-manager="transactionManager">
-    <!-- the transactional semantics... -->
-    <tx:attributes>
-      <!-- all methods starting with 'get' and 'load' are read-only -->
-      <tx:method name="get*" read-only="true"/>
-      <tx:method name="load*" read-only="true"/>
-      <!-- other methods use the default transaction settings -->
-      <tx:method name="*"/>
-    </tx:attributes>
-  </tx:advice>
-	
-   <aop:config>
-    <!-- Make all methods on package service transactional  -->
-     <aop:pointcut id="serviceOperation" 
-     	expression="execution(* org.jdal.dao.Dao.*(..))"/>
-     <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceOperation"/>
-   </aop:config>
 </beans>
 

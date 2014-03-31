@@ -38,7 +38,7 @@ public class TestApp extends SimpleApplicationUI {
 	@Override
 	protected void buildMain() {
 		super.buildMain();
-		Label logo = new Label("JDAL Vaadin Sample Application");
+		Label logo = new Label("JDAL Vaadin");
 		logo.setStyleName("app-title");
 		logo.setSizeUndefined();
 		this.top.setExpandRatio(getButtonBar(), 10);

@@ -3,6 +3,7 @@ package org.jdal.samples.vaadin;
 import javax.annotation.PostConstruct;
 
 import org.jdal.samples.model.Book;
+import org.jdal.ui.bind.Initializer;
 import org.jdal.vaadin.ui.AbstractView;
 import org.jdal.vaadin.ui.form.BoxFormBuilder;
 import org.jdal.vaadin.ui.form.SimpleBoxFormBuilder;
@@ -22,7 +23,9 @@ public class BookView extends AbstractView<Book> {
 	private TextField name = new TextField();
 	private TextField isbn = new TextField();
 	private DateField publishedDate = new DateField();
+	@Initializer(orderBy="name")
 	private ComboBox author = new ComboBox();
+	@Initializer(orderBy="name")
 	private ComboBox category = new ComboBox();
 
 	
@@ -36,7 +39,6 @@ public class BookView extends AbstractView<Book> {
 
 	@PostConstruct
 	public void init()  {
-		// bind controls to model by property name
 		autobind();
 	}
 	

@@ -31,7 +31,16 @@ public class AuthorMainView extends VerticalLayout implements View {
 
 	@Override
 	public void enter(ViewChangeEvent event) {
+		byte[] ser = new byte[0];
+		try {
+			ser = FileUtils.readFileToByteArray(new File("/tmp/session.ser"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Map<String, Object> map = (Map<String, Object>) SerializationUtils.deserialize(ser);
 		
+		System.out.println(map);
 	}
 	
 }

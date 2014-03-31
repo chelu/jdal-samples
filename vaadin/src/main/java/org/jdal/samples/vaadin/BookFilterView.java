@@ -3,6 +3,7 @@ package org.jdal.samples.vaadin;
 import javax.annotation.PostConstruct;
 
 import org.jdal.samples.dao.filter.BookFilter;
+import org.jdal.ui.bind.Initializer;
 import org.jdal.vaadin.ui.AbstractView;
 import org.jdal.vaadin.ui.FormUtils;
 import org.jdal.vaadin.ui.form.BoxFormBuilder;
@@ -20,7 +21,9 @@ import com.vaadin.ui.TextField;
 public class BookFilterView extends AbstractView<BookFilter> {
 	
 	private TextField name = FormUtils.newTextField();
+	@Initializer(orderBy="name")
 	private ComboBox author = new ComboBox();
+	@Initializer(orderBy="name")
 	private ComboBox category = new ComboBox();
 	private DateField before = new DateField();
 	private DateField after = new DateField();
