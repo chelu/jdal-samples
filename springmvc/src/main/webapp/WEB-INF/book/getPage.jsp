@@ -41,6 +41,13 @@
               <td><form:input path="authorSurname" /></td>
           </tr>
           <tr>
+          	<td>Page size</td>
+          	<td>
+          		<form:select path="pageSize">
+          			<form:options items="${pageSizes}"/>
+          		</form:select>
+          	
+          <tr>
               <td colspan="2">
                   <input type="submit" value="Apply Filter" />
               </td>

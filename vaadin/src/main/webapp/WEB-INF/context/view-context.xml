@@ -16,7 +16,7 @@
    <!-- Register default Vaadin components -->
    <vaadin:defaults />
    
-   <!-- Vaadin scoped beans are linked to UI class instances, Use with care, is still a beta component. -->
+   <!-- Vaadin scoped beans are linked to UI class instances -->
    <bean id="vaadinScopeConfigurer" class="org.springframework.beans.factory.config.CustomScopeConfigurer">
    		<property name="scopes">
    			<map>

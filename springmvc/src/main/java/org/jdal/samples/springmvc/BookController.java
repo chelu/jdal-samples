@@ -50,6 +50,8 @@ public class BookController  {
 	@Resource
 	private Dao<Book, Long> bookService;
 	
+	private int[] pageSizes = {10, 20, 30, 40, 50};
+	
 	/**
 	 * Handle getPage request. Gets the Page from PaginatedListAdapter wrapper
 	 * and query service for data.
@@ -57,12 +59,14 @@ public class BookController  {
 	 * @param filter filter to apply
 	 * 
 	 */
-	@RequestMapping()
+	@RequestMapping
 	public void getPage(@ModelAttribute("paginatedList") PaginatedListAdapter paginatedList, 
 				@ModelAttribute("bookFilter") BookFilter filter) {
 		
 		Page<Book> page = (Page<Book>) paginatedList.getModel();
 		page.setFilter(filter);
+		page.setPageSize(filter.getPageSize());
+		
 		bookService.getPage(page);
 	}
 
@@ -73,6 +77,11 @@ public class BookController  {
 	@ModelAttribute("categoryList")
 	public List<Category> getCategories() {
 		return categoryService.getAll();
+	}
+	
+	@ModelAttribute("pageSizes")
+	public int[] getPageSizes() {
+		return pageSizes;
 	}
 	
 	/**

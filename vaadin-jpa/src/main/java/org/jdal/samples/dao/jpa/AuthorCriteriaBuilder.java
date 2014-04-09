@@ -7,13 +7,11 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 
+import org.apache.commons.lang.StringUtils;
 import org.jdal.dao.Filter;
 import org.jdal.dao.jpa.JpaCriteriaBuilderSupport;
 import org.jdal.samples.dao.filter.AuthorFilter;
 import org.jdal.samples.model.Author;
-import org.springframework.util.StringUtils;
-
-import com.ctc.wstx.util.StringUtil;
 
 /**
  * CriteriaBuilder for Author entity.

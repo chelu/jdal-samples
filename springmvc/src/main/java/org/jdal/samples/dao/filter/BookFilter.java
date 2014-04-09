@@ -19,6 +19,7 @@ public class BookFilter extends BeanFilter {
 	private Date after;
 	private String isbn = "";
 	private Category category;
+	private int pageSize = 10;
 	
 	public BookFilter() {
 		this("bookFilter");
@@ -120,6 +121,14 @@ public class BookFilter extends BeanFilter {
 	 */
 	public void setAfter(Date after) {
 		this.after = after;
+	}
+
+	public int getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
 	}
 	
 	
