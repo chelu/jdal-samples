@@ -123,3 +123,9 @@
 	font-weight: normal;
 	color: #ff2aff;
 }
+
+.v-tabsheet-minimal {
+	margin-top: 5px;
+	margin-left: 20px;
+	margin-right: 20px;
+}

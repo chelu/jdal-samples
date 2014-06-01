@@ -18,6 +18,8 @@ package org.jdal.samples.library.model;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import org.jdal.model.DefaultUser;
+
 /**
  * User entity
  * 
@@ -25,6 +27,6 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="user")
-public class User extends org.jdal.model.User {
+public class User extends DefaultUser {
 
 }

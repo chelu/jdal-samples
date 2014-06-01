@@ -3,6 +3,7 @@ package org.jdal.samples.vaadin;
 import javax.annotation.PostConstruct;
 
 import org.jdal.samples.dao.filter.AuthorFilter;
+import org.jdal.ui.View;
 import org.jdal.vaadin.ui.AbstractView;
 import org.jdal.vaadin.ui.FormUtils;
 import org.jdal.vaadin.ui.form.BoxFormBuilder;
@@ -10,6 +11,11 @@ import org.jdal.vaadin.ui.form.BoxFormBuilder;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.TextField;
 
+/**
+ * {@link View} for {@link AuthorFilter}
+ * 
+ * @author Jose Luis Martin
+ */
 public class AuthorFilterView extends AbstractView<AuthorFilter> {
 
 	private TextField name = FormUtils.newTextField();

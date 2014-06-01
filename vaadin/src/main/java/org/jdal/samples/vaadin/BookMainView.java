@@ -18,14 +18,17 @@ public class BookMainView extends VerticalLayout implements View {
 	@PostConstruct
 	public void init() {
 		setSizeFull();
-		bookPageableTable.setWidthFull();
+		this.bookPageableTable.setWidthFull();
 		setMargin(true);
 		addComponent(bookPageableTable);
 	}
 	
+	/**
+	 * Refresh table when entering in the View
+	 */
 	@Override
 	public void enter(ViewChangeEvent event) {
-	
+		this.bookPageableTable.refresh();
 	}
 
 }

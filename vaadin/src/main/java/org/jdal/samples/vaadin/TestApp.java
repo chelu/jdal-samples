@@ -23,7 +23,6 @@ import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Label;
-import com.vaadin.ui.themes.Reindeer;
 
 /**
  * Sample Application UI
@@ -45,6 +44,8 @@ public class TestApp extends SimpleApplicationUI {
 		this.top.addComponent(logo);
 		this.top.setComponentAlignment(logo, Alignment.MIDDLE_RIGHT);
 		Box.addHorizontalStruct(top, 20);
+		// go to first button
+		this.buttonBar.click(null);
 	}
 	
 }
