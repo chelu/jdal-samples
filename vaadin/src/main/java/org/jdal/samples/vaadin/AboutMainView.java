@@ -27,7 +27,8 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.Reindeer;
 
 /**
- * Show About info
+ * Show About info.
+ * 
  * @author Jose Luis Martin
  * @since 2.0
  */
@@ -63,13 +64,15 @@ public class AboutMainView extends TabSheet implements View {
 			catch (MalformedURLException e) {}
 			
 			Box.addHorizontalStruct(hl, 20);
-			String about = "<b>JDAL Vaadin Library Demo</b><br><br>Version: 2.0.M2<br><br>" + 
+			String about = "<b>JDAL Vaadin Library Demo</b><br><br>Version: 2.0.0<br><br>" + 
 					"&copy; Jose Luis Martin, all rights reserved.<br><br>" +
+					"Source code at <a href='https://github.com/chelu/jdal-samples/tree/master/vaadin'>" +
+					"https://github.com/chelu/jdal-samples/tree/master/vaadin</a><br><br>" +
 					"See <a href='http://www.jdal.org'> http://www.jdal.org</a> for more info.";
+					
 			Label aboutLabel = new Label(about, ContentMode.HTML);
 			hl.addComponent(aboutLabel);
 			this.aboutPanel.addComponent(hl);
-			
 		}
 		
 		return this.aboutPanel;

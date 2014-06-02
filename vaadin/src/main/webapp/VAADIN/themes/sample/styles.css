@@ -98,6 +98,11 @@
   color: #dddddd;
 }
 
+.jd-app-main {
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
 @font-face {
   font-family: 'Ubuntu';
   font-style: normal;
@@ -126,6 +131,4 @@
 
 .v-tabsheet-minimal {
 	margin-top: 5px;
-	margin-left: 20px;
-	margin-right: 20px;
 }
