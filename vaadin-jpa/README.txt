@@ -4,7 +4,7 @@ http://www.jdal.org
 
 - Compile with maven:  mvn package
 - Run with mvn jetty:run
-- Connect your brownser to http://localhost:8080/jdal-vaadin-sample-jpa
+- Connect your brownser to http://localhost:8080/jdal-vaadin-sample
 
 This sample uses an embedded H2 database.
 
