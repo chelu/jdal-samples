@@ -17,7 +17,7 @@
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background: #333333;
+	background: #999999;
 }
 
 .jd-login {
@@ -34,6 +34,10 @@
 
 .jd-login-appname {
 	text-align: right;
+}
+
+.jd-login-background {
+	background: #666675;
 }
 
 .jd-app-top {

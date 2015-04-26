@@ -7,7 +7,7 @@
 	default-init-method="init"
 	xmlns:jdal-aop="http://www.jdal.org/schema/jdal-aop"
 	xsi:schemaLocation="http://www.jdal.org/schema/vaadin http://www.jdal.org/schema/jdal/jdal-vaadin.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
 		http://www.jdal.org/schema/jdal http://www.jdal.org/schema/jdal/jdal-core.xsd
 		http://www.jdal.org/schema/jdal-aop http://www.jdal.org/schema/jdal-aop.xsd">
 
@@ -16,7 +16,7 @@
    <!-- Register default Vaadin components -->
    <vaadin:defaults />
    
-   <!-- Vaadin scoped beans are linked to UI class instances, Use with care, is still a beta component. -->
+   <!-- Vaadin scoped beans are linked to UI class instances -->
    <bean id="vaadinScopeConfigurer" class="org.springframework.beans.factory.config.CustomScopeConfigurer">
    		<property name="scopes">
    			<map>
@@ -28,6 +28,12 @@
    <!-- Application UI -->
    <bean id="uid" class="org.jdal.samples.vaadin.TestApp" scope="prototype" 
    	 p:buttonBar-ref="buttonBar"/>
+   
+   <!-- Login UI -->
+   <bean id="loginUi" class="org.jdal.samples.vaadin.LoginUI" scope="prototype">
+   		<property name="loginView" ref="loginView" />
+   </bean> 
+   
    
    <bean id="springViewProvider" class="org.jdal.vaadin.ui.SpringViewProvider" scope="prototype"
    		p:defaultView="bookMainView" />

@@ -58,3 +58,11 @@ CREATE TABLE `user_preference` (
   PRIMARY KEY (`id`),
   CONSTRAINT `user_preference_user_fk` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 );
+
+CREATE TABLE `role` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `role` varchar(255) NOT NULL,
+  `user_id` int(11) NOT NULL, 
+  PRIMARY KEY (`id`),
+  CONSTRAINT `roles_users_fk` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+);

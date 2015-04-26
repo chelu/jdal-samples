@@ -49,3 +49,4 @@ INSERT INTO `books` (`id`, `name`, `ISBN`, `authorid`, `categoryid`, `publishedD
 INSERT INTO `user` (`id`, `surname`, `username`, `registerDate`, `password`, `name`, `email`) VALUES (1,'User','admin','2012-12-02 18:17:42','ISMvKXpXpadDiUoOSoAfww==','Admin','');
 INSERT INTO `user_preference` (`id`, `user_id`, `name`, `value`) VALUES (1,1,'bookPageableTable.visible_columns','name,author,category,isbn');
 INSERT INTO `user_preference` (`id`, `user_id`, `name`, `value`) VALUES (2,1,'bookPageableTable.page_size','10');
+INSERT INTO `role`(`id`, `role`, `user_id`) VALUES (1, 'ROLE_USER', 1);
