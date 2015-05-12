@@ -9,7 +9,8 @@ import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 import org.jdal.model.DefaultUser;
 import org.springframework.security.core.GrantedAuthority;
@@ -19,8 +20,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Entity(name="user")
 public class User extends DefaultUser implements UserDetails {
 	
-	@OneToMany(fetch=FetchType.EAGER)
-	@JoinColumn(name="user_id")
+	@ManyToMany(fetch=FetchType.EAGER)
+	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
 	private Set<Role> roles = new HashSet<Role>();
 
 	@Override

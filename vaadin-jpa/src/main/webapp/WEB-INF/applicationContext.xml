@@ -31,6 +31,17 @@
 		<property name="typePattern" value="org.jdal.dao.Dao+" />
 	</bean>
 	
+	<!-- Enable i18n in context files using prefix i18: -->
+	<bean id="propertyEditorConfigurer" class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+    	<property name="propertyEditorRegistrars">
+        	<list>
+            	<bean class="org.jdal.beans.MessageEditorRegistrar">
+                	<property name="messageSource" ref="messageSource" />
+            	</bean>
+        	</list>
+    	</property>
+	</bean>
+	
 	<!-- Message Source -->
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">

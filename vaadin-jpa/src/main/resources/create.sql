@@ -62,7 +62,12 @@ CREATE TABLE `user_preference` (
 CREATE TABLE `role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `role` varchar(255) NOT NULL,
-  `user_id` int(11) NOT NULL, 
   PRIMARY KEY (`id`),
-  CONSTRAINT `roles_users_fk` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+);
+
+CREATE TABLE `user_role` (
+   `user_id`  int(11) NOT NULL,
+   `role_id`  int(11) NOT NULL,
+    CONSTRAINT `user_role_user_fk` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+    CONSTRAINT `user_role_role_fk` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
 );

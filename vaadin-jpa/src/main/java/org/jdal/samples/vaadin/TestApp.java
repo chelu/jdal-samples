@@ -15,12 +15,14 @@
  */
 package org.jdal.samples.vaadin;
 
+import org.jdal.vaadin.auth.SecurityErrorHandler;
 import org.jdal.vaadin.ui.Box;
 import org.jdal.vaadin.ui.SimpleApplicationUI;
 
 import com.vaadin.annotations.PreserveOnRefresh;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
+import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Label;
 
@@ -33,6 +35,12 @@ import com.vaadin.ui.Label;
 @PreserveOnRefresh
 @Title("JDAL Vaadin Sample")
 public class TestApp extends SimpleApplicationUI {
+
+	@Override
+	protected void doInit(VaadinRequest request) {
+		setErrorHandler(new SecurityErrorHandler());
+		super.doInit(request);
+	}
 
 	@Override
 	protected void buildMain() {

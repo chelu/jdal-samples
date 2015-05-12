@@ -5,7 +5,6 @@ import javax.annotation.PostConstruct;
 import org.jdal.samples.model.Category;
 import org.jdal.vaadin.ui.AbstractView;
 import org.jdal.vaadin.ui.FormUtils;
-import org.jdal.vaadin.ui.form.BoxFormBuilder;
 
 import com.vaadin.ui.Component;
 import com.vaadin.ui.TextField;
@@ -29,13 +28,14 @@ public class CategoryView extends AbstractView<Category> {
 	
 	@Override
 	protected Component buildPanel() {
-		BoxFormBuilder fb = new BoxFormBuilder();
-		fb.setDefaultWidth(BoxFormBuilder.SIZE_FULL);
-		fb.setMargin(false);
-		fb.row();
-		fb.add(name, getMessage("categoryName"));
-		
-		return fb.getForm();
+		throw new org.springframework.security.access.AccessDeniedException("No se puede");
+//		BoxFormBuilder fb = new BoxFormBuilder();
+//		fb.setDefaultWidth(BoxFormBuilder.SIZE_FULL);
+//		fb.setMargin(false);
+//		fb.row();
+//		fb.add(name, getMessage("categoryName"));
+//		
+//		return fb.getForm();
 	}
 
 }

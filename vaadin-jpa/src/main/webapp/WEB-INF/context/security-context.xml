@@ -9,11 +9,11 @@
 
 	<http pattern="/login*" security="none" />
 	<http pattern="/VAADIN/**" security="none" />
-	<http pattern="/UIDL/**" security="none" />
 	<http pattern="/HEARBEAT/**" security="none" />
 	
 	<http authentication-manager-ref="authenticationManager">
 		<csrf disabled="true"/>
+		<intercept-url pattern="/UIDL/**" access="permitAll" />
 		<intercept-url pattern="/**" access="hasRole('USER')" />
 	    <form-login login-page="/login"/>
 		<logout /> 
@@ -25,7 +25,7 @@
 		</authentication-provider>
 	</authentication-manager>
 	
-	<beans:bean id="authService" class="org.jdal.vaadin.auth.SpringAuthService" 
+	<beans:bean id="authService" class="org.jdal.vaadin.auth.SpringAuthManager" 
 		p:authenticationManager-ref="authenticationManager" />
    
    
@@ -35,8 +35,17 @@
 		class="org.springframework.security.web.authentication.session.SessionFixationProtectionStrategy" />
 	
 	<beans:bean id="authStrategyPasswordEncoder" class="org.jdal.vaadin.auth.AuthStrategyPasswordEncoder">
-		<beans:property name="authStrategy">
-			<beans:bean id="authMd5" class="org.jdal.auth.AuthHashMD5" />
-		</beans:property>
+		<beans:property name="authStrategy" ref="authMd5" />
 	</beans:bean>
+	
+	<beans:bean id="authMd5" class="org.jdal.auth.AuthHashMD5" />
+	
+	<global-method-security pre-post-annotations="enabled" authentication-manager-ref="authenticationManager"
+		proxy-target-class="true" >
+    	<expression-handler ref="expressionHandler"/>
+  	</global-method-security>
+
+    <beans:bean id="expressionHandler"
+      class="org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler" />
+
 </beans:beans>
