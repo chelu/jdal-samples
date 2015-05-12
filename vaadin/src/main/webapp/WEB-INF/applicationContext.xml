@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	default-init-method="init"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:vaadin="http://www.jdal.org/schema/vaadin"
+	xmlns:jdal="http://www.jdal.org/schema/jdal"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
+		http://www.jdal.org/schema/vaadin http://www.jdal.org/schema/jdal/jdal-vaadin.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		http://www.jdal.org/schema/jdal http://www.jdal.org/schema/jdal/jdal-core.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+
+	<context:annotation-config/>
+	
+	<import resource="context/security-context.xml"/>
+	<import resource="context/dao-context.xml"/>
+	<import resource="context/view-context.xml" />
+	
+	<!-- Enable @SerializableProxy support -->
+	<bean id="serializableAnnotationBeanPostProcessor" class="org.jdal.aop.config.SerializableAnnotationBeanPostProcessor" />
+	<bean id="serializableProxyAdvisor" class="org.jdal.aop.SerializableProxyAdvisor" scope="prototype" >
+		<property name="typePattern" value="org.jdal.dao.Dao+" />
+	</bean>
+	
+	<!-- Enable i18n in context files using prefix i18: -->
+	<bean id="propertyEditorConfigurer" class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+    	<property name="propertyEditorRegistrars">
+        	<list>
+            	<bean class="org.jdal.beans.MessageEditorRegistrar">
+                	<property name="messageSource" ref="messageSource" />
+            	</bean>
+        	</list>
+    	</property>
+	</bean>
+	
+	<!-- Message Source -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames" value="i18n/jdal,i18n/i18n" />
+		<!-- Repalace with serializable proxy -->
+		<jdal:serializable-proxy/> 
+	</bean>
+	
+	<!--  Needed for jdal library, don't delete -->
+	<bean id="staticMessageSource" class="org.jdal.beans.StaticMessageSource">
+		<constructor-arg ref="messageSource" />
+	</bean>
+
+</beans>
+

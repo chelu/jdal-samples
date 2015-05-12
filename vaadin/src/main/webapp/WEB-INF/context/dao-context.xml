@@ -59,14 +59,7 @@
     <bean id="userCriteriaBuilder" class="org.jdal.samples.dao.hibernate.UserCriteriaBuilder" />
     
     <bean id="contextPersistentService" class="org.jdal.logic.ContextPersistentManager" />
-    
-    <bean id="authService" class="org.jdal.auth.AuthManager">
-    	<property name="userDao" ref="userDao" />
-    	<property name="authStrategy" ref="authMd5" />
-    </bean>
-    
-    <bean id="authMd5" class="org.jdal.auth.AuthHashMD5" />
-    
+  
     <!-- Tx Advice -->
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
     <!-- the transactional semantics... -->
