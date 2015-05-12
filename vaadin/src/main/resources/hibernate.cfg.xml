@@ -15,5 +15,6 @@
 		<mapping class="org.jdal.samples.model.Author"/>
 		<mapping class="org.jdal.samples.model.Category"/>
 		<mapping class="org.jdal.samples.model.User"/>
+		<mapping class="org.jdal.samples.model.Role"/>
 	</session-factory>
 </hibernate-configuration>
