@@ -131,3 +131,46 @@
 .v-tabsheet-minimal {
 	margin-top: 5px;
 }
+
+.v-label hr {
+	border-color: #1C70A0;
+	height: 2px;
+}
+
+
+/* The twincol seem very ugly by defalt, use custom buttons */
+
+.v-select-twincol-buttons {
+	padding: 5px 8px 5px 5px;
+}
+
+.v-select-twincol-buttons .v-button:FIRST-CHILD .v-button-wrap  {
+	background-image: url('images/button-next.png');
+	background-position: center;
+}
+
+.v-select-twincol-buttons .v-button-wrap  {
+	background-image: url('images/button-previous.png');
+	background-position: center;
+}
+
+.v-select-twincol-buttons .v-button {
+	background-image: none;
+	padding: 2px;
+}
+
+.v-select-twincol-buttons .v-button.v-pressed .v-button-wrap {
+	background-image: url('images/button-previous-pressed.png');
+	background-position: center;
+}
+
+.v-select-twincol-buttons .v-button.v-pressed:FIRST-CHILD .v-button-wrap {
+	background-image: url('images/button-next-pressed.png');
+	background-position: center;
+}
+
+.v-select-twincol-buttons .v-button-caption  {
+	opacity: 0;
+}
+
+

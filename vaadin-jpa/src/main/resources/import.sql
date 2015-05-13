@@ -50,4 +50,6 @@ INSERT INTO `user` (`id`, `surname`, `username`, `registerDate`, `password`, `na
 INSERT INTO `user_preference` (`id`, `user_id`, `name`, `value`) VALUES (1,1,'bookPageableTable.visible_columns','name,author,category,isbn');
 INSERT INTO `user_preference` (`id`, `user_id`, `name`, `value`) VALUES (2,1,'bookPageableTable.page_size','10');
 INSERT INTO `role` (`id`, `role`) VALUES (1, 'ROLE_USER');
+INSERT INTO `role` (`id`, `role`) VALUES (2, 'ROLE_ADMIN');
 INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (1, 1);
+INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (1, 2);

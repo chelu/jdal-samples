@@ -46,8 +46,13 @@
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basenames" value="i18n/jdal,i18n/i18n" />
-		<!-- Repalace with serializable proxy -->
+		<!-- Replace with serializable proxy -->
 		<jdal:serializable-proxy/> 
+	</bean>
+	
+	<!-- Message Source Wrapper -->
+	<bean id="messageSourceWrapper" class="org.jdal.beans.MessageSourceWrapper">
+		<constructor-arg ref="messageSource" />
 	</bean>
 	
 	<!--  Needed for jdal library, don't delete -->

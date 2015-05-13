@@ -64,7 +64,7 @@ public class AboutMainView extends TabSheet implements View {
 			catch (MalformedURLException e) {}
 			
 			Box.addHorizontalStruct(hl, 20);
-			String about = "<b>JDAL Vaadin Library Demo</b><br><br>Version: 2.0.0<br><br>" + 
+			String about = "<b>JDAL Vaadin Library Demo</b><br><br>Version: 2.1.RC1<br><br>" + 
 					"&copy; Jose Luis Martin, all rights reserved.<br><br>" +
 					"Source code at <a href='https://github.com/chelu/jdal-samples/tree/master/vaadin-jpa'>" +
 					"https://github.com/chelu/jdal-samples/tree/master/vaadin-jpa</a><br><br>" + 

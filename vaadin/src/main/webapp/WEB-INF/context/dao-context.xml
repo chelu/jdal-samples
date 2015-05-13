@@ -57,7 +57,9 @@
     </jdal:service>
     
     <bean id="userCriteriaBuilder" class="org.jdal.samples.dao.hibernate.UserCriteriaBuilder" />
-    
+	
+	<jdal:service entity="org.jdal.samples.model.Role" dao-class="org.jdal.dao.hibernate.HibernateDao" />
+	    
     <bean id="contextPersistentService" class="org.jdal.logic.ContextPersistentManager" />
   
     <!-- Tx Advice -->

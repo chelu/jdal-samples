@@ -34,8 +34,6 @@
    		<property name="loginView" ref="loginView" />
    </bean> 
    
-   <bean id="testUi" class="org.jdal.samples.TestUI" scope="prototype" />
-   
    <bean id="springViewProvider" class="org.jdal.vaadin.ui.SpringViewProvider" scope="prototype"
    		p:defaultView="bookMainView" />
    
@@ -165,16 +163,28 @@
 		<vaadin:columns>
 			<vaadin:column name="id" display-name="ID" width="60" />
 			<vaadin:column name="username" display-name="User" width="120"/>
-			<vaadin:column name="name" display-name="Name" />
-			<vaadin:column name="surname" display-name="Surname" />
+			<vaadin:column name="name" display-name="Name" width="120" />
+			<vaadin:column name="surname" display-name="Surname" width="120" />
+			<vaadin:column name="roles" display-name="Roles" />
 			<vaadin:column name="registerDate" display-name="Register Date" width="100" />
 			<vaadin:column name="email" display-name="Email" width="120" />
 		</vaadin:columns>
 	</vaadin:table>
 	
 	<bean id="userEditor" class="org.jdal.samples.vaadin.UserView" parent="view" scope="prototype"
-		p:width="500" p:height="300" p:persistentService-ref="userService" />
+		p:width="500" p:height="600" p:persistentService-ref="userService" />
 	
 	<bean id="userFilterView" class="org.jdal.samples.vaadin.UserFilterView" parent="view" scope="prototype" />
+	
+	<!-- Role Table -->
+	<vaadin:table entity="org.jdal.samples.model.Role" scope="prototype" 
+		container-class="org.jdal.vaadin.data.ListBeanContainer">
+		<vaadin:columns>
+			<vaadin:column name="role" display-name="Role"/>
+		</vaadin:columns>
+	</vaadin:table>
+	
+	<bean id="roleEditor" class="org.jdal.samples.vaadin.RoleView" scope="prototype" parent="view" 
+		p:width="400" p:height="200" />
 	
 </beans>

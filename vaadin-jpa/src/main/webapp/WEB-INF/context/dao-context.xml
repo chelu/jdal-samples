@@ -67,6 +67,9 @@
     
     <bean id="userCriteriaBuilder" class="org.jdal.samples.dao.jpa.UserCriteriaBuilder" />
     
+    <jdal:service entity="org.jdal.samples.model.Role" />
+    
+    <!-- Global service thats redirect to appropiate -->
     <bean id="contextPersistentService" class="org.jdal.logic.ContextPersistentManager" />
     
     <!-- Tx Advice -->
