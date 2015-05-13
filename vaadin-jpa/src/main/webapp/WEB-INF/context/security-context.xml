@@ -10,6 +10,7 @@
 	<http pattern="/login*" security="none" />
 	<http pattern="/VAADIN/**" security="none" />
 	<http pattern="/HEARBEAT/**" security="none" />
+	<http pattern="/APP/**" security="none" />
 	
 	<http authentication-manager-ref="authenticationManager">
 		<csrf disabled="true"/>
